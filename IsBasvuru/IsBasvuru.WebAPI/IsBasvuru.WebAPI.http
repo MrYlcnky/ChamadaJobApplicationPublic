@@ -1,0 +1,6 @@
+@IsBasvuru.WebAPI_HostAddress = http://localhost:5054
+
+GET {{IsBasvuru.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

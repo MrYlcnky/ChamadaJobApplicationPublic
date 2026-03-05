@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+
+@keyframes fadeIn { to { opacity: 1; transform: scale(1); } }
+
+
+/* reCAPTCHA iframe'inde mouse ile tıklandığında görünen outline/box-shadow'u sıfırla */
+.recaptcha-wrap iframe[title*="reCAPTCHA"] {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Klavye ile dolaşan kullanıcılar için erişilebilirliği koru */
+.recaptcha-wrap iframe[title*="reCAPTCHA"]:focus-visible {
+  outline: 2px solid transparent; /* istersen tamamen none da yapabilirsin */
+  box-shadow: none;
+}
+
+
+.pdf-section {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox için okları kaldır */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

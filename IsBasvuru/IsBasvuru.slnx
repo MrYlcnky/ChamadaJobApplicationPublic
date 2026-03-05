@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="IsBasvuru.Domain/IsBasvuru.Domain.csproj" />
+  <Project Path="IsBasvuru.Infrastructure/IsBasvuru.Infrastructure.csproj" />
+  <Project Path="IsBasvuru.Persistence/IsBasvuru.Persistence.csproj" />
+  <Project Path="IsBasvuru.WebAPI/IsBasvuru.WebAPI.csproj" />
+</Solution>

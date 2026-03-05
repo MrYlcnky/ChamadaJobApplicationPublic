@@ -1,0 +1,75 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|solutionrelative:isbasvuru.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.infrastructure\\services\\personelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|solutionrelative:isbasvuru.infrastructure\\services\\personelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{687F6CCC-177A-B506-3BD0-3A9B4C097427}|IsBasvuru.Domain\\IsBasvuru.Domain.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.domain\\dtos\\personeldtos\\personelcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{687F6CCC-177A-B506-3BD0-3A9B4C097427}|IsBasvuru.Domain\\IsBasvuru.Domain.csproj|solutionrelative:isbasvuru.domain\\dtos\\personeldtos\\personelcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PersonelCreateDto.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
+              "RelativeToolTip": "IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAqwC4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T01:21:39.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Program.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.WebAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Program.cs",
+              "RelativeToolTip": "IsBasvuru.WebAPI\\Program.cs",
+              "ViewState": "AgIAAOYAAAAAAAAAAAAqwPQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T01:16:03.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PersonelService.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
+              "RelativeToolTip": "IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
+              "ViewState": "AgIAADMCAAAAAAAAAAAqwEoCAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T01:14:49.044Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

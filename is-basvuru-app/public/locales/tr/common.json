@@ -1,0 +1,741 @@
+{
+  "langKey": "tr",
+  "app": { "language": "Dil" },
+  "hero": {
+    "brand": "CHAMADA GROUP",
+    "formTitle": "İŞ BAŞVURU FORMU",
+    "please": "Lütfen",
+    "notice": "tüm bilgilerinizi dikkatli ve eksiksiz doldurunuz.",
+    "required": "Zorunlu alan",
+    "requiredSuffix": "işaretli alanlar zorunludur."
+  },
+  "loadProfile": {
+    "title": "Daha önce başvuruda bulundunuz mu?",
+    "description": "Mevcut kaydınızı güncellemek için onay kodunu kullanarak bilgilerinizi getirebilirsiniz.",
+    "buttonYes": "Evet, bilgilerimi getir",
+    "emailPlaceholder": "E-posta adresiniz",
+    "fetchBtn": "Getir",
+    "otpTitle": "Doğrulama Kodu",
+    "otpText": "{{email}} adresine gönderilen doğrulama kodunu giriniz",
+    "verifyBtn": "Doğrula ve Getir",
+    "emailNotFound": "Hata: Bu e-posta adresi ile kayıtlı başvuru bulunamadı.",
+    "otpRequired": "Lütfen kodu giriniz",
+    "otpInvalid": "Hatalı kod!",
+    "success": "Profil başarıyla yüklendi"
+  },
+  "statusBar": {
+    "title": "Zorunlu Bilgiler",
+    "completed": "Tamamlandı",
+    "missing": "Eksik"
+  },
+  "sections": {
+    "personal": "Kişisel Bilgiler",
+    "education": "Eğitim Bilgileri",
+    "certificates": "Sertifika ve Eğitimler",
+    "computer": "Bilgisayar Bilgileri",
+    "languages": "Yabancı Dil Bilgisi",
+    "experience": "İş Deneyimleri",
+    "references": "Referanslar",
+    "other": "Diğer Kişisel Bilgiler",
+    "jobDetails": "İş Başvuru Detayları"
+  },
+  "actions": {
+    "add": "Ekle",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "update": "Güncelle",
+    "delete": "Sil",
+    "close": "Kapat"
+  },
+  "aria": { "goToSection": "{{section}} bölümüne git" },
+  "toast": {
+    "saved": "Başarıyla kaydedildi.",
+    "updated": "Başarıyla güncellendi.",
+    "deleted": "Silindi.",
+    "error": "Bir hata oluştu. Lütfen tekrar deneyin.",
+    "formCleared": "Form başarıyla temizlendi."
+  },
+  "confirm": {
+    "sectionTitle": "Başvuru Onayı",
+    "sectionDesc": "Lütfen onay kutularını işaretleyip doğrulamayı tamamlayınız.",
+    "submit": "BAŞVUR",
+    "checks": "Onay Kutuları",
+    "missing": {
+      "title": "Eksik Bilgi!",
+      "bodyIntro": "Lütfen aşağıdaki bölümleri doldurunuz:",
+      "emailTitle": "E-posta Eksik",
+      "emailText": "Lütfen kişisel bilgiler kısmına e-posta adresinizi giriniz."
+    },
+    "modal": {
+      "accept": "Okudum, Onaylıyorum",
+      "complete": "Başvuruyu Tamamla",
+      "update": "Başvuruyu Güncelle"
+    },
+    "otp": {
+      "title": "Başvuruyu Onayla",
+      "text": "Başvurunuzu tamamlamak için <b>{{email}}</b> adresine gönderilen kodu giriniz:",
+      "verifyAndSubmit": "Onayla ve Gönder"
+    },
+    "success": {
+      "title": "Tebrikler!",
+      "text": "Başvurunuz başarıyla alındı.",
+      "submit": "Başvurunuz başarıyla gönderildi!"
+    },
+    "error": {
+      "submit": "Başvuru sırasında hata oluştu."
+    },
+    "toast": { "success": "Başvurunuz başarıyla gönderildi!" },
+    "cards": {
+      "truth": {
+        "title": "Doğruluk Beyanı",
+        "check": "Okumak ve onaylamak için tıklayın",
+        "uncheck": "Onayı kaldırmak için tıklayın",
+        "text": "Bu başvuru formunu imzalarken belirtilen her şeyin doğru ve eksiksiz olduğunu kabul ediyorum."
+      },
+      "kvkk": {
+        "title": "Kişisel Verilerin İşlenmesi",
+        "text": "Başvurumu kabul ederek, kişisel verilerimin işlenmesini ve saklanmasını onaylıyorum."
+      },
+      "reference": {
+        "title": "Referans Kontrolü İzni",
+        "text": "Referanslarımla iletişime geçilmesine onay veriyorum."
+      }
+    }
+  },
+  "common": {
+    "dash": "-",
+    "select": "Seçiniz",
+    "actions": "İşlem",
+    "cancel": "İptal",
+    "close": "Kapat",
+    "deleteYes": "Evet, sil!",
+    "save": "Kaydet",
+    "update": "Güncelle",
+    "pleaseSelect": "Lütfen seçiniz",
+    "fillAllProperly": "Tüm zorunlu alanları doğru doldurunuz.",
+    "error": "Hata",
+    "areYouSure": "Emin misiniz?",
+    "clearAllWarning": "Tüm form verileri silinecek ve sıfırlanacak. Bu işlem geri alınamaz!",
+    "yesClear": "Evet, Temizle",
+    "clearFormBtn": "Formu Temizle ve Sıfırla",
+    "other": "Diğer"
+  },
+  "certificates": {
+    "table": {
+      "name": "Sertifika / Eğitim Adı",
+      "org": "Kurum / Organizasyon",
+      "duration": "Eğitim Süresi",
+      "issuedAt": "Veriliş Tarihi",
+      "validUntil": "Geçerlilik Tarihi",
+      "actions": "İşlem"
+    },
+    "modal": {
+      "titleCreate": "Sertifika ve Eğitim Bilgisi Ekle",
+      "titleEdit": "Sertifika ve Eğitim Bilgisi Düzenle"
+    },
+    "form": {
+      "name": "Sertifika / Eğitim Adı",
+      "org": "Kurum / Organizasyon",
+      "duration": "Süresi",
+      "issuedAt": "Veriliş Tarihi",
+      "validUntilOptional": "Geçerlilik Tarihi (Opsiyonel)"
+    },
+    "placeholders": {
+      "name": "Örn: React Bootcamp",
+      "org": "Örn: BTK Akademi",
+      "duration": "Örn: 3 Ay"
+    },
+    "delete": {
+      "title": "Emin misin?",
+      "text": "“{{name}} - {{org}}” kaydını silmek istiyor musun?"
+    },
+    "validations": {
+      "alphaNum": "Yalnızca harf, rakam ve boşluk kullanılabilir.",
+      "name": {
+        "required": "Sertifika / Eğitim adı zorunlu.",
+        "max": "En fazla 100 karakter yazabilirsiniz."
+      },
+      "org": {
+        "required": "Kurum / Organizasyon adı zorunlu.",
+        "max": "En fazla 100 karakter yazabilirsiniz."
+      },
+      "duration": {
+        "required": "Süre zorunlu.",
+        "max": "En fazla 50 karakter yazabilirsiniz."
+      },
+      "issuedAt": {
+        "required": "Veriliş tarihi zorunlu.",
+        "future": "Veriliş tarihi bugünden ileri olamaz."
+      },
+      "validUntil": {
+        "beforeIssued": "Geçerlilik tarihi verilişten önce olamaz.",
+        "sameDay": "Veriliş ve geçerlilik tarihi aynı gün olamaz."
+      }
+    }
+  },
+  "computer": {
+    "table": {
+      "program": "Program Adı",
+      "level": "Yetkinlik",
+      "actions": "İşlem"
+    },
+    "modal": {
+      "titleCreate": "Bilgisayar Bilgisi Ekle",
+      "titleEdit": "Bilgisayar Bilgisi Düzenle"
+    },
+    "form": {
+      "program": "Program Adı",
+      "level": "Yetkinlik"
+    },
+    "placeholders": {
+      "program": "Örn: Excel, Photoshop"
+    },
+    "levels": {
+      "veryPoor": "Çok Zayıf",
+      "poor": "Zayıf",
+      "medium": "Orta",
+      "good": "İyi",
+      "veryGood": "Çok İyi"
+    },
+    "delete": {
+      "title": "Emin misin?",
+      "text": "“{{name}}” kaydını silmek istiyor musun?"
+    },
+    "select": {
+      "choose": "Seçiniz"
+    },
+    "validations": {
+      "program": {
+        "required": "Program adı zorunlu.",
+        "max": "Program adı en fazla 60 karakter olabilir."
+      },
+      "level": {
+        "required": "Yetkinlik zorunlu."
+      },
+      "alphaNum": "Geçersiz karakter kullandınız. (İzin verilenler: . # + - _)"
+    }
+  },
+  "education": {
+    "table": {
+      "level": "Seviye",
+      "school": "Okul Adı",
+      "department": "Bölüm",
+      "gradeSystem": "Not Sistemi",
+      "gpa": "GANO",
+      "start": "Başlangıç",
+      "end": "Bitiş",
+      "diplomaStatus": "Diploma Durumu",
+      "actions": "İşlem"
+    },
+    "modal": {
+      "titleCreate": "Eğitim Bilgisi Ekle",
+      "titleEdit": "Eğitim Bilgisi Düzenle"
+    },
+    "form": {
+      "level": "Seviye",
+      "school": "Okul Adı",
+      "department": "Bölüm",
+      "diplomaStatus": "Diploma Durumu",
+      "gradeSystem": "Not Sistemi",
+      "gpa": "GANO",
+      "startDate": "Başlangıç Tarihi",
+      "endDate": "Bitiş Tarihi"
+    },
+    "placeholders": {
+      "school": "Örn: Erciyes Üniversitesi",
+      "department": "Örn: Bilgisayar Mühendisliği",
+      "gpaFour": "0.00 - 4.00",
+      "gpaHundred": "0 - 100"
+    },
+    "levels": {
+      "highschool": "Lise",
+      "associate": "Ön Lisans",
+      "bachelor": "Lisans",
+      "master": "Yüksek Lisans",
+      "phd": "Doktora",
+      "other": "Diğer"
+    },
+    "select": {
+      "choose": "Seçiniz"
+    },
+    "diploma": {
+      "graduated": "Mezun",
+      "continuing": "Devam Ediyor",
+      "paused": "Ara Verdi",
+      "dropped": "Terk"
+    },
+    "gradeSystem": {
+      "four": "4’lük Sistem",
+      "hundred": "100’lük Sistem",
+      "fourShort": "4’lük",
+      "hundredShort": "100’lük"
+    },
+    "hints": {
+      "noEndWhenContinuing": "Devam Ediyor / Terk durumunda bitiş tarihi girilmez."
+    },
+    "delete": {
+      "title": "Emin misin?",
+      "text": "“{{school}} - {{dept}}” kaydını silmek istiyor musun?"
+    },
+    "validations": {
+      "levelRequired": "Seviye zorunlu.",
+      "schoolFormat": "Okul yalnızca harflerden ve rakamlardan oluşmalı",
+      "schoolRequired": "Okul adı zorunlu.",
+      "schoolMax": "Okul adı 150 karakteri geçemez.",
+      "deptFormat": "Bölüm yalnızca harf ve rakam içermeli",
+      "deptRequired": "Bölüm adı zorunlu.",
+      "deptMax": "Bölüm adı 150 karakteri geçemez.",
+      "gradeSystem": "Not sistemi seçiniz",
+      "gpaNumber": "Geçerli bir sayı giriniz",
+      "startRequired": "Başlangıç tarihi zorunlu.",
+      "startInvalid": "Başlangıç tarihi geçersiz.",
+      "startFuture": "Başlangıç tarihi bugünden ileri olamaz.",
+      "endRequired": "Bitiş tarihi zorunlu.",
+      "endInvalid": "Bitiş tarihi geçersiz.",
+      "endFuture": "Bitiş tarihi bugünden ileri olamaz.",
+      "sameDay": "Başlangıç ve bitiş aynı gün olamaz.",
+      "endBeforeStart": "Bitiş, başlangıçtan önce olamaz.",
+      "gpaRange": "GANO 0 ile {{max}} arasında olmalı.",
+      "gpaDecimals": "4'lük sistemde en fazla 2 ondalık basamak giriniz.",
+      "diplomaRequired": "Diploma durumu zorunlu.",
+      "diplomaValid": "Geçerli diploma durumu seçiniz",
+      "formInvalid": "Tüm zorunlu alanları doğru doldurunuz."
+    }
+  },
+  "jobDetails": {
+    "info": {
+      "title": "Başvuru Detayları",
+      "bodyBase": "Bu bölümde çalışmak istediğiniz şube, alan, departman ve program bilgilerini seçebilirsiniz.",
+      "requiredNote": "Tüm alanlar zorunludur.",
+      "liveGameNote": "Eğer Casino Canlı Oyun seçerseniz, Kağıt Oyun Bilgisi de zorunlu hale gelir.",
+      "rolesNote": "Seçtiğiniz departmanlar için pozisyon(lar) da seçmelisiniz."
+    },
+    "labels": {
+      "branches": "Başvurulacak Şube(ler)",
+      "areas": "Alan (Otel / Casino)",
+      "departments": "Başvurulacak Departman(lar)",
+      "roles": "Departman İçi Pozisyon(lar)",
+      "programs": "Bilgisayar Program Bilgisi",
+      "cardGames": "Kağıt Oyun Bilgisi (Casino Canlı Oyun için)",
+      "housing": "Lojman Talebi",
+      "whyUs": "Neden Bizi Tercih Ettiniz?"
+    },
+    "placeholders": {
+      "selectBranch": "Şube seçiniz...",
+      "selectArea": "Alan seçiniz...",
+      "selectBranchFirst": "Önce şube seçiniz",
+      "selectAreaFirst": "Önce alan seçiniz",
+      "selectDepartment": "Departman seçiniz...",
+      "selectRoles": "Pozisyon(lar) seçiniz...",
+      "selectDeptForRoles": "Pozisyon gerektiren departman seçiniz",
+      "selectDeptFirst": "Departman seçiniz",
+      "selectProgram": "Program seçiniz...",
+      "selectCardGame": "Oyun seçiniz...",
+      "cardGameOnlyForLive": "Sadece Casino Canlı Oyun için geçerli",
+      "selectHousing": "Lojman durumu seçiniz...",
+      "whyUs": "Kısa bir açıklama yazınız (ör. kariyer gelişimi, ekip kültürü, lokasyon vb.)"
+    },
+    "preview": {
+      "title": "Önizleme Bilgileri",
+      "branches": "Şubeler",
+      "areas": "Alanlar",
+      "departments": "Departmanlar",
+      "roles": "Pozisyonlar",
+      "programs": "Programlar",
+      "cardGames": "Kağıt Oyunları",
+      "housing": "Lojman Talebi",
+      "liveUpdate": "Seçtiğiniz bilgiler anlık olarak güncellenmektedir."
+    },
+    "areas": {
+      "hotel": "Otel",
+      "casino": "Casino"
+    },
+    "housing": {
+      "yes": "Evet",
+      "no": "Hayır"
+    },
+    "common": {
+      "pleaseSelect": "Lütfen seçiniz",
+      "other": "Diğer"
+    },
+    "departments": {
+      "hotelReception": "Otel Resepsiyon",
+      "hotelHousekeeping": "Otel Housekeeping",
+      "casinoFB": "Casino F&B",
+      "casinoCashier": "Casino Kasa",
+      "casinoSlot": "Casino Slot",
+      "casinoLiveGame": "Casino Canlı Oyun"
+    },
+    "roles": {
+      "waiter": "Garson",
+      "bartender": "Barmen",
+      "barback": "Barback",
+      "commis": "Komi",
+      "supervisor": "Supervisor",
+      "cashier": "Cashier",
+      "cageSupervisor": "Cage Supervisor",
+      "slotAttendant": "Slot Attendant",
+      "slotTechnician": "Slot Technician",
+      "host": "Host",
+      "dealer": "Dealer",
+      "inspector": "Inspector",
+      "pitboss": "Pitboss",
+      "receptionist": "Resepsiyonist",
+      "guestRelations": "Guest Relations",
+      "nightAuditor": "Night Auditor",
+      "roomAttendant": "Kat Görevlisi",
+      "floorSupervisor": "Kat Şefi",
+      "laundry": "Laundry"
+    },
+    "cards": {
+      "poker": "Poker",
+      "blackjack": "Blackjack",
+      "baccarat": "Baccarat",
+      "roulette": "Roulette",
+      "texasHoldem": "Texas Hold’em"
+    },
+    "errors": {
+      "branchRequired": "Şube seçiniz",
+      "areaRequired": "Alan seçiniz",
+      "departmentRequired": "Departman seçiniz",
+      "programRequired": "Program seçiniz",
+      "housingRequired": "Lojman durumu seçiniz",
+      "reasonRequired": "Neden tercih ettiğinizi yazınız",
+      "reasonChars": "Sadece harf ve rakam kullanabilirsiniz",
+      "reasonMax": "En fazla 500 karakter yazabilirsiniz",
+      "rolesRequired": "Pozisyon(lar) seçiniz",
+      "cardGamesRequired": "Kağıt oyunlarından en az birini seçiniz"
+    }
+  },
+  "jobExp": {
+    "title": { "add": "İş Deneyimi Ekle", "edit": "İş Deneyimi Düzenle" },
+    "badges": { "ongoing": "Devam" },
+    "cols": {
+      "company": "Şirket / İş Adı",
+      "department": "Departman",
+      "position": "Pozisyon",
+      "duty": "Görev",
+      "salary": "Ücret",
+      "start": "Başlangıç",
+      "end": "Bitiş",
+      "leaveReason": "Ayrılış Sebebi",
+      "country": "Ülke",
+      "city": "Şehir"
+    },
+    "labels": {
+      "company": "Şirket / İş Adı",
+      "department": "Departman",
+      "position": "Pozisyon",
+      "duty": "Görev",
+      "salary": "Ücret",
+      "country": "Ülke (İş)",
+      "city": "Şehir (İş)",
+      "selectProvince": "İl Seçiniz",
+      "ongoing": "Hâlen çalışıyorum",
+      "startDate": "Başlangıç Tarihi",
+      "endDate": "Bitiş Tarihi",
+      "leaveReason": "Ayrılış Sebebi"
+    },
+    "placeholders": {
+      "company": "Örn: ABC Teknoloji A.Ş.",
+      "department": "Örn: Yazılım",
+      "position": "Örn: Full Stack Developer",
+      "duty": "Örn: Web geliştirme",
+      "salary": "Örn: 2500",
+      "countrySearch": "Ülke ara veya seç…",
+      "countryOther": "Ülke adı (Diğer)",
+      "provinceSearch": "İl ara veya seç…",
+      "cityOther": "İl / Şehir",
+      "leaveReason": "Örn: Eğitim / taşınma / proje bitişi..."
+    },
+    "confirm": {
+      "title": "Emin misin?",
+      "text": "“{{company}} – {{role}}” kaydını silmek istiyor musun?"
+    },
+    "err": {
+      "invalid": "Geçersiz karakter.",
+      "min2": "En az 2 karakter.",
+      "max100": "En fazla 100 karakter.",
+      "max120": "En fazla 120 karakter.",
+      "max150": "En fazla 150 karakter.",
+      "salaryReq": "Ücret zorunlu.",
+      "salaryNum": "Ücret sayısal olmalıdır.",
+      "startReq": "Başlangıç tarihi zorunlu.",
+      "startInvalid": "Başlangıç tarihi geçersiz.",
+      "startInFuture": "Başlangıç tarihi bugün veya gelecekte olamaz.",
+      "alreadyActive": "Zaten aktif bir iş var. Bu kaydı aktif yapamazsınız.",
+      "endReq": "Bitiş tarihi zorunlu.",
+      "endInFuture": "Bitiş tarihi bugünden ileri olamaz.",
+      "endBeforeStart": "Bitiş, başlangıçtan küçük olamaz.",
+      "leaveReq": "Ayrılış sebebi zorunlu.",
+      "countryReq": "İş ülkesi zorunlu.",
+      "cityReq": "İş şehri zorunlu."
+    }
+  },
+  "languages": {
+    "table": {
+      "language": "Dil",
+      "speaking": "Konuşma Seviyesi",
+      "listening": "Dinleme Seviyesi",
+      "reading": "Okuma Seviyesi",
+      "writing": "Yazma Seviyesi",
+      "learnedHow": "Nasıl Öğrenildi",
+      "actions": "İşlem"
+    },
+    "modal": {
+      "titleCreate": "Yabancı Dil Bilgisi Ekle",
+      "titleEdit": "Yabancı Dil Bilgisi Düzenle"
+    },
+    "form": {
+      "language": "Dil Adı",
+      "otherLanguage": "Diğer Dil Adı",
+      "speaking": "Konuşma Seviyesi",
+      "writing": "Yazma Seviyesi",
+      "reading": "Okuma Seviyesi",
+      "listening": "Dinleme Seviyesi",
+      "learnedHow": "Nasıl Öğrenildi"
+    },
+    "placeholders": {
+      "otherLanguage": "Örn: Fransızca",
+      "learnedHow": "Örn: Kurs, okul, kendi kendine..."
+    },
+    "select": {
+      "choose": "Seçiniz"
+    },
+    "options": {
+      "english": "İngilizce",
+      "german": "Almanca",
+      "other": "Diğer"
+    },
+    "levels": {
+      "A1": "A1",
+      "A2": "A2",
+      "B1": "B1",
+      "B2": "B2",
+      "C1": "C1",
+      "C2": "C2"
+    },
+    "delete": {
+      "title": "Emin misin?",
+      "text": "“{{language}}” kaydını silmek istiyor musun?"
+    },
+    "validations": {
+      "languageRequired": "Dil Adı zorunlu.",
+      "languageMax": "Dil adı en fazla 40 karakter olabilir.",
+      "languageRegex": "Dil adı yalnızca harf, boşluk, nokta ve tire içerebilir.",
+      "speakingRequired": "Konuşma seviyesi zorunlu.",
+      "writingRequired": "Yazma seviyesi zorunlu.",
+      "readingRequired": "Okuma seviyesi zorunlu.",
+      "listeningRequired": "Dinleme seviyesi zorunlu.",
+      "learnedHowRequired": "Nasıl öğrenildiği zorunlu.",
+      "learnedHowMax": "Bu alan en fazla 80 karakter olabilir.",
+      "learnedHowRegex": "Yalnızca harf, boşluk, nokta ve tire içerebilir."
+    }
+  },
+  "references": {
+    "table": {
+      "orgType": "Çalıştığı Kurum",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "workplace": "İşyeri",
+      "role": "Görev",
+      "phone": "Telefon"
+    },
+    "modal": {
+      "titleCreate": "Referans Bilgisi Ekle",
+      "titleEdit": "Referans Bilgisi Düzenle"
+    },
+    "form": {
+      "orgType": "Çalıştığı Kurum",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "workplace": "İşyeri",
+      "role": "Görev",
+      "phone": "Telefon"
+    },
+    "options": {
+      "inHouse": "Bünyemizde / Grubumuzda",
+      "external": "Harici"
+    },
+    "placeholders": {
+      "firstName": "Örn: Ahmet",
+      "lastName": "Örn: Yılmaz",
+      "workplace": "Örn: O'Brien Hotels - IT",
+      "role": "Örn: Senior DevOps Engineer",
+      "phone": "+90 5XX XXX XX XX"
+    },
+    "delete": {
+      "title": "Emin misin?",
+      "text": "“{{first}} - {{last}}” kaydını silmek istiyor musun?"
+    },
+    "validations": {
+      "orgTypeRequired": "Çalıştığı kurum seçimi zorunlu.",
+      "firstNameAlpha": "Ad yalnızca harf ve boşluk içerebilir.",
+      "firstNameMin": "Ad en az 2 karakter olmalı.",
+      "firstNameMax": "Ad en fazla 50 karakter olabilir.",
+      "lastNameAlpha": "Soyad yalnızca harf ve boşluk içerebilir.",
+      "lastNameMin": "Soyad en az 2 karakter olmalı.",
+      "lastNameMax": "Soyad en fazla 50 karakter olabilir.",
+      "workplaceFormat": "İşyeri yalnızca harf, rakam, boşluk, ' ve – içerebilir.",
+      "workplaceRequired": "İşyeri zorunlu.",
+      "workplaceMax": "İşyeri en fazla 100 karakter olabilir.",
+      "roleFormat": "Görev yalnızca harf, rakam, boşluk, ' ve – içerebilir.",
+      "roleRequired": "Görev zorunlu.",
+      "roleMax": "Görev en fazla 100 karakter olabilir.",
+      "phoneRequired": "Telefon zorunlu.",
+      "phoneInvalid": "Telefon numarası geçersiz. Örn: +90 5XX XXX XX XX"
+    }
+  },
+  "personal": {
+    "labels": {
+      "photo": "Vesikalık Fotoğraf",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "whatsapp": "WhatsApp Telefon",
+      "address": "Adres",
+      "gender": "Cinsiyet",
+      "marital": "Medeni Durum",
+      "children": "Çocuk Sayısı",
+      "birthDate": "Doğum Tarihi",
+      "nationality": "Uyruğu",
+      "birthCountry": "Ülke (Doğum)",
+      "birthCity": "Şehir (Doğum Yeri)",
+      "resCountry": "Yaşadığı Ülke",
+      "resCity": "Yaşadığı Şehir",
+      "selectProvince": "İl Seçiniz",
+      "selectDistrict": "İlçe Seçiniz"
+    },
+    "placeholders": {
+      "firstName": "Adınızı giriniz",
+      "lastName": "Soyadınızı giriniz",
+      "email": "ornek@mail.com",
+      "phone": "+90 5XXXXXXXXX",
+      "whatsapp": "+90 5XXXXXXXXX",
+      "address": "Mahalle / Cadde / No",
+      "countrySearch": "Ülke ara veya seç…",
+      "countryOther": "Ülke adı (Diğer)",
+      "cityOther": "İl / İlçe",
+      "select": "Seçiniz",
+      "upload": "Yükle",
+      "replace": "Değiştir",
+      "noPhoto": "Fotoğraf Yok",
+      "cityState": "Şehir / Eyalet",
+      "districtRegion": "İlçe / Bölge"
+    },
+    "options": {
+      "gender": { "female": "Kadın", "male": "Erkek" },
+      "marital": {
+        "single": "Bekâr",
+        "married": "Evli",
+        "divorced": "Boşanmış",
+        "widowed": "Dul"
+      },
+      "childrenMore": "Daha Fazla"
+    },
+    "photo": {
+      "hint": "* Maksimum 2 MB, JPG veya PNG olmalıdır.",
+      "required": "Zorunlu alan, lütfen vesikalık yükleyiniz.",
+      "typeErr": "Lütfen yalnızca JPG veya PNG dosyası yükleyiniz.",
+      "sizeErr": "Fotoğraf boyutu 2 MB'den küçük olmalıdır."
+    },
+    "errors": {
+      "firstName": {
+        "required": "Ad gerekli",
+        "max": "En fazla 30 karakter olabilir.",
+        "regex": "Yalnızca harf kullanınız."
+      },
+      "lastName": {
+        "required": "Soyad gerekli",
+        "max": "En fazla 30 karakter olabilir.",
+        "regex": "Yalnızca harf kullanınız."
+      },
+      "email": { "invalid": "Geçerli bir e-posta adresi giriniz" },
+      "phone": {
+        "required": "Telefon gerekli.",
+        "format": "Telefon numarasını ülke kodu ile yazın (örn: +905XXXXXXXXX)."
+      },
+      "whatsapp": {
+        "required": "Telefon gerekli.",
+        "format": "WhatsApp numarasını ülke kodu ile yazın (örn: +905XXXXXXXXX)."
+      },
+      "address": {
+        "min": "Adres en az 5 karakter olmalıdır.",
+        "max": "Adres en fazla 90 karakter olabilir."
+      },
+      "gender": { "required": "Cinsiyet seçiniz" },
+      "marital": { "required": "Medeni durum seçiniz" },
+      "birthDate": {
+        "required": "Doğum tarihi gerekli.",
+        "range": "Doğum tarihi 1950'den önce veya bugünden ileri olamaz.",
+        "minAge": "En az 15 yaşında olmalısınız."
+      },
+      "birthCountry": "Doğum ülkesi zorunlu",
+      "birthCity": "Doğum yeri (İl/İlçe) zorunlu",
+      "resCountry": "Yaşadığı ülke zorunlu",
+      "resCity": "Yaşadığı şehir (İl/İlçe) zorunlu",
+      "resDistrict": "Yaşadığı İlçe zorunlu",
+      "birthDistrict": "Doğum yeri İlçe zorunlu",
+      "nationality": "Uyruğu seçiniz"
+    }
+  },
+  "otherInfo": {
+    "labels": {
+      "kktcDoc": "KKTC Geçerli Belge",
+      "lawsuit": "Dava Durumu",
+      "lawsuitReason": "Dava Nedeni",
+      "smoke": "Sigara Kullanımı",
+      "permanentDisease": "Kalıcı Rahatsızlık",
+      "diseaseDesc": "Rahatsızlık Açıklaması",
+      "license": "Ehliyet Durumu",
+      "licenseTypes": "Ehliyet Türü",
+      "military": "Askerlik Durumu",
+      "height": "Boy (cm)",
+      "weight": "Kilo (kg)"
+    },
+    "placeholders": {
+      "lawsuitReason": "Dava nedenini yazınız",
+      "diseaseDesc": "Rahatsızlığınızı açıklayınız",
+      "height": "Örn: 173",
+      "weight": "Örn: 82",
+      "licenseTypePlaceholder": "Türler"
+    },
+    "options": {
+      "kktcDoc": [
+        "Vatandaşlık",
+        "Çalışma İzni",
+        "Öğrenci Belgesi",
+        "Belge Yok"
+      ],
+      "yesNo": { "yes": "Evet", "no": "Hayır" },
+      "license": { "have": "Var", "none": "Yok" },
+      "lawsuit": { "have": "Evet", "none": "Hayır" },
+      "military": {
+        "done": "Yapıldı",
+        "notDone": "Yapılmadı",
+        "postponed": "Tecilli",
+        "exempt": "Muaf"
+      }
+    },
+    "errors": {
+      "kktcDoc": "KKTC Geçerli Belge seçiniz",
+      "lawsuit": "Dava durumu seçiniz",
+      "lawsuitReason": "Dava nedeni en az 3 karakter olmalıdır",
+      "smoke": "Sigara için seçim yapınız",
+      "permanentDisease": "Kalıcı rahatsızlık için seçim yapınız",
+      "diseaseDesc": "Rahatsızlık açıklaması en az 10 karakter olmalıdır",
+      "license": "Ehliyet durumu seçiniz",
+      "licenseTypes": "En az bir ehliyet türü seçiniz",
+      "military": "Askerlik durumu seçiniz",
+      "heightNum": "Boy sayı olmalıdır",
+      "heightInt": "Boy tam sayı olmalıdır",
+      "heightMin": "Boy en az 50 cm olmalıdır",
+      "heightMax": "Boy en fazla 250 cm olabilir",
+      "weightNum": "Kilo sayı olmalıdır",
+      "weightInt": "Kilo tam sayı olmalıdır",
+      "weightMin": "Kilo en az 20 kg olmalıdır",
+      "weightMax": "Kilo en fazla 300 kg olabilir"
+    }
+  }
+}

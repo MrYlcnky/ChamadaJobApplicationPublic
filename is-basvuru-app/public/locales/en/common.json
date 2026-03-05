@@ -1,0 +1,738 @@
+{
+  "langKey": "en",
+  "app": { "language": "Language" },
+  "hero": {
+    "brand": "CHAMADA GROUP",
+    "formTitle": "JOB APPLICATION FORM",
+    "please": "Please",
+    "notice": "fill in all your information carefully and completely.",
+    "required": "Required field",
+    "requiredSuffix": "fields are required."
+  },
+  "loadProfile": {
+    "title": "Have you applied before?",
+    "description": "You can fetch your information using a verification code to update your existing record.",
+    "buttonYes": "Yes, fetch my info",
+    "emailPlaceholder": "Your email address",
+    "fetchBtn": "Fetch",
+    "otpTitle": "Verification Code",
+    "otpText": "Enter the verification code sent to {{email}} ",
+    "verifyBtn": "Verify and Fetch",
+    "emailNotFound": "Error: No application found with this email address.",
+    "otpRequired": "Please enter the code",
+    "otpInvalid": "Invalid code!",
+    "success": "Profile loaded successfully"
+  },
+  "statusBar": {
+    "title": "Required Sections",
+    "completed": "Completed",
+    "missing": "Missing"
+  },
+  "sections": {
+    "personal": "Personal Information",
+    "education": "Education",
+    "certificates": "Certificates & Trainings",
+    "computer": "Computer Skills",
+    "languages": "Foreign Language",
+    "experience": "Job Experience",
+    "references": "References",
+    "other": "Other Personal Information",
+    "jobDetails": "Application Details"
+  },
+  "actions": {
+    "add": "Add",
+    "save": "Save",
+    "cancel": "Cancel",
+    "update": "Update",
+    "delete": "Delete",
+    "close": "Close"
+  },
+  "aria": { "goToSection": "Go to {{section}} section" },
+  "toast": {
+    "saved": "Saved successfully.",
+    "updated": "Updated successfully.",
+    "deleted": "Deleted.",
+    "error": "Something went wrong. Please try again.",
+    "formCleared": "Form cleared successfully."
+  },
+  "confirm": {
+    "sectionTitle": "Application Confirmation",
+    "sectionDesc": "Please check the boxes and complete the verification.",
+    "submit": "SUBMIT",
+    "checks": "Consent Checks",
+    "missing": {
+      "title": "Missing Information!",
+      "bodyIntro": "Please complete the sections below:",
+      "emailTitle": "Email Missing",
+      "emailText": "Please enter your email address in the personal information section."
+    },
+    "modal": {
+      "accept": "I have read and agree.",
+      "complete": "Complete the Application.",
+      "update": "Update the Application"
+    },
+    "otp": {
+      "title": "Confirm Application",
+      "text": "Enter the code sent to <b>{{email}}</b> to complete your application:",
+      "verifyAndSubmit": "Confirm and Submit"
+    },
+    "success": {
+      "title": "Congratulations!",
+      "text": "Your application has been submitted successfully.",
+      "submit": "Your application has been submitted successfully!"
+    },
+    "error": {
+      "submit": "An error occurred during submission."
+    },
+    "toast": { "success": "Your application has been submitted successfully!" },
+    "cards": {
+      "truth": {
+        "title": "Declaration of Accuracy",
+        "check": "Click to read and approve",
+        "uncheck": "Click to remove approval",
+        "text": "By signing this application, I declare that all information provided is accurate and complete."
+      },
+      "kvkk": {
+        "title": "Processing of Personal Data",
+        "text": "I consent to the processing and storage of my personal data for the purpose of this application."
+      },
+      "reference": {
+        "title": "Reference Check Consent",
+        "text": "I consent to being contacted via my references."
+      }
+    }
+  },
+  "common": {
+    "dash": "-",
+    "select": "Select",
+    "actions": "Actions",
+    "cancel": "Cancel",
+    "close": "Close",
+    "deleteYes": "Yes, delete!",
+    "save": "Save",
+    "update": "Update",
+    "pleaseSelect": "Please select",
+    "fillAllProperly": "Please fill all required fields properly.",
+    "error": "Error",
+    "areYouSure": "Are you sure?",
+    "clearAllWarning": "All form data will be deleted and reset. This action cannot be undone!",
+    "yesClear": "Yes, Clear",
+    "clearFormBtn": "Clear and Reset Form",
+    "other": "Other"
+  },
+  "certificates": {
+    "table": {
+      "name": "Certificate / Training Name",
+      "org": "Institution / Organization",
+      "duration": "Duration",
+      "issuedAt": "Issue Date",
+      "validUntil": "Validity Date",
+      "actions": "Actions"
+    },
+    "modal": {
+      "titleCreate": "Add Certificate / Training",
+      "titleEdit": "Edit Certificate / Training"
+    },
+    "form": {
+      "name": "Certificate / Training Name",
+      "org": "Institution / Organization",
+      "duration": "Duration",
+      "issuedAt": "Issue Date",
+      "validUntilOptional": "Validity Date (Optional)"
+    },
+    "placeholders": {
+      "name": "e.g. React Bootcamp",
+      "org": "e.g. BTK Academy",
+      "duration": "e.g. 3 Months"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "text": "Do you want to delete “{{name}} - {{org}}”?"
+    },
+    "validations": {
+      "alphaNum": "Only letters, numbers and spaces are allowed.",
+      "name": {
+        "required": "Certificate / Training name is required.",
+        "max": "You can enter up to 100 characters."
+      },
+      "org": {
+        "required": "Institution / Organization name is required.",
+        "max": "You can enter up to 100 characters."
+      },
+      "duration": {
+        "required": "Duration is required.",
+        "max": "You can enter up to 50 characters."
+      },
+      "issuedAt": {
+        "required": "Issue date is required.",
+        "future": "Issue date cannot be in the future."
+      },
+      "validUntil": {
+        "beforeIssued": "Validity date cannot be earlier than the issue date.",
+        "sameDay": "Issue and validity dates cannot be the same day."
+      }
+    }
+  },
+  "computer": {
+    "table": {
+      "program": "Program",
+      "level": "Proficiency",
+      "actions": "Actions"
+    },
+    "modal": {
+      "titleCreate": "Add Computer Skill",
+      "titleEdit": "Edit Computer Skill"
+    },
+    "form": {
+      "program": "Program",
+      "level": "Proficiency"
+    },
+    "placeholders": {
+      "program": "e.g. Excel, Photoshop"
+    },
+    "levels": {
+      "veryPoor": "Very Poor",
+      "poor": "Poor",
+      "medium": "Medium",
+      "good": "Good",
+      "veryGood": "Very Good"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "text": "Do you want to delete “{{name}}”?"
+    },
+    "select": {
+      "choose": "Select"
+    },
+    "validations": {
+      "program": {
+        "required": "Program name is required.",
+        "max": "Program name can be at most 60 characters."
+      },
+      "level": {
+        "required": "Proficiency is required."
+      },
+      "alphaNum": "Invalid character used. (Allowed: . # + - _)"
+    }
+  },
+  "education": {
+    "table": {
+      "level": "Level",
+      "school": "School",
+      "department": "Department",
+      "gradeSystem": "Grading System",
+      "gpa": "GPA",
+      "start": "Start",
+      "end": "End",
+      "diplomaStatus": "Diploma Status",
+      "actions": "Actions"
+    },
+    "modal": {
+      "titleCreate": "Add Education",
+      "titleEdit": "Edit Education"
+    },
+    "form": {
+      "level": "Level",
+      "school": "School",
+      "department": "Department",
+      "diplomaStatus": "Diploma Status",
+      "gradeSystem": "Grading System",
+      "gpa": "GPA",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
+    "placeholders": {
+      "school": "e.g. Erciyes University",
+      "department": "e.g. Computer Engineering",
+      "gpaFour": "0.00 - 4.00",
+      "gpaHundred": "0 - 100"
+    },
+    "levels": {
+      "highschool": "High School",
+      "associate": "Associate",
+      "bachelor": "Bachelor",
+      "master": "Master",
+      "phd": "PhD",
+      "other": "Other"
+    },
+    "diploma": {
+      "graduated": "Graduated",
+      "continuing": "Continuing",
+      "paused": "Paused",
+      "dropped": "Dropped"
+    },
+    "gradeSystem": {
+      "four": "4-point Scale",
+      "hundred": "100-point Scale",
+      "fourShort": "4-point",
+      "hundredShort": "100-point"
+    },
+    "hints": {
+      "noEndWhenContinuing": "No end date is required when Continuing/Dropped."
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "text": "Do you want to delete “{{school}} - {{dept}}”?"
+    },
+    "validations": {
+      "levelRequired": "Level is required.",
+      "schoolFormat": "School should contain only letters and numbers.",
+      "schoolRequired": "School is required.",
+      "schoolMax": "School name must not exceed 150 characters.",
+      "deptFormat": "Department should contain only letters and numbers.",
+      "deptRequired": "Department is required.",
+      "deptMax": "Department name must not exceed 150 characters.",
+      "gradeSystem": "Please select a grading system.",
+      "gpaNumber": "Please enter a valid number.",
+      "startRequired": "Start date is required.",
+      "startInvalid": "Start date is invalid.",
+      "startFuture": "Start date cannot be in the future.",
+      "endRequired": "End date is required.",
+      "endInvalid": "End date is invalid.",
+      "endFuture": "End date cannot be in the future.",
+      "sameDay": "Start and end cannot be the same day.",
+      "endBeforeStart": "End cannot be earlier than start.",
+      "gpaRange": "GPA must be between 0 and {{max}}.",
+      "gpaDecimals": "Up to 2 decimals allowed for the 4-point scale.",
+      "diplomaRequired": "Diploma status is required.",
+      "diplomaValid": "Please select a valid diploma status.",
+      "formInvalid": "Please fill all required fields correctly."
+    }
+  },
+  "jobDetails": {
+    "info": {
+      "title": "Application Details",
+      "bodyBase": "In this section you can select your preferred branch, area, department and software programs.",
+      "requiredNote": "All fields are required.",
+      "liveGameNote": "If you choose Casino Live Game, Card Game knowledge becomes mandatory.",
+      "rolesNote": "For the departments you select, you must also choose the role(s)."
+    },
+    "labels": {
+      "branches": "Branch(es) to Apply",
+      "areas": "Area (Hotel / Casino)",
+      "departments": "Department(s) to Apply",
+      "roles": "Role(s) within Department",
+      "programs": "Computer Program Knowledge",
+      "cardGames": "Card Game Knowledge (for Casino Live Game)",
+      "housing": "Housing (Dormitory) Request",
+      "whyUs": "Why Did You Choose Us?"
+    },
+    "placeholders": {
+      "selectBranch": "Select branch...",
+      "selectArea": "Select area...",
+      "selectBranchFirst": "Select branch first",
+      "selectAreaFirst": "Select area first",
+      "selectDepartment": "Select department...",
+      "selectRoles": "Select role(s)...",
+      "selectDeptForRoles": "Select a department that requires roles",
+      "selectDeptFirst": "Select department",
+      "selectProgram": "Select program...",
+      "selectCardGame": "Select game...",
+      "cardGameOnlyForLive": "Only applicable to Casino Live Game",
+      "selectHousing": "Select housing preference...",
+      "whyUs": "Short explanation (e.g., career growth, team culture, location, etc.)"
+    },
+    "preview": {
+      "title": "Preview",
+      "branches": "Branches",
+      "areas": "Areas",
+      "departments": "Departments",
+      "roles": "Roles",
+      "programs": "Programs",
+      "cardGames": "Card Games",
+      "housing": "Housing",
+      "liveUpdate": "Your selections update in real time."
+    },
+    "areas": {
+      "hotel": "Hotel",
+      "casino": "Casino"
+    },
+    "housing": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "common": {
+      "pleaseSelect": "Please select",
+      "other": "Other"
+    },
+    "departments": {
+      "hotelReception": "Hotel Reception",
+      "hotelHousekeeping": "Hotel Housekeeping",
+      "casinoFB": "Casino F&B",
+      "casinoCashier": "Casino Cashier",
+      "casinoSlot": "Casino Slot",
+      "casinoLiveGame": "Casino Live Game"
+    },
+    "roles": {
+      "waiter": "Waiter",
+      "bartender": "Bartender",
+      "barback": "Barback",
+      "commis": "Commis",
+      "supervisor": "Supervisor",
+      "cashier": "Cashier",
+      "cageSupervisor": "Cage Supervisor",
+      "slotAttendant": "Slot Attendant",
+      "slotTechnician": "Slot Technician",
+      "host": "Host",
+      "dealer": "Dealer",
+      "inspector": "Inspector",
+      "pitboss": "Pitboss",
+      "receptionist": "Receptionist",
+      "guestRelations": "Guest Relations",
+      "nightAuditor": "Night Auditor",
+      "roomAttendant": "Room Attendant",
+      "floorSupervisor": "Floor Supervisor",
+      "laundry": "Laundry"
+    },
+    "cards": {
+      "poker": "Poker",
+      "blackjack": "Blackjack",
+      "baccarat": "Baccarat",
+      "roulette": "Roulette",
+      "texasHoldem": "Texas Hold’em"
+    },
+    "errors": {
+      "branchRequired": "Please select at least one branch",
+      "areaRequired": "Please select at least one area",
+      "departmentRequired": "Please select at least one department",
+      "programRequired": "Please select at least one program",
+      "housingRequired": "Please select housing preference",
+      "reasonRequired": "Please write your reason",
+      "reasonChars": "Only letters and numbers are allowed",
+      "reasonMax": "Maximum 500 characters",
+      "rolesRequired": "Please select role(s)",
+      "cardGamesRequired": "Select at least one card game"
+    }
+  },
+  "jobExp": {
+    "title": { "add": "Add Job Experience", "edit": "Edit Job Experience" },
+    "badges": { "ongoing": "Ongoing" },
+    "cols": {
+      "company": "Company / Job",
+      "department": "Department",
+      "position": "Position",
+      "duty": "Duty",
+      "salary": "Salary",
+      "start": "Start",
+      "end": "End",
+      "leaveReason": "Leave Reason",
+      "country": "Country",
+      "city": "City"
+    },
+    "labels": {
+      "company": "Company / Job",
+      "department": "Department",
+      "position": "Position",
+      "duty": "Duty",
+      "salary": "Salary",
+      "country": "Country (Job)",
+      "city": "City (Job)",
+      "selectProvince": "Select Province",
+      "ongoing": "I am currently working",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "leaveReason": "Leave Reason"
+    },
+    "placeholders": {
+      "company": "e.g., ABC Technology Inc.",
+      "department": "e.g., Software",
+      "position": "e.g., Full Stack Developer",
+      "duty": "e.g., Web development",
+      "salary": "e.g., 2500",
+      "countrySearch": "Search or select country…",
+      "countryOther": "Country name (Other)",
+      "provinceSearch": "Search or select province…",
+      "cityOther": "City / Town",
+      "leaveReason": "e.g., Education / relocation / project end..."
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Do you want to delete “{{company}} – {{role}}”?"
+    },
+    "err": {
+      "invalid": "Invalid characters.",
+      "min2": "At least 2 characters.",
+      "max100": "At most 100 characters.",
+      "max120": "At most 120 characters.",
+      "max150": "At most 150 characters.",
+      "salaryReq": "Salary is required.",
+      "salaryNum": "Salary must be numeric.",
+      "startReq": "Start date is required.",
+      "startInvalid": "Invalid start date.",
+      "startInFuture": "Start date cannot be today or in the future.",
+      "alreadyActive": "There is already an active job. You cannot mark this as active.",
+      "endReq": "End date is required.",
+      "endInFuture": "End date cannot be in the future.",
+      "endBeforeStart": "End cannot be before start.",
+      "leaveReq": "Leave reason is required.",
+      "countryReq": "Job country is required.",
+      "cityReq": "Job city is required."
+    }
+  },
+  "languages": {
+    "table": {
+      "language": "Language",
+      "speaking": "Speaking Level",
+      "listening": "Listening Level",
+      "reading": "Reading Level",
+      "writing": "Writing Level",
+      "learnedHow": "How Learned",
+      "actions": "Actions"
+    },
+    "modal": {
+      "titleCreate": "Add Language",
+      "titleEdit": "Edit Language"
+    },
+    "form": {
+      "language": "Language",
+      "otherLanguage": "Other Language",
+      "speaking": "Speaking Level",
+      "writing": "Writing Level",
+      "reading": "Reading Level",
+      "listening": "Listening Level",
+      "learnedHow": "How Learned"
+    },
+    "placeholders": {
+      "otherLanguage": "e.g., French",
+      "learnedHow": "e.g., Course, school, self-study..."
+    },
+    "select": {
+      "choose": "Select"
+    },
+    "options": {
+      "english": "English",
+      "german": "German",
+      "other": "Other"
+    },
+    "levels": {
+      "A1": "A1",
+      "A2": "A2",
+      "B1": "B1",
+      "B2": "B2",
+      "C1": "C1",
+      "C2": "C2"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "text": "Do you want to delete “{{language}}”?"
+    },
+    "validations": {
+      "languageRequired": "Language is required.",
+      "languageMax": "Language can be at most 40 characters.",
+      "languageRegex": "Only letters, spaces, dot and hyphen are allowed.",
+      "speakingRequired": "Speaking level is required.",
+      "writingRequired": "Writing level is required.",
+      "readingRequired": "Reading level is required.",
+      "listeningRequired": "Listening level is required.",
+      "learnedHowRequired": "Learning source is required.",
+      "learnedHowMax": "This field can be at most 80 characters.",
+      "learnedHowRegex": "Only letters, spaces, dot and hyphen are allowed."
+    }
+  },
+  "references": {
+    "table": {
+      "orgType": "Organization Type",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "workplace": "Workplace",
+      "role": "Role",
+      "phone": "Phone"
+    },
+    "modal": {
+      "titleCreate": "Add Reference",
+      "titleEdit": "Edit Reference"
+    },
+    "form": {
+      "orgType": "Organization Type",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "workplace": "Workplace",
+      "role": "Role",
+      "phone": "Phone"
+    },
+    "options": {
+      "inHouse": "In-house / Group",
+      "external": "External"
+    },
+    "placeholders": {
+      "firstName": "e.g., Ahmet",
+      "lastName": "e.g., Yılmaz",
+      "workplace": "e.g., O'Brien Hotels - IT",
+      "role": "e.g., Senior DevOps Engineer",
+      "phone": "+90 5XX XXX XX XX"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "text": "Do you want to delete “{{first}} - {{last}}”?"
+    },
+    "validations": {
+      "orgTypeRequired": "Organization type is required.",
+      "firstNameAlpha": "First name can contain only letters and spaces.",
+      "firstNameMin": "First name must be at least 2 characters.",
+      "firstNameMax": "First name can be at most 50 characters.",
+      "lastNameAlpha": "Last name can contain only letters and spaces.",
+      "lastNameMin": "Last name must be at least 2 characters.",
+      "lastNameMax": "Last name can be at most 50 characters.",
+      "workplaceFormat": "Workplace may contain letters, numbers, spaces, ' and –.",
+      "workplaceRequired": "Workplace is required.",
+      "workplaceMax": "Workplace can be at most 100 characters.",
+      "roleFormat": "Role may contain letters, numbers, spaces, ' and –.",
+      "roleRequired": "Role is required.",
+      "roleMax": "Role can be at most 100 characters.",
+      "phoneRequired": "Phone is required.",
+      "phoneInvalid": "Invalid phone number. E.g., +90 5XX XXX XX XX"
+    }
+  },
+  "personal": {
+    "labels": {
+      "photo": "Passport Photo",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "E-mail",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp Phone",
+      "address": "Address",
+      "gender": "Gender",
+      "marital": "Marital Status",
+      "children": "Number of Children",
+      "birthDate": "Date of Birth",
+      "nationality": "Nationality",
+      "birthCountry": "Country (Birth)",
+      "birthCity": "City (Birth Place)",
+      "resCountry": "Country of Residence",
+      "resCity": "City of Residence",
+      "selectProvince": "Select Province",
+      "selectDistrict": "Select District"
+    },
+    "placeholders": {
+      "firstName": "Enter your first name",
+      "lastName": "Enter your last name",
+      "email": "name@mail.com",
+      "phone": "+90 5XXXXXXXXX",
+      "whatsapp": "+90 5XXXXXXXXX",
+      "address": "Neighborhood / Street / No",
+      "countrySearch": "Search or select country…",
+      "countryOther": "Country name (Other)",
+      "cityOther": "Province / District",
+      "select": "Select",
+      "upload": "Upload",
+      "replace": "Replace",
+      "noPhoto": "No Photo",
+      "cityState": "City / State",
+      "districtRegion": "District / Region"
+    },
+    "options": {
+      "gender": { "female": "Female", "male": "Male" },
+      "marital": {
+        "single": "Single",
+        "married": "Married",
+        "divorced": "Divorced",
+        "widowed": "Widowed"
+      },
+      "childrenMore": "More"
+    },
+    "photo": {
+      "hint": "* Max 2 MB, JPG or PNG.",
+      "required": "Required field, please upload a passport photo.",
+      "typeErr": "Please upload JPG or PNG only.",
+      "sizeErr": "Photo must be smaller than 2 MB."
+    },
+    "errors": {
+      "firstName": {
+        "required": "First name is required.",
+        "max": "At most 30 characters.",
+        "regex": "Only letters are allowed."
+      },
+      "lastName": {
+        "required": "Last name is required.",
+        "max": "At most 30 characters.",
+        "regex": "Only letters are allowed."
+      },
+      "email": { "invalid": "Enter a valid e-mail address" },
+      "phone": {
+        "required": "Phone is required.",
+        "format": "Write the phone with country code (e.g., +905XXXXXXXXX)."
+      },
+      "whatsapp": {
+        "required": "Phone is required.",
+        "format": "Write the WhatsApp number with country code (e.g., +905XXXXXXXXX)."
+      },
+      "address": {
+        "min": "Address must be at least 5 characters.",
+        "max": "Address can be at most 90 characters."
+      },
+      "gender": { "required": "Select gender" },
+      "marital": { "required": "Select marital status" },
+      "birthDate": {
+        "required": "Birth date is required.",
+        "range": "Birth date cannot be earlier than 1950 or later than today.",
+        "minAge": "You must be at least 15 years old."
+      },
+      "birthCountry": "Birth country is required.",
+      "birthCity": "Birth city (Province/District) is required.",
+      "resCountry": "Country of residence is required.",
+      "resCity": "City of residence (Province/District) is required.",
+      "resDistrict": "District of residence is required",
+      "birthDistrict": "District of birth is required",
+      "nationality": "Select nationality"
+    }
+  },
+  "otherInfo": {
+    "labels": {
+      "kktcDoc": "Valid Document for TRNC",
+      "lawsuit": "Lawsuit Status",
+      "lawsuitReason": "Reason for Lawsuit",
+      "smoke": "Smoking",
+      "permanentDisease": "Chronic Condition",
+      "diseaseDesc": "Condition Description",
+      "license": "Driver's License",
+      "licenseTypes": "License Type(s)",
+      "military": "Military Service",
+      "height": "Height (cm)",
+      "weight": "Weight (kg)"
+    },
+    "placeholders": {
+      "lawsuitReason": "Write the reason",
+      "diseaseDesc": "Explain your condition",
+      "height": "e.g., 173",
+      "weight": "e.g., 82",
+      "licenseTypePlaceholder": "Types"
+    },
+    "options": {
+      "kktcDoc": [
+        "Citizenship",
+        "Work Permit",
+        "Student Certificate",
+        "No Document"
+      ],
+      "yesNo": { "yes": "Yes", "no": "No" },
+      "license": { "have": "Have", "none": "None" },
+      "lawsuit": { "have": "Yes", "none": "No" },
+      "military": {
+        "done": "Completed",
+        "notDone": "Not Completed",
+        "postponed": "Postponed",
+        "exempt": "Exempt"
+      }
+    },
+    "errors": {
+      "kktcDoc": "Select a TRNC document",
+      "lawsuit": "Select lawsuit status",
+      "lawsuitReason": "Lawsuit reason must be at least 3 characters",
+      "smoke": "Select smoking status",
+      "permanentDisease": "Select chronic condition status",
+      "diseaseDesc": "Condition description must be at least 10 characters",
+      "license": "Select driver's license status",
+      "licenseTypes": "Select at least one license type",
+      "military": "Select military service status",
+      "heightNum": "Height must be a number",
+      "heightInt": "Height must be an integer",
+      "heightMin": "Height must be at least 50 cm",
+      "heightMax": "Height must be at most 250 cm",
+      "weightNum": "Weight must be a number",
+      "weightInt": "Weight must be an integer",
+      "weightMin": "Weight must be at least 20 kg",
+      "weightMax": "Weight must be at most 300 kg"
+    }
+  }
+}
