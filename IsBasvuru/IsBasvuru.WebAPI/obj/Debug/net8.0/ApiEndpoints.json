@@ -239,6 +239,22 @@
   },
   {
     "ContainingType": "DepartmanPozisyonController",
+    "Method": "ImportOrganization",
+    "RelativePath": "api/DepartmanPozisyon/ImportOrganization",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "data",
+        "Type": "System.Collections.Generic.List\u00601[[IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos.OrganizationImportDto, IsBasvuru.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DepartmanPozisyonController",
     "Method": "Update",
     "RelativePath": "api/DepartmanPozisyon/Update",
     "HttpMethod": "PUT",
@@ -544,6 +560,176 @@
       {
         "Name": "dto",
         "Type": "IsBasvuru.Domain.DTOs.TanimlamalarDtos.EhliyetTuruDtos.EhliyetTuruUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "Create",
+    "RelativePath": "api/Gorev/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevDtos.GorevCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "Delete",
+    "RelativePath": "api/Gorev/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "GetAll",
+    "RelativePath": "api/Gorev/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "GetById",
+    "RelativePath": "api/Gorev/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "GetByMasterDepartmanId",
+    "RelativePath": "api/Gorev/GetByMasterDepartmanId/{masterDepartmanId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "masterDepartmanId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "GetByMasterGorevId",
+    "RelativePath": "api/Gorev/GetByMasterGorevId/{masterGorevId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "masterGorevId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "ImportGorevler",
+    "RelativePath": "api/Gorev/import",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "importData",
+        "Type": "System.Collections.Generic.List\u00601[[IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos.GorevImportDto, IsBasvuru.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevController",
+    "Method": "Update",
+    "RelativePath": "api/Gorev/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevDtos.GorevUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevAtamaDetayController",
+    "Method": "Create",
+    "RelativePath": "api/GorevAtamaDetay/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevAtamaDetayDtos.GorevAtamaDetayCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevAtamaDetayController",
+    "Method": "GetByPersonelId",
+    "RelativePath": "api/GorevAtamaDetay/GetByPersonelId/{personelId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "personelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.GorevAtamaDetayController",
+    "Method": "Update",
+    "RelativePath": "api/GorevAtamaDetay/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevAtamaDetayDtos.GorevAtamaDetayUpdateDto",
         "IsRequired": true
       }
     ],
@@ -1168,6 +1354,80 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.MasterGorevController",
+    "Method": "Create",
+    "RelativePath": "api/MasterGorev/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterGorev.MasterGorevCreateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.MasterGorevController",
+    "Method": "Delete",
+    "RelativePath": "api/MasterGorev/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.MasterGorevController",
+    "Method": "GetAll",
+    "RelativePath": "api/MasterGorev/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.MasterGorevController",
+    "Method": "GetById",
+    "RelativePath": "api/MasterGorev/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.MasterGorevController",
+    "Method": "Update",
+    "RelativePath": "api/MasterGorev/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterGorev.MasterGorevUpdateDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "IsBasvuru.WebAPI.Controllers.SirketMasterYapisi.MasterOyunController",
     "Method": "Create",
     "RelativePath": "api/MasterOyun/Create",
@@ -1394,6 +1654,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "IsBasvuru.WebAPI.Controllers.OyunBilgisiController",
+    "Method": "ImportOyunlar",
+    "RelativePath": "api/OyunBilgisi/import",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "importData",
+        "Type": "System.Collections.Generic.List\u00601[[IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos.OyunImportDto, IsBasvuru.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],
@@ -2324,6 +2600,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProgramBilgisiController",
+    "Method": "ImportProgramlar",
+    "RelativePath": "api/ProgramBilgisi/import",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "importData",
+        "Type": "System.Collections.Generic.List\u00601[[IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos.ProgramImportDto, IsBasvuru.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],

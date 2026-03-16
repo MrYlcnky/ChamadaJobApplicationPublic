@@ -227,7 +227,6 @@ export default function PersonalInformation({ definitions }) {
         {/* --- FOTOĞRAF KISMI --- */}
         <div className="flex flex-col sm:flex-row items-start gap-6">
           <div className="relative w-32 h-32 rounded-lg overflow-hidden border-4 border-gray-300 bg-gray-100 shadow-md flex items-center justify-center">
-            {/* 🔥🔥🔥 KEY ÖZELLİĞİ EKLENDİ 🔥🔥🔥 */}
             {displayFoto ? (
               <img
                 key={displayFoto} // Resim kaynağı değişince DOM elementini yenile

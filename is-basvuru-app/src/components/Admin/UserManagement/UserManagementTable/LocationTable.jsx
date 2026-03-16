@@ -64,14 +64,13 @@ export default function LocationTable({
                   </span>
                 </td>
 
-                {/* Tanım Hücresi (Uyruk veya Şehir Adı) */}
-                <td className="py-5 px-6 text-sm font-black text-gray-800 uppercase tracking-tight">
+                {/* Tanım Hücresi (Uyruk veya Şehir Adı)  */}
+                <td className="py-5 px-6 text-sm font-bold text-gray-800 tracking-tight">
                   {getValue(item, currentTabKey)}
                 </td>
 
-                {/* Bağlı Ülke Hücresi */}
                 <td className="py-5 px-6">
-                  <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-black uppercase">
+                  <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold">
                     {item.UlkeAdi || item.ulkeAdi || "Belirsiz"}
                   </span>
                 </td>

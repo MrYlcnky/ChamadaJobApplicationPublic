@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.ProgramBilgisiDtos;
+using IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi;
 using IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi;
 using IsBasvuru.Domain.Interfaces;
 using IsBasvuru.Domain.Wrappers;
@@ -139,6 +141,95 @@ namespace IsBasvuru.Infrastructure.Services
             _cache.Remove(CacheKey);
 
             return ServiceResponse<bool>.SuccessResult(true);
+        }
+
+        public async Task<ServiceResponse<bool>> ImportProgramAsync(List<ProgramImportDto> importData)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var validData = importData
+                    .Where(r => !string.IsNullOrWhiteSpace(r.Sube) &&
+                                !string.IsNullOrWhiteSpace(r.Departman) &&
+                                !string.IsNullOrWhiteSpace(r.ProgramAdi))
+                    .Select(r => new {
+                        Sube = r.Sube.Trim(),
+                        Departman = r.Departman.Trim(),
+                        ProgramAdi = r.ProgramAdi.Trim()
+                    }).ToList();
+
+                if (!validData.Any())
+                    return ServiceResponse<bool>.FailureResult("Aktarılacak geçerli veri bulunamadı.");
+
+                // 1. Yeni Master Programları Ekle (Eğer Yoksa)
+                var uniquePrograms = validData.Select(x => x.ProgramAdi).Distinct().ToList();
+                var existingPrograms = await _context.MasterProgramlar.ToListAsync();
+
+                foreach (var p in uniquePrograms)
+                {
+                    if (!existingPrograms.Any(e => e.MasterProgramAdi != null && e.MasterProgramAdi.Equals(p, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var newProg = new MasterProgram { MasterProgramAdi = p };
+                        _context.MasterProgramlar.Add(newProg);
+                        existingPrograms.Add(newProg);
+                    }
+                }
+                await _context.SaveChangesAsync();
+
+                // 2. Şube ve Departman Verilerini Çek (Eşleştirme için)
+                var existingSubeler = await _context.Subeler.ToListAsync();
+                var existingSubeAlanlar = await _context.SubeAlanlar.ToListAsync();
+                var existingMasterDept = await _context.MasterDepartmanlar.ToListAsync();
+                var existingDepartmanlarOrg = await _context.Departmanlar.ToListAsync();
+                var existingProgramBilgileri = await _context.ProgramBilgileri.ToListAsync();
+
+                foreach (var data in validData)
+                {
+                    // Şubeyi bul
+                    var sube = existingSubeler.FirstOrDefault(s => s.SubeAdi != null && s.SubeAdi.Equals(data.Sube, StringComparison.OrdinalIgnoreCase));
+                    // Master Departmanı bul
+                    var masterDept = existingMasterDept.FirstOrDefault(d => d.MasterDepartmanAdi != null && d.MasterDepartmanAdi.Equals(data.Departman, StringComparison.OrdinalIgnoreCase));
+                    // Master Programı bul
+                    var masterProg = existingPrograms.First(p => p.MasterProgramAdi != null && p.MasterProgramAdi.Equals(data.ProgramAdi, StringComparison.OrdinalIgnoreCase));
+
+                    if (sube != null && masterDept != null)
+                    {
+                        // İlgili Şubeye ait Alanları bul
+                        var subeyeAitAlanIds = existingSubeAlanlar.Where(sa => sa.SubeId == sube.Id).Select(sa => sa.Id).ToList();
+
+                        // Departman tablosundan Gerçek DepartmanId'yi bul
+                        var gercekDepartman = existingDepartmanlarOrg.FirstOrDefault(d => subeyeAitAlanIds.Contains(d.SubeAlanId) && d.MasterDepartmanId == masterDept.Id);
+
+                        if (gercekDepartman != null)
+                        {
+                            // Çakışma kontrolü (Zaten eklenmiş mi?)
+                            if (!existingProgramBilgileri.Any(pb => pb.DepartmanId == gercekDepartman.Id && pb.MasterProgramId == masterProg.Id))
+                            {
+                                var newPb = new ProgramBilgisi
+                                {
+                                    DepartmanId = gercekDepartman.Id,
+                                    MasterProgramId = masterProg.Id,
+                                    ProgramAdi = masterProg.MasterProgramAdi,
+                                    ProgramAktifMi = true
+                                };
+                                _context.ProgramBilgileri.Add(newPb);
+                                existingProgramBilgileri.Add(newPb); // Aynı döngüde tekrar eklenmesini önler
+                            }
+                        }
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                _cache.Remove("program_list"); // Cache anahtarını kendi yapına göre düzelt
+                return ServiceResponse<bool>.SuccessResult(true, "Program verileri başarıyla aktarıldı.");
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return ServiceResponse<bool>.FailureResult($"İçe aktarım hatası: {ex.Message}");
+            }
         }
     }
 }

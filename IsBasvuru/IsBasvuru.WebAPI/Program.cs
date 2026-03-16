@@ -90,7 +90,9 @@ try
     builder.Services.AddScoped<IMasterPozisyonService, MasterPozisyonService>();
     builder.Services.AddScoped<IMasterProgramService, MasterProgramService>();
     builder.Services.AddScoped<IMasterOyunService, MasterOyunService>();
-
+    builder.Services.AddScoped<IMasterGorevService, MasterGorevService>();
+    builder.Services.AddScoped<IGorevService, GorevService>();
+    builder.Services.AddScoped<IGorevAtamaDetayService, GorevAtamaDetayService>();
 
     //Rol
     builder.Services.AddScoped<IAuthService, AuthService>();

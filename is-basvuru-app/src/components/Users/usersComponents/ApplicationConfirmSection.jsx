@@ -48,8 +48,6 @@ const ApplicationConfirmSection = ({
   const recaptchaRef = useRef(null);
   const [recaptchaToken, setRecaptchaToken] = useState("");
 
-  // 🔥 ÇEVİRİ MANTIĞI BURADA KURULDU 🔥
-  // i18n.language (veya t) her değiştiğinde bu useEffect tekrar çalışır.
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -66,8 +64,6 @@ const ApplicationConfirmSection = ({
             "tr"
           ).toLowerCase();
 
-          // İngilizceyse EN suffix'li kolonları, değilse TR suffix'li kolonları okur.
-          // Eğer veritabanından boş gelirse (||) locale dosyasındaki varsayılan çeviriyi (t(...)) kullanır.
           setContentTexts({
             dogruluk:
               currentLang === "en"
@@ -357,9 +353,6 @@ function ConfirmCard({ id, icon, title, text, checked, onClickCard }) {
             {text}
           </div>
 
-          {/* i18n t() fonksiyonunu buraya da uygulayabilirsin istersen. 
-              Ben t() olmadan bıraktım çünkü orijinalinde direkt TR yazıyordu. 
-              Eğer istiyorsan çeviri dosyana ekleyip t("confirm.cards.uncheck") yapabilirsin. */}
           <span className="text-[10px] text-sky-500 mt-2 font-semibold">
             {checked
               ? t("confirm.cards.truth.uncheck")

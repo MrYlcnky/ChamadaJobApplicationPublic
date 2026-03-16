@@ -1,5 +1,7 @@
-﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OyunBilgisiDtos;
+﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OyunBilgisiDtos;
 using IsBasvuru.Domain.Interfaces;
+using IsBasvuru.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -58,6 +60,19 @@ namespace IsBasvuru.WebAPI.Controllers
             if (id <= 0) return BadRequest("Geçersiz ID.");
             var response = await _service.DeleteAsync(id);
             return CreateActionResultInstance(response);
+        }
+
+        [HttpPost("import")]
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<IActionResult> ImportOyunlar([FromBody] List<OyunImportDto> importData)
+        {
+            var result = await _service.ImportOyunAsync(importData);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

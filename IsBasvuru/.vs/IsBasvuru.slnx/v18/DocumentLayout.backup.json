@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|solutionrelative:isbasvuru.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.infrastructure\\services\\oyunbilgisiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|solutionrelative:isbasvuru.infrastructure\\services\\oyunbilgisiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.infrastructure\\services\\personelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|solutionrelative:isbasvuru.infrastructure\\services\\personelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.webapi\\controllers\\gorevcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|solutionrelative:isbasvuru.webapi\\controllers\\gorevcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{687F6CCC-177A-B506-3BD0-3A9B4C097427}|IsBasvuru.Domain\\IsBasvuru.Domain.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.domain\\dtos\\personeldtos\\personelcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{687F6CCC-177A-B506-3BD0-3A9B4C097427}|IsBasvuru.Domain\\IsBasvuru.Domain.csproj|solutionrelative:isbasvuru.domain\\dtos\\personeldtos\\personelcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.webapi\\controllers\\oyunbilgisicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|solutionrelative:isbasvuru.webapi\\controllers\\oyunbilgisicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.webapi\\controllers\\programbilgisicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A4E0CF4-D87A-A924-21F1-462F587DFD73}|IsBasvuru.WebAPI\\IsBasvuru.WebAPI.csproj|solutionrelative:isbasvuru.webapi\\controllers\\programbilgisicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.infrastructure\\services\\gorevservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|solutionrelative:isbasvuru.infrastructure\\services\\gorevservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|c:\\users\\mehmet.yalcinkaya\\desktop\\hosting\\isbasvuru\\isbasvuru.infrastructure\\services\\programbilgisiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6736300C-9717-1C0B-01AA-AD7C75D0FAAD}|IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj|solutionrelative:isbasvuru.infrastructure\\services\\programbilgisiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +42,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PersonelCreateDto.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
-              "RelativeDocumentMoniker": "IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
-              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
-              "RelativeToolTip": "IsBasvuru.Domain\\DTOs\\PersonelDtos\\PersonelCreateDto.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAqwC4AAAABAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "GorevController.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Controllers\\GorevController.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.WebAPI\\Controllers\\GorevController.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Controllers\\GorevController.cs",
+              "RelativeToolTip": "IsBasvuru.WebAPI\\Controllers\\GorevController.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAUwE4AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T01:21:39.227Z",
+              "WhenOpened": "2026-03-14T07:38:09.272Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProgramBilgisiController.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Controllers\\ProgramBilgisiController.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.WebAPI\\Controllers\\ProgramBilgisiController.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Controllers\\ProgramBilgisiController.cs",
+              "RelativeToolTip": "IsBasvuru.WebAPI\\Controllers\\ProgramBilgisiController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAUwDsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T07:38:06.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OyunBilgisiController.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Controllers\\OyunBilgisiController.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.WebAPI\\Controllers\\OyunBilgisiController.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Controllers\\OyunBilgisiController.cs",
+              "RelativeToolTip": "IsBasvuru.WebAPI\\Controllers\\OyunBilgisiController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowEEAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T07:38:04.833Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Program.cs",
-              "RelativeDocumentMoniker": "IsBasvuru.WebAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\Program.cs",
-              "RelativeToolTip": "IsBasvuru.WebAPI\\Program.cs",
-              "ViewState": "AgIAAOYAAAAAAAAAAAAqwPQAAAAuAAAAAAAAAA==",
+              "Title": "OyunBilgisiService.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\OyunBilgisiService.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.Infrastructure\\Services\\OyunBilgisiService.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\OyunBilgisiService.cs",
+              "RelativeToolTip": "IsBasvuru.Infrastructure\\Services\\OyunBilgisiService.cs",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAqwPEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T01:16:03.979Z",
+              "WhenOpened": "2026-03-14T06:59:05.205Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PersonelService.cs",
-              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
-              "RelativeDocumentMoniker": "IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
-              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
-              "RelativeToolTip": "IsBasvuru.Infrastructure\\Services\\PersonelService.cs",
-              "ViewState": "AgIAADMCAAAAAAAAAAAqwEoCAAA+AAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "GorevService.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\GorevService.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.Infrastructure\\Services\\GorevService.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\GorevService.cs",
+              "RelativeToolTip": "IsBasvuru.Infrastructure\\Services\\GorevService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T01:14:49.044Z",
+              "WhenOpened": "2026-03-14T06:57:24.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ProgramBilgisiService.cs",
+              "DocumentMoniker": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\ProgramBilgisiService.cs",
+              "RelativeDocumentMoniker": "IsBasvuru.Infrastructure\\Services\\ProgramBilgisiService.cs",
+              "ToolTip": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\Services\\ProgramBilgisiService.cs",
+              "RelativeToolTip": "IsBasvuru.Infrastructure\\Services\\ProgramBilgisiService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAJEAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T06:56:05.258Z",
               "EditorCaption": ""
             }
           ]

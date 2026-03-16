@@ -60,7 +60,7 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<DilListDto>> CreateAsync(DilCreateDto dto)
         {
             // 1. Gelen metni normalize et (Büyük harf ve boşluk temizliği)
-            string normalizedName = dto.DilAdi.ToTurkishUpper();
+            string normalizedName = dto.DilAdi.ToString().Trim();
 
             // 2. Mükerrer kontrolünü normalize edilmiş isimle yap
             if (await _context.Diller.AnyAsync(x => x.DilAdi == normalizedName))
@@ -87,7 +87,7 @@ namespace IsBasvuru.Infrastructure.Services
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
             // 1. Yeni ismi normalize et
-            string normalizedName = dto.DilAdi.ToTurkishUpper();
+            string normalizedName = dto.DilAdi.ToString().Trim();
 
             // 2. İsim Çakışma Kontrolü (Kendisi hariç kontrol)
             bool cakisma = await _context.Diller

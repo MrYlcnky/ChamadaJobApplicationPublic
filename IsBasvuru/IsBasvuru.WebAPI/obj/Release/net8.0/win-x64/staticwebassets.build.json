@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "f/eGjkNJCM0h8xbH3F1AmNY1aQnkoQ88Df50ZaIN0oY=",
+  "Hash": "4RHI2i0ub3aRTcc8mDlcjmL2Em/DLpT+UTorhv/Kt9E=",
   "Source": "IsBasvuru.WebAPI",
   "BasePath": "_content/IsBasvuru.WebAPI",
   "Mode": "Default",
@@ -93,6 +93,25 @@
       "OriginalItemSpec": "wwwroot\\uploads\\personel\\35_mehmet_yalcinkaya.jpg"
     },
     {
+      "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png",
+      "SourceId": "IsBasvuru.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\",
+      "BasePath": "_content/IsBasvuru.WebAPI",
+      "RelativePath": "uploads/personel/6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\personel\\6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png"
+    },
+    {
       "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png",
       "SourceId": "IsBasvuru.WebAPI",
       "SourceType": "Discovered",
@@ -110,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\personel\\c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png"
+    },
+    {
+      "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\cfad5802-4e46-4547-8afc-e52202c55794_m.jpg",
+      "SourceId": "IsBasvuru.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\",
+      "BasePath": "_content/IsBasvuru.WebAPI",
+      "RelativePath": "uploads/personel/cfad5802-4e46-4547-8afc-e52202c55794_m.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\personel\\cfad5802-4e46-4547-8afc-e52202c55794_m.jpg"
     },
     {
       "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\df60f5f6-5fa4-493f-87b8-84fff79c5b55_printer.png",
@@ -167,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\personel-fotograflari\\067af9ff-fc87-4b8e-ba1b-7fe01b1c34cc_printer.png"
+    },
+    {
+      "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\1_mehmet_yalcinkaya.jpg",
+      "SourceId": "IsBasvuru.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\",
+      "BasePath": "_content/IsBasvuru.WebAPI",
+      "RelativePath": "uploads/personel-fotograflari/1_mehmet_yalcinkaya.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\personel-fotograflari\\1_mehmet_yalcinkaya.jpg"
     },
     {
       "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\32971c2f-3e94-4a4d-93a5-845beef6b647_printer.png",
@@ -357,6 +414,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\personel-fotograflari\\40_asdajdghj_adhgasdh.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\41_asdasd_asdadasd.png",
+      "SourceId": "IsBasvuru.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\",
+      "BasePath": "_content/IsBasvuru.WebAPI",
+      "RelativePath": "uploads/personel-fotograflari/41_asdasd_asdadasd.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\personel-fotograflari\\41_asdasd_asdadasd.png"
     }
   ]
 }

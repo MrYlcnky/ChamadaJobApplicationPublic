@@ -7,14 +7,12 @@ export function useFormDefinitionsCRUD({
   list,
   lookups,
   currentTab,
-  upperCaseTabs,
   fetchList,
   fetchLookups,
   setKvkkModalOpen,
   setSelectedKvkk,
   getValue,
 }) {
-  // --- EKLEME İŞLEMİ ---
   const handleAdd = async () => {
     if (activeTab === "kvkk") {
       setSelectedKvkk(null);
@@ -26,7 +24,6 @@ export function useFormDefinitionsCRUD({
       activeTab === "uyruk"
         ? list.map((item) => item.ulkeId || item.UlkeId)
         : [];
-
     const ulkelerOptions = lookups.ulkeler
       .map((u) => {
         const id = u.id || u.Id;
@@ -35,12 +32,13 @@ export function useFormDefinitionsCRUD({
       })
       .join("");
 
-    let htmlContent = "";
     const labelClass =
       "text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1.5";
+    // 🎯 DEĞİŞİKLİK: inputClass içerisindeki 'uppercase' sınıfı kaldırıldı.
     const inputClass =
-      "w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-50 focus:border-emerald-400 outline-none transition-all text-sm font-bold text-gray-700 uppercase";
+      "w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-emerald-50 focus:border-emerald-400 outline-none transition-all text-sm font-bold text-gray-700";
 
+    let htmlContent = "";
     if (["dil", "kktc", "ehliyet", "ulke"].includes(activeTab)) {
       htmlContent = `<div class="text-left"><label class="${labelClass}">Tanım Adı</label><input id="swal-name" class="${inputClass}" placeholder="Adı yazınız..."></div>`;
     } else if (["uyruk", "sehir"].includes(activeTab)) {
@@ -61,7 +59,7 @@ export function useFormDefinitionsCRUD({
     }
 
     const { value: formValues } = await Swal.fire({
-      title: `<span class="text-xl font-black text-gray-800 uppercase tracking-tighter">${currentTab.single} EKLE</span>`,
+      title: `<span class="text-xl font-black text-gray-800 tracking-tighter">${currentTab.single} EKLE</span>`,
       html: `<div class="mt-4">${htmlContent}</div>`,
       showCancelButton: true,
       confirmButtonText: "Ekle",
@@ -75,13 +73,7 @@ export function useFormDefinitionsCRUD({
           "px-8 py-3 rounded-xl font-black uppercase text-xs tracking-widest",
       },
       didOpen: (popup) => {
-        const input = popup.querySelector("#swal-name");
-        if (input && upperCaseTabs.includes(activeTab)) {
-          input.addEventListener(
-            "input",
-            (e) => (e.target.value = e.target.value.toLocaleUpperCase("tr-TR")),
-          );
-        }
+        // 🎯 DEĞİŞİKLİK: Otomatik uppercase yapan eventListener kaldırıldı.
         if (activeTab === "ilce") {
           const ulkeSelect = popup.querySelector("#swal-ulke");
           const sehirSelect = popup.querySelector("#swal-sehir");
@@ -117,11 +109,9 @@ export function useFormDefinitionsCRUD({
     });
 
     if (formValues) {
-      const finalText = upperCaseTabs.includes(activeTab)
-        ? formValues.text.toLocaleUpperCase("tr-TR")
-        : formValues.text;
-      const payload = { [currentTab.key]: finalText };
-      if (activeTab === "uyruk" || activeTab === "sehir")
+      // 🎯 DEĞİŞİKLİK: .toLocaleUpperCase("tr-TR") kaldırıldı.
+      const payload = { [currentTab.key]: formValues.text };
+      if (["uyruk", "sehir"].includes(activeTab))
         payload.UlkeId = parseInt(formValues.ulkeId);
       if (activeTab === "ilce") payload.SehirId = parseInt(formValues.sehirId);
 
@@ -161,7 +151,6 @@ export function useFormDefinitionsCRUD({
     }
   };
 
-  // --- DÜZENLEME İŞLEMİ ---
   const handleEdit = async (item) => {
     if (activeTab === "kvkk") {
       setSelectedKvkk(item);
@@ -170,7 +159,7 @@ export function useFormDefinitionsCRUD({
     }
     const currentVal = getValue(item, currentTab.key);
     const { value: newText } = await Swal.fire({
-      title: `<span class="text-xl font-black text-gray-800 uppercase tracking-tighter">DÜZENLE</span>`,
+      title: `<span class="text-xl font-black text-gray-800 tracking-tighter">DÜZENLE</span>`,
       input: "text",
       inputValue: currentVal,
       showCancelButton: true,
@@ -178,24 +167,14 @@ export function useFormDefinitionsCRUD({
       confirmButtonColor: "#f59e0b",
       customClass: {
         popup: "rounded-[2rem]",
-        input: "swal2-modern-input uppercase font-bold",
-      },
-      didOpen: (popup) => {
-        const input = popup.querySelector(".swal2-input");
-        if (input && upperCaseTabs.includes(activeTab)) {
-          input.addEventListener(
-            "input",
-            (e) => (e.target.value = e.target.value.toLocaleUpperCase("tr-TR")),
-          );
-        }
+        // 🎯 DEĞİŞİKLİK: 'uppercase' sınıfı kaldırıldı.
+        input: "swal2-modern-input font-bold",
       },
     });
 
     if (newText && newText !== currentVal) {
-      const finalText = upperCaseTabs.includes(activeTab)
-        ? newText.toLocaleUpperCase("tr-TR")
-        : newText;
-      const payload = { id: item.id, [currentTab.key]: finalText };
+      // 🎯 DEĞİŞİKLİK: .toLocaleUpperCase("tr-TR") kaldırıldı.
+      const payload = { id: item.id, [currentTab.key]: newText };
       if (activeTab === "uyruk" || activeTab === "sehir")
         payload.UlkeId = item.UlkeId || item.ulkeId;
       if (activeTab === "ilce") payload.SehirId = item.SehirId || item.sehirId;
@@ -235,7 +214,6 @@ export function useFormDefinitionsCRUD({
     }
   };
 
-  // --- SİLME İŞLEMİ ---
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Silinsin mi?",

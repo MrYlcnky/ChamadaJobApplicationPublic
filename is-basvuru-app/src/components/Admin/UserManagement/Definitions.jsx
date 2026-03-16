@@ -21,6 +21,7 @@ import {
   faLaptopCode,
   faDice,
   faSort,
+  faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -82,6 +83,13 @@ export default function Definitions() {
       icon: faDice,
       key: "MasterOyunAdi",
     },
+    {
+      id: "gorevler",
+      name: "Görevler",
+      single: "Görev",
+      icon: faClipboardList,
+      key: "MasterGorevAdi", // Backend'den gelen isme göre ayarla (Örn: masterGorevAdi)
+    },
   ];
 
   const currentTab = tabs.find((t) => t.id === activeTab);
@@ -110,6 +118,8 @@ export default function Definitions() {
         res = await tanimlamalarService.getAllMasterPrograms();
       else if (activeTab === "oyunlar")
         res = await tanimlamalarService.getAllMasterOyuns();
+      else if (activeTab === "gorevler")
+        res = await tanimlamalarService.getMasterGorevler();
 
       if (res && res.success) setList(res.data || []);
       else setList([]);
@@ -181,6 +191,8 @@ export default function Definitions() {
         res = await tanimlamalarService.createMasterProgram(payload);
       else if (activeTab === "oyunlar")
         res = await tanimlamalarService.createMasterOyun(payload);
+      else if (activeTab === "gorevler")
+        res = await tanimlamalarService.createMasterGorev(payload); // veya update
 
       if (res?.success) {
         toast.success("Eklendi.");
@@ -251,6 +263,8 @@ export default function Definitions() {
         res = await tanimlamalarService.updateMasterProgram(payload);
       else if (activeTab === "oyunlar")
         res = await tanimlamalarService.updateMasterOyun(payload);
+      else if (activeTab === "gorevler")
+        res = await tanimlamalarService.createMasterGorev(payload); // veya update
 
       if (res?.success) {
         toast.success("Güncellendi.");
@@ -298,6 +312,8 @@ export default function Definitions() {
           res = await tanimlamalarService.deleteMasterProgram(id);
         else if (activeTab === "oyunlar")
           res = await tanimlamalarService.deleteMasterOyun(id);
+        else if (activeTab === "gorevler")
+          res = await tanimlamalarService.deleteMasterGorev(id);
 
         if (res && res.success) {
           toast.success(res.message || "Kayıt başarıyla silindi.");

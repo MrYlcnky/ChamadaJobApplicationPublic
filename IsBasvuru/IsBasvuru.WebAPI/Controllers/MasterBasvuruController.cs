@@ -14,7 +14,7 @@ public class MasterBasvuruController : BaseController
     public MasterBasvuruController(IMasterBasvuruService service) { _service = service; }
 
     [HttpGet("GetAll")]
-    [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,GenelMudur,DepartmanMudur")]
+    [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,GenelMudur,DepartmanMudur,MaliIslerMudur")]
     public async Task<IActionResult> GetAll()
     {
         // Token içerisindeki Claim'lerden kullanıcının bilgilerini alıyoruz
@@ -77,7 +77,7 @@ public class MasterBasvuruController : BaseController
     }
 
     [HttpGet("GetNotifications")]
-    [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,GenelMudur,DepartmanMudur")]
+    [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,GenelMudur,DepartmanMudur,MaliIslerMudur")]
     public async Task<IActionResult> GetNotifications()
     {
         var roleClaimValue = User.FindFirst("RolId")?.Value;

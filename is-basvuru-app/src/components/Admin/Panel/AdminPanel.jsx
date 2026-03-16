@@ -89,6 +89,7 @@ export default function AdminPanel() {
   const isIKGroup = useMemo(() => [1, 2, 3, 4].includes(roleId), [roleId]);
   const isGenelMudur = useMemo(() => roleId === 5, [roleId]);
   const isDepartmanMudur = useMemo(() => roleId === 6, [roleId]);
+  const isMaliIslerMudur = useMemo(() => roleId === 7, [roleId]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const openId = searchParams.get("openId");
@@ -289,10 +290,25 @@ export default function AdminPanel() {
       } else if (isGenelMudur) {
         data = data.filter((app) => {
           const isFollowableStage = Number(app.approvalStage) >= 4;
+          const userSubeId = auth?.subeId ? Number(auth.subeId) : null;
+          if (userSubeId === null) return false;
 
-          /*const isFollowableStage =
-            Number(app.approvalStage) >= 4 ||
-            [4, 5].includes(Number(app.statusId));*/
+          const p = app.originalData?.personel || app.originalData?.Personel;
+          const detay = p?.isBasvuruDetay || p?.IsBasvuruDetay;
+
+          const appSubeler =
+            detay?.basvuruSubeler || detay?.BasvuruSubeler || [];
+          const isMyBranch = appSubeler.some(
+            (s) => Number(s.subeId || s.SubeId || s.id || s.Id) === userSubeId,
+          );
+
+          return isFollowableStage && isMyBranch;
+        });
+      } else if (isMaliIslerMudur) {
+        // MALİ İŞLER MÜDÜRÜ)
+        data = data.filter((app) => {
+          // Mali İşler Müdürü sadece 5 (Kendi Bekleyen) ve 6 (Tamamlandı) aşamalarını görür
+          const isFollowableStage = Number(app.approvalStage) >= 5;
 
           const userSubeId = auth?.subeId ? Number(auth.subeId) : null;
           if (userSubeId === null) return false;
@@ -375,6 +391,7 @@ export default function AdminPanel() {
     isIKGroup,
     isDepartmanMudur,
     isGenelMudur,
+    isMaliIslerMudur,
     roleId,
     auth,
   ]);

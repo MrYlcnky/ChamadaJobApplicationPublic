@@ -1,5 +1,7 @@
-﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.ProgramBilgisiDtos;
+﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.ProgramBilgisiDtos;
 using IsBasvuru.Domain.Wrappers;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,5 +14,7 @@ namespace IsBasvuru.Domain.Interfaces
         Task<ServiceResponse<ProgramBilgisiListDto>> CreateAsync(ProgramBilgisiCreateDto dto);
         Task<ServiceResponse<bool>> UpdateAsync(ProgramBilgisiUpdateDto dto);
         Task<ServiceResponse<bool>> DeleteAsync(int id);
+
+        Task<ServiceResponse<bool>> ImportProgramAsync(List<ProgramImportDto> importData);
     }
 }

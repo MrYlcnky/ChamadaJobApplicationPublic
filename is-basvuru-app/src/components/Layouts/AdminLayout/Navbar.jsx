@@ -346,10 +346,13 @@ export default function Navbar() {
                   <FontAwesomeIcon icon={faUserCircle} />
                 </div>
                 <div className="flex flex-col text-left">
-                  <span className="text-[10px] font-bold text-gray-200 leading-none">
-                    {auth?.adi}
+                  <span className="text-[11px] font-bold text-gray-200 leading-none">
+                    {auth?.adi + " " + auth?.soyadi}
                   </span>
-                  <span className="text-[8px] text-gray-500 uppercase mt-0.5">
+                  <span className="text-[9px] text-gray-300 uppercase mt-0.5">
+                    {auth?.masterDepartmanAdi}
+                  </span>
+                  <span className="text-[8px] text-gray-400 uppercase mt-0.5">
                     {auth?.rolAdi}
                   </span>
                 </div>

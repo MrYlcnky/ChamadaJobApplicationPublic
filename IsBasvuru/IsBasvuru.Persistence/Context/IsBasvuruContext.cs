@@ -4,6 +4,7 @@ using IsBasvuru.Domain.Entities.KimlikDogrulama;
 using IsBasvuru.Domain.Entities.Log;
 using IsBasvuru.Domain.Entities.PersonelBilgileri;
 using IsBasvuru.Domain.Entities.SirketYapisi;
+using IsBasvuru.Domain.Entities.SirketYapisi.GorevAtama;
 using IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi;
 using IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi;
 using IsBasvuru.Domain.Entities.Tanimlamalar;
@@ -66,6 +67,10 @@ namespace IsBasvuru.Persistence.Context
         public DbSet<MasterPozisyon> MasterPozisyonlar { get; set; }
         public DbSet<MasterProgram> MasterProgramlar { get; set; }
         public DbSet<MasterOyun> MasterOyunlar { get; set; }
+        // Context içine eklenecekler
+        public DbSet<GorevAtamaDetay> GorevAtamaDetaylari { get; set; }
+        public DbSet<MasterGorev> MasterGorevler { get; set; }
+        public DbSet<Gorev> Gorevler { get; set; }
 
         // 5-Tanimlamalar
         public DbSet<Dil> Diller { get; set; }
@@ -220,13 +225,18 @@ namespace IsBasvuru.Persistence.Context
                 {
                     Id = (int)RolEnum.GenelMudur,
                     RolAdi = "GenelMudur",
-                    RolTanimi = "Üst düzey başvuru değerlendirme ve onay mercii."
+                    RolTanimi = "Üst düzey başvuru değerlendirme ve onay merci."
                 },
                 new Rol
                 {
                     Id = (int)RolEnum.DepartmanMudur,
                     RolAdi = "DepartmanMudur",
-                    RolTanimi = "İlgili departmana gelen başvuruları değerlendirme mercii."
+                    RolTanimi = "İlgili departmana gelen başvuruları değerlendirme merci."
+                }, new Rol
+                {
+                    Id = (int)RolEnum.MaliIslerMudur,
+                    RolAdi = "MaliIslerMudur",
+                    RolTanimi = "Adaya teklif edilen maaş ve kadro bütçesinin uygunluğunu denetleyip finansal onay veren merci."
                 }
             );
 
@@ -243,6 +253,34 @@ namespace IsBasvuru.Persistence.Context
                 MasterAlanId = null,
                 MasterDepartmanId = null
             });
+
+            modelBuilder.Entity<GorevAtamaDetay>()
+        .HasOne(x => x.Personel)
+        .WithMany()
+        .HasForeignKey(x => x.PersonelId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GorevAtamaDetay>()
+                .HasOne(x => x.MasterDepartman)
+                .WithMany()
+                .HasForeignKey(x => x.MasterDepartmanId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GorevAtamaDetay>()
+                .HasOne(x => x.Gorev)
+                .WithMany()
+                .HasForeignKey(x => x.GorevId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GorevAtamaDetay>()
+                .HasOne(x => x.PanelKullanici)
+                .WithMany()
+                .HasForeignKey(x => x.PanelKullaniciId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GorevAtamaDetay>()
+    .Property(x => x.BaslangicTarihi)
+    .HasColumnType("date");
         }
     }
 }

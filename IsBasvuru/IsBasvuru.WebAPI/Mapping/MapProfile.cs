@@ -18,12 +18,15 @@ using IsBasvuru.Domain.DTOs.PersonelBilgileriDtos.YabanciDilBilgisiDtos;
 using IsBasvuru.Domain.DTOs.PersonelDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterAlanDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterDepartmanDtos;
+using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterGorev;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterOyun;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterPozisyonDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterProgram;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterSubeAlan;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.DepartmanDtos;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.DepartmanPozisyonDtos;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevAtamaDetayDtos;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevDtos;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OyunBilgisiDtos;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.PersonelEhliyetDtos;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.ProgramBilgisiDtos;
@@ -42,6 +45,7 @@ using IsBasvuru.Domain.Entities.AdminBilgileri;
 using IsBasvuru.Domain.Entities.Log;
 using IsBasvuru.Domain.Entities.PersonelBilgileri;
 using IsBasvuru.Domain.Entities.SirketYapisi;
+using IsBasvuru.Domain.Entities.SirketYapisi.GorevAtama;
 using IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi;
 using IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi;
 using IsBasvuru.Domain.Entities.Tanimlamalar;
@@ -422,6 +426,10 @@ namespace IsBasvuru.WebAPI.Mapping
              .ForMember(dest => dest.IkIslemi, opt => opt.MapFrom(src =>
                  (src.PanelKullanici != null && src.PanelKullanici.Rol != null && (new[] { "IK", "Admin", "SuperAdmin" }).Contains(src.PanelKullanici.Rol.RolAdi))
                  ? $"{src.PanelKullanici.Adi} {src.PanelKullanici.Soyadi}: {src.IslemAciklama}"
+                 : ""))
+            .ForMember(dest => dest.MimIslemi, opt => opt.MapFrom(src =>
+                 (src.PanelKullanici != null && src.PanelKullanici.Rol != null && src.PanelKullanici.Rol.RolAdi == "MaliIslerMudur")
+                 ? $"{src.PanelKullanici.Adi} {src.PanelKullanici.Soyadi}: {src.IslemAciklama}"
                  : ""));
 
             CreateMap<CvDegisiklikLog, CvDegisiklikLogListDto>()
@@ -452,14 +460,57 @@ namespace IsBasvuru.WebAPI.Mapping
             // BasvuruOnay Mappings
             CreateMap<BasvuruOnayCreateDto, BasvuruOnay>();
             CreateMap<BasvuruOnay, BasvuruOnayListDto>()
-                .ForMember(dest => dest.BasvuruId, opt => opt.MapFrom(src =>
-        (src.Personel != null && src.Personel.MasterBasvuru != null)
-        ? src.Personel.MasterBasvuru.Id
-        : (int?)null))
-         .ForMember(dest => dest.PersonelAdSoyad, opt => opt.MapFrom(src =>
-             (src.Personel != null && src.Personel.KisiselBilgiler != null)
-                 ? $"{src.Personel.KisiselBilgiler.Ad} {src.Personel.KisiselBilgiler.Soyadi}"
-                 : "Bilinmeyen Aday"));
+               .ForMember(dest => dest.BasvuruId, opt => opt.MapFrom(src =>(src.Personel != null && src.Personel.MasterBasvuru != null) ?src.Personel.MasterBasvuru.Id : (int?)null))
+               .ForMember(dest => dest.PersonelAdSoyad, opt => opt.MapFrom(src =>(src.Personel != null && src.Personel.KisiselBilgiler != null)
+                 ? $"{src.Personel.KisiselBilgiler.Ad} {src.Personel.KisiselBilgiler.Soyadi}": "Bilinmeyen Aday"));
+
+
+            // ==========================================
+            // 1. MasterGorev Mapping Ayarları
+            // ==========================================
+            CreateMap<MasterGorev, MasterGorevCreateDto>().ReverseMap();
+            CreateMap<MasterGorev, MasterGorevUpdateDto>().ReverseMap();
+            CreateMap<MasterGorev, MasterGorevListDto>().ReverseMap();
+
+            // ==========================================
+            // 2. Gorev Mapping Ayarları
+            // ==========================================
+            CreateMap<Gorev, GorevCreateDto>().ReverseMap();
+            CreateMap<Gorev, GorevUpdateDto>().ReverseMap();
+            CreateMap<Gorev, GorevListDto>()
+                // Master Görev adını ilişkiden çek
+                .ForMember(dest => dest.MasterGorevAdi, opt => opt.MapFrom(src =>
+                    src.MasterGorev != null ? src.MasterGorev.MasterGorevAdi : null))
+                // Departman Adını (Şube - MasterDepartman ilişkisinden) çek
+                .ForMember(dest => dest.MasterDepartmanAdi, opt => opt.MapFrom(src =>
+        src.MasterDepartman != null ? src.MasterDepartman.MasterDepartmanAdi : null))
+    .ReverseMap();
+
+
+            // ==========================================
+            // 3. GorevAtamaDetay Mapping Ayarları (Sürecin Kalbi)
+            // ==========================================
+            CreateMap<GorevAtamaDetay, GorevAtamaDetayCreateDto>().ReverseMap();
+            CreateMap<GorevAtamaDetay, GorevAtamaDetayUpdateDto>().ReverseMap();
+            CreateMap<GorevAtamaDetay, GorevAtamaDetayListDto>()
+                .ForMember(dest => dest.PersonelAdSoyad, opt => opt.MapFrom(src =>
+                    src.Personel != null && src.Personel.KisiselBilgiler != null
+                    ? src.Personel.KisiselBilgiler.Ad + " " + src.Personel.KisiselBilgiler.Soyadi
+                    : null))
+                .ForMember(dest => dest.MasterDepartmanAdi, opt => opt.MapFrom(src =>
+                    src.MasterDepartman != null ? src.MasterDepartman.MasterDepartmanAdi : null))
+
+                // GÖREV ADI ÇEKİMİ DEĞİŞTİ: Gorev tablosu üzerinden MasterGorev'e gidiyoruz
+                .ForMember(dest => dest.GorevAdi, opt => opt.MapFrom(src =>
+                    src.Gorev != null && src.Gorev.MasterGorev != null ? src.Gorev.MasterGorev.MasterGorevAdi : null))
+
+                .ForMember(dest => dest.OnaylayanKullaniciAdSoyad, opt => opt.MapFrom(src =>
+                    src.PanelKullanici != null ? src.PanelKullanici.Adi + " " + src.PanelKullanici.Soyadi : null))
+                .ForMember(dest => dest.TalepNedeniMetin, opt => opt.MapFrom(src =>
+                    src.TalepNedeni == IsBasvuru.Domain.Enums.TalepNedeni.YeniKadro ? "Yeni Kadro" : "Yerine"))
+                .ForMember(dest => dest.BaslangicTarihi,
+               opt => opt.MapFrom(src => src.BaslangicTarihi.ToString("yyyy-MM-dd")))
+                .ReverseMap();
         }
     }
 }

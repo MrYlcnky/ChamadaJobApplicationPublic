@@ -2,6 +2,7 @@
 using IsBasvuru.Domain.DTOs.MasterBasvuruDtos;
 using IsBasvuru.Domain.Entities;
 using IsBasvuru.Domain.Entities.Log;
+using IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi;
 using IsBasvuru.Domain.Enums;
 using IsBasvuru.Domain.Interfaces;
 using IsBasvuru.Domain.Wrappers;
@@ -66,6 +67,20 @@ namespace IsBasvuru.Infrastructure.Services
                     x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Tamamlandi ||         // 2. Onayladığı ve bitenler (Aşama 5)
                     x.BasvuruDurum == BasvuruDurum.Reddedildi ||                    // 3. Reddedilenler
                     x.BasvuruDurum == BasvuruDurum.RevizeTalebi                     // 4. Revize bekleyenler
+                );
+            }
+
+            else if (roleId == 7)
+            {
+                query = query.Where(x =>
+                    // GÜVENLİK: Kendi şubesindeki adayları görür
+                    (!subeId.HasValue || x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId))
+                ).Where(x =>
+                    // GÖRÜNÜRLÜK:
+                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Mali_Isler_Mudur_Onayi || // 1. Kendi onayını bekleyenler (Aşama 5)
+                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Tamamlandi ||         // 2. Onayladığı ve bitenler (Aşama 6)
+                    x.BasvuruDurum == BasvuruDurum.Reddedildi ||                     // 3. Reddedilenler
+                    x.BasvuruDurum == BasvuruDurum.RevizeTalebi                      // 4. Revize bekleyenler
                 );
             }
             // 3. IK Grubu (1, 2, 3, 4) ise filtreleme yapma, her şeyi görsünler.
@@ -393,6 +408,11 @@ namespace IsBasvuru.Infrastructure.Services
             else if (roleId == 5)
             {
                 query = query.Where(x => (int)x.BasvuruOnayAsamasi == 4 &&
+                                         (int)x.BasvuruDurum == 2);
+            }
+            else if (roleId == 7)
+            {
+                query = query.Where(x => (int)x.BasvuruOnayAsamasi == 5 &&
                                          (int)x.BasvuruDurum == 2);
             }
             else

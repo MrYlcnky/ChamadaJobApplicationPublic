@@ -419,6 +419,46 @@
         }
       }
     },
+    "/api/DepartmanPozisyon/ImportOrganization": {
+      "post": {
+        "tags": [
+          "DepartmanPozisyon"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OrganizationImportDto"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OrganizationImportDto"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OrganizationImportDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/DigerKisiselBilgiler/GetAll": {
       "get": {
         "tags": [
@@ -892,6 +932,297 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/GetAll": {
+      "get": {
+        "tags": [
+          "Gorev"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/GetByMasterGorevId/{masterGorevId}": {
+      "get": {
+        "tags": [
+          "Gorev"
+        ],
+        "parameters": [
+          {
+            "name": "masterGorevId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/GetByMasterDepartmanId/{masterDepartmanId}": {
+      "get": {
+        "tags": [
+          "Gorev"
+        ],
+        "parameters": [
+          {
+            "name": "masterDepartmanId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/GetById/{id}": {
+      "get": {
+        "tags": [
+          "Gorev"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/Create": {
+      "post": {
+        "tags": [
+          "Gorev"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/Update": {
+      "put": {
+        "tags": [
+          "Gorev"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "Gorev"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Gorev/import": {
+      "post": {
+        "tags": [
+          "Gorev"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GorevImportDto"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GorevImportDto"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/GorevImportDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GorevAtamaDetay/GetByPersonelId/{personelId}": {
+      "get": {
+        "tags": [
+          "GorevAtamaDetay"
+        ],
+        "parameters": [
+          {
+            "name": "personelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GorevAtamaDetay/Create": {
+      "post": {
+        "tags": [
+          "GorevAtamaDetay"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevAtamaDetayCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevAtamaDetayCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevAtamaDetayCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/GorevAtamaDetay/Update": {
+      "put": {
+        "tags": [
+          "GorevAtamaDetay"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevAtamaDetayUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevAtamaDetayUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GorevAtamaDetayUpdateDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -1902,6 +2233,126 @@
         }
       }
     },
+    "/api/MasterGorev/GetAll": {
+      "get": {
+        "tags": [
+          "MasterGorev"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterGorev/GetById/{id}": {
+      "get": {
+        "tags": [
+          "MasterGorev"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterGorev/Create": {
+      "post": {
+        "tags": [
+          "MasterGorev"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MasterGorevCreateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MasterGorevCreateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MasterGorevCreateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterGorev/Update": {
+      "put": {
+        "tags": [
+          "MasterGorev"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MasterGorevUpdateDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MasterGorevUpdateDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MasterGorevUpdateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/MasterGorev/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "MasterGorev"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/MasterOyun/GetAll": {
       "get": {
         "tags": [
@@ -2306,6 +2757,46 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/OyunBilgisi/import": {
+      "post": {
+        "tags": [
+          "OyunBilgisi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OyunImportDto"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OyunImportDto"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OyunImportDto"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -3720,6 +4211,46 @@
         }
       }
     },
+    "/api/ProgramBilgisi/import": {
+      "post": {
+        "tags": [
+          "ProgramBilgisi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProgramImportDto"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProgramImportDto"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProgramImportDto"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ReferansBilgisi/GetAll": {
       "get": {
         "tags": [
@@ -4879,7 +5410,8 @@
           2,
           3,
           4,
-          5
+          5,
+          6
         ],
         "type": "integer",
         "format": "int32"
@@ -5294,6 +5826,138 @@
           "ehliyetTuruAdi": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GorevAtamaDetayCreateDto": {
+        "type": "object",
+        "properties": {
+          "personelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "masterDepartmanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gorevId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "panelKullaniciId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "netUcret": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "talepEdilenGorevGenelButcesi": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "baslangicTarihi": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "talepNedeni": {
+            "$ref": "#/components/schemas/TalepNedeni"
+          },
+          "yerineAlinacakKisiAdSoyad": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GorevAtamaDetayUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "personelId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "masterDepartmanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gorevId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "panelKullaniciId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "netUcret": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "talepEdilenGorevGenelButcesi": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "baslangicTarihi": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "talepNedeni": {
+            "$ref": "#/components/schemas/TalepNedeni"
+          },
+          "yerineAlinacakKisiAdSoyad": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GorevCreateDto": {
+        "type": "object",
+        "properties": {
+          "masterGorevId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "masterDepartmanId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GorevImportDto": {
+        "type": "object",
+        "properties": {
+          "departman": {
+            "type": "string",
+            "nullable": true
+          },
+          "gorevAdi": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GorevUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "masterGorevId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "masterDepartmanId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -5717,6 +6381,36 @@
         },
         "additionalProperties": false
       },
+      "MasterGorevCreateDto": {
+        "required": [
+          "masterGorevAdi"
+        ],
+        "type": "object",
+        "properties": {
+          "masterGorevAdi": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MasterGorevUpdateDto": {
+        "required": [
+          "masterGorevAdi"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "masterGorevAdi": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "MasterOyunCreateDto": {
         "required": [
           "masterOyunAdi"
@@ -5827,6 +6521,28 @@
         "type": "integer",
         "format": "int32"
       },
+      "OrganizationImportDto": {
+        "type": "object",
+        "properties": {
+          "sube": {
+            "type": "string",
+            "nullable": true
+          },
+          "alan": {
+            "type": "string",
+            "nullable": true
+          },
+          "departman": {
+            "type": "string",
+            "nullable": true
+          },
+          "pozisyon": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "OyunBilgisiCreateDto": {
         "required": [
           "oyunAdi"
@@ -5883,6 +6599,24 @@
           },
           "oyunAktifMi": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OyunImportDto": {
+        "type": "object",
+        "properties": {
+          "sube": {
+            "type": "string",
+            "nullable": true
+          },
+          "departman": {
+            "type": "string",
+            "nullable": true
+          },
+          "oyunAdi": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -6091,6 +6825,24 @@
           },
           "programAktifMi": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProgramImportDto": {
+        "type": "object",
+        "properties": {
+          "sube": {
+            "type": "string",
+            "nullable": true
+          },
+          "departman": {
+            "type": "string",
+            "nullable": true
+          },
+          "programAdi": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -6384,6 +7136,14 @@
           }
         },
         "additionalProperties": false
+      },
+      "TalepNedeni": {
+        "enum": [
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "UlkeCreateDto": {
         "required": [

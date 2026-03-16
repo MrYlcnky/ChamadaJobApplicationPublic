@@ -9,7 +9,7 @@ namespace IsBasvuru.WebAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     // Sadece Admin ve SuperAdmin logları görebilsin
-    [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,DepartmanMudur,GenelMudur")]
+    [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,DepartmanMudur,GenelMudur,MaliIslerMudur")]
     public class LogController : BaseController
     {
         private readonly ILogService _logService;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterAlanDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterDepartmanDtos;
+using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterGorev;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterOyun;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterPozisyonDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterProgram;
@@ -379,5 +380,72 @@ namespace IsBasvuru.Infrastructure.Services
         }
     }
 
+    // ==========================================
+    // 6. MASTER GOREV SERVICE
+    // ==========================================
+    public class MasterGorevService : IMasterGorevService
+    {
+        private readonly IsBasvuruContext _context;
+        private readonly IMapper _mapper;
+
+        public MasterGorevService(IsBasvuruContext context, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+        }
+
+        public async Task<ServiceResponse<List<MasterGorevListDto>>> GetAllAsync()
+        {
+            var list = await _context.MasterGorevler.ToListAsync();
+            var dtoList = _mapper.Map<List<MasterGorevListDto>>(list);
+            return ServiceResponse<List<MasterGorevListDto>>.SuccessResult(dtoList);
+        }
+
+        public async Task<ServiceResponse<MasterGorevListDto>> GetByIdAsync(int id)
+        {
+            var entity = await _context.MasterGorevler.FindAsync(id);
+            if (entity == null)
+                return ServiceResponse<MasterGorevListDto>.FailureResult("Kayıt bulunamadı.");
+
+            var dto = _mapper.Map<MasterGorevListDto>(entity);
+            return ServiceResponse<MasterGorevListDto>.SuccessResult(dto);
+        }
+
+        public async Task<ServiceResponse<MasterGorevListDto>> CreateAsync(MasterGorevCreateDto dto)
+        {
+            var entity = _mapper.Map<MasterGorev>(dto);
+            await _context.MasterGorevler.AddAsync(entity);
+            await _context.SaveChangesAsync();
+
+            // Mevcut mimarine uygun olarak, eklenen veriyi DTO'ya çevirip dönüyoruz
+            var resultDto = _mapper.Map<MasterGorevListDto>(entity);
+            return ServiceResponse<MasterGorevListDto>.SuccessResult(resultDto, "Başarıyla eklendi.");
+        }
+
+        public async Task<ServiceResponse<bool>> UpdateAsync(MasterGorevUpdateDto dto)
+        {
+            var entity = await _context.MasterGorevler.FindAsync(dto.Id);
+            if (entity == null)
+                return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
+
+            _mapper.Map(dto, entity);
+            _context.MasterGorevler.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return ServiceResponse<bool>.SuccessResult(true, "Başarıyla güncellendi.");
+        }
+
+        public async Task<ServiceResponse<bool>> DeleteAsync(int id)
+        {
+            var entity = await _context.MasterGorevler.FindAsync(id);
+            if (entity == null)
+                return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
+
+            _context.MasterGorevler.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            return ServiceResponse<bool>.SuccessResult(true, "Başarıyla silindi.");
+        }
+    }
 
 }

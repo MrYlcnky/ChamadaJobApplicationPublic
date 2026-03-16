@@ -68,7 +68,7 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<IlceListDto>> CreateAsync(IlceCreateDto createDto)
         {
             // 1. Gelen metni hemen normalize et
-            string normalizedName = createDto.IlceAdi.ToTurkishUpper();
+            string normalizedName = createDto.IlceAdi.ToString().Trim();
 
             // Şehir kontrolü
             if (!await _context.Sehirler.AnyAsync(x => x.Id == createDto.SehirId))
@@ -99,7 +99,7 @@ namespace IsBasvuru.Infrastructure.Services
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
             // 1. Yeni ismi normalize et
-            string normalizedName = updateDto.IlceAdi.ToTurkishUpper();
+            string normalizedName = updateDto.IlceAdi.ToString().Trim();
 
             // Şehir değişikliği kontrolü
             if (entity.SehirId != updateDto.SehirId)

@@ -32,9 +32,12 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<LoginResponseDto>> LoginAsync(AdminLoginDto dto)
         {
             // 1. Kullanıcıyı Bul (Include ile Rol bilgisini de çekiyoruz)
-            // AsNoTracking KULLANMIYORUZ çünkü SonGirisTarihi'ni güncelleyeceğiz.
+
             var kullanici = await _context.PanelKullanicilari
                 .Include(x => x.Rol)
+                .Include(x => x.MasterDepartman)
+                .Include(x => x.MasterAlan)
+                .Include(x => x.Sube)
                 .FirstOrDefaultAsync(x => x.KullaniciAdi == dto.KullaniciAdi);
 
             // 2. Kullanıcı Yoksa Hata Dön

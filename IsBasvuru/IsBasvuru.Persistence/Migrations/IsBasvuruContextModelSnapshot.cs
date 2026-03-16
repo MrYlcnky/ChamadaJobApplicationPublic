@@ -138,13 +138,19 @@ namespace IsBasvuru.Persistence.Migrations
                         {
                             Id = 5,
                             RolAdi = "GenelMudur",
-                            RolTanimi = "Üst düzey başvuru değerlendirme ve onay mercii."
+                            RolTanimi = "Üst düzey başvuru değerlendirme ve onay merci."
                         },
                         new
                         {
                             Id = 6,
                             RolAdi = "DepartmanMudur",
-                            RolTanimi = "İlgili departmana gelen başvuruları değerlendirme mercii."
+                            RolTanimi = "İlgili departmana gelen başvuruları değerlendirme merci."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            RolAdi = "MaliIslerMudur",
+                            RolTanimi = "Adaya teklif edilen maaş ve kadro bütçesinin uygunluğunu denetleyip finansal onay veren merci."
                         });
                 });
 
@@ -803,6 +809,54 @@ namespace IsBasvuru.Persistence.Migrations
                     b.ToTable("YabanciDilBilgileri");
                 });
 
+            modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.GorevAtama.GorevAtamaDetay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BaslangicTarihi")
+                        .HasColumnType("date");
+
+                    b.Property<int>("GorevId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MasterDepartmanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NetUcret")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PanelKullaniciId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TalepEdilenGorevGenelButcesi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TalepNedeni")
+                        .HasColumnType("int");
+
+                    b.Property<string>("YerineAlinacakKisiAdSoyad")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GorevId");
+
+                    b.HasIndex("MasterDepartmanId");
+
+                    b.HasIndex("PanelKullaniciId");
+
+                    b.HasIndex("PersonelId");
+
+                    b.ToTable("GorevAtamaDetaylari");
+                });
+
             modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.IsBasvuruDetayAlan", b =>
                 {
                     b.Property<int>("Id")
@@ -969,6 +1023,23 @@ namespace IsBasvuru.Persistence.Migrations
                     b.ToTable("PersonelEhliyetleri");
                 });
 
+            modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi.MasterGorev", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("MasterGorevAdi")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MasterGorevler");
+                });
+
             modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi.MasterOyun", b =>
                 {
                     b.Property<int>("Id")
@@ -1053,6 +1124,29 @@ namespace IsBasvuru.Persistence.Migrations
                     b.HasIndex("MasterPozisyonId");
 
                     b.ToTable("DepartmanPozisyonlar");
+                });
+
+            modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi.Gorev", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MasterDepartmanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MasterGorevId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MasterDepartmanId");
+
+                    b.HasIndex("MasterGorevId");
+
+                    b.ToTable("Gorevler");
                 });
 
             modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi.OyunBilgisi", b =>
@@ -1656,6 +1750,41 @@ namespace IsBasvuru.Persistence.Migrations
                     b.Navigation("Personel");
                 });
 
+            modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.GorevAtama.GorevAtamaDetay", b =>
+                {
+                    b.HasOne("IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi.Gorev", "Gorev")
+                        .WithMany()
+                        .HasForeignKey("GorevId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IsBasvuru.Domain.Entities.Tanimlamalar.MasterDepartman", "MasterDepartman")
+                        .WithMany()
+                        .HasForeignKey("MasterDepartmanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IsBasvuru.Domain.Entities.AdminBilgileri.PanelKullanici", "PanelKullanici")
+                        .WithMany()
+                        .HasForeignKey("PanelKullaniciId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IsBasvuru.Domain.Entities.Personel", "Personel")
+                        .WithMany()
+                        .HasForeignKey("PersonelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Gorev");
+
+                    b.Navigation("MasterDepartman");
+
+                    b.Navigation("PanelKullanici");
+
+                    b.Navigation("Personel");
+                });
+
             modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.IsBasvuruDetayAlan", b =>
                 {
                     b.HasOne("IsBasvuru.Domain.Entities.PersonelBilgileri.IsBasvuruDetay", "IsBasvuruDetay")
@@ -1827,6 +1956,25 @@ namespace IsBasvuru.Persistence.Migrations
                     b.Navigation("MasterPozisyon");
                 });
 
+            modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi.Gorev", b =>
+                {
+                    b.HasOne("IsBasvuru.Domain.Entities.Tanimlamalar.MasterDepartman", "MasterDepartman")
+                        .WithMany()
+                        .HasForeignKey("MasterDepartmanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi.MasterGorev", "MasterGorev")
+                        .WithMany("Gorevler")
+                        .HasForeignKey("MasterGorevId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MasterDepartman");
+
+                    b.Navigation("MasterGorev");
+                });
+
             modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi.OyunBilgisi", b =>
                 {
                     b.HasOne("IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi.Departman", "Departman")
@@ -1967,6 +2115,11 @@ namespace IsBasvuru.Persistence.Migrations
                     b.Navigation("BasvuruProgramlar");
 
                     b.Navigation("BasvuruSubeler");
+                });
+
+            modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi.MasterGorev", b =>
+                {
+                    b.Navigation("Gorevler");
                 });
 
             modelBuilder.Entity("IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi.MasterOyun", b =>

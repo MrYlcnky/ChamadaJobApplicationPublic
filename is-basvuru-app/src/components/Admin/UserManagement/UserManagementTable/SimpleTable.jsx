@@ -1,4 +1,3 @@
-// src/components/Admin/UserManagement/UserManagementTable/SimpleTable.jsx
 import React from "react";
 
 export default function SimpleTable({
@@ -7,18 +6,11 @@ export default function SimpleTable({
   currentTabKey,
   renderButtons,
 }) {
-  /**
-   * getValue: API'den gelen verinin key ismine göre (büyük/küçük harf duyarlılığı)
-   * veriyi dinamik olarak çeker.
-   */
   const getValue = (item, key) => {
     if (!item) return "-";
-    // Eğer doğrudan key varsa (Örn: EhliyetTuruAdi)
     if (item[key] !== undefined) return item[key];
-    // Camelcase versiyonu varsa (Örn: ehliyetTuruAdi)
     const camelKey = key.charAt(0).toLowerCase() + key.slice(1);
     if (item[camelKey] !== undefined) return item[camelKey];
-    // KKTC gibi özel durumlar için fallback
     if (item["belgeAdi"]) return item["belgeAdi"];
     return "-";
   };
@@ -31,7 +23,7 @@ export default function SimpleTable({
             <th className="py-5 px-10 text-[10px] font-black text-gray-400 uppercase w-24">
               ID
             </th>
-            <th className="py-5 px-6 text-[10px] font-black text-gray-400 uppercase  ">
+            <th className="py-5 px-6 text-[10px] font-black text-gray-400 uppercase">
               Tanım Bilgisi
             </th>
             <th className="py-5 px-10 text-[10px] font-black text-gray-400 uppercase text-right">
@@ -66,13 +58,10 @@ export default function SimpleTable({
                     #{item.id}
                   </span>
                 </td>
-                <td className="py-5 px-6 text-sm font-black text-gray-800 uppercase tracking-tight">
+                <td className="py-5 px-6 text-sm font-bold text-gray-800 tracking-tight">
                   {getValue(item, currentTabKey)}
                 </td>
-                <td className="py-5 px-10 text-right">
-                  {/* Butonlar dışarıdan (FormDefinitions) gelecek */}
-                  {renderButtons(item)}
-                </td>
+                <td className="py-5 px-10 text-right">{renderButtons(item)}</td>
               </tr>
             ))
           )}

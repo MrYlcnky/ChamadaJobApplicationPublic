@@ -1,5 +1,7 @@
 ﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.DepartmanPozisyonDtos;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos;
 using IsBasvuru.Domain.Interfaces;
+using IsBasvuru.Infrastructure.Services;
 using IsBasvuru.WebAPI.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -51,5 +53,15 @@ public class DepartmanPozisyonController : BaseController
         if (id <= 0) return BadRequest("Geçersiz ID.");
         var response = await _service.DeleteAsync(id);
         return CreateActionResultInstance(response);
+    }
+
+    [HttpPost("ImportOrganization")]
+    [Authorize(Roles = "SuperAdmin")]
+    public async Task<IActionResult> ImportOrganization([FromBody] List<OrganizationImportDto> data)
+    {
+        var result = await _service.ImportOrganizationAsync(data);
+        if (result.Success)
+            return Ok(result);
+        return BadRequest(result);
     }
 }

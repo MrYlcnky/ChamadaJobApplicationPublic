@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\uploads\personel-fotograflari\" />
     <Folder Include="wwwroot\uploads\personel\" />
   </ItemGroup>
 

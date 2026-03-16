@@ -61,7 +61,7 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<KktcBelgeListDto>> CreateAsync(KktcBelgeCreateDto dto)
         {
             // 1. Gelen belge adını normalize et (Büyük harf ve boşluk temizliği)
-            string normalizedName = dto.BelgeAdi.ToTurkishUpper();
+            string normalizedName = dto.BelgeAdi.ToString().Trim();
 
             // 2. Mükerrer kontrolünü normalize edilmiş isimle yap
             if (await _context.KktcBelgeler.AnyAsync(x => x.BelgeAdi == normalizedName))
@@ -88,7 +88,7 @@ namespace IsBasvuru.Infrastructure.Services
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
             // 1. Yeni ismi normalize et
-            string normalizedName = dto.BelgeAdi.ToTurkishUpper();
+            string normalizedName = dto.BelgeAdi.ToString().Trim();
 
             // 2. İsim Çakışma Kontrolü (Kendisi hariç kontrol)
             bool cakisma = await _context.KktcBelgeler

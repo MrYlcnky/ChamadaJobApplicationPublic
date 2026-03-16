@@ -1,5 +1,7 @@
-﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.ProgramBilgisiDtos;
+﻿using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.ProgramBilgisiDtos;
 using IsBasvuru.Domain.Interfaces;
+using IsBasvuru.Infrastructure.Services;
 using IsBasvuru.WebAPI.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,5 +54,18 @@ public class ProgramBilgisiController : BaseController
         if (id <= 0) return BadRequest("Geçersiz ID.");
         var response = await _service.DeleteAsync(id);
         return CreateActionResultInstance(response);
+    }
+
+    [HttpPost("import")]
+    [Authorize(Roles = "SuperAdmin")]
+    public async Task<IActionResult> ImportProgramlar([FromBody] List<ProgramImportDto> importData)
+    {
+        var result = await _service.ImportProgramAsync(importData);
+
+        if (result.Success)
+        {
+            return Ok(result);
+        }
+        return BadRequest(result);
     }
 }

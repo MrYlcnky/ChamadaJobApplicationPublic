@@ -78,20 +78,21 @@ export default function DistrictTable({
                     </span>
                   </td>
 
-                  <td className="py-5 px-6 text-sm font-black text-gray-800 uppercase tracking-tight">
+                  {/*  font-bold yapıldı */}
+                  <td className="py-5 px-6 text-sm font-bold text-gray-800 tracking-tight">
                     {getValue(item, currentTabKey)}
                   </td>
 
-                  {/* Bağlı Şehir */}
+                  {/* Bağlı Şehir  */}
                   <td className="py-5 px-6">
-                    <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-lg text-[10px] font-black uppercase">
+                    <span className="px-3 py-1 bg-purple-50 text-purple-600 rounded-lg text-[10px] font-bold">
                       {item.SehirAdi || item.sehirAdi || "-"}
                     </span>
                   </td>
 
-                  {/* Bağlı Ülke (Lookup'tan türetilen) */}
+                  {/* Bağlı Ülke  */}
                   <td className="py-5 px-6">
-                    <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-black uppercase">
+                    <span className="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-[10px] font-bold">
                       {ulke ? ulke.UlkeAdi || ulke.ulkeAdi : "-"}
                     </span>
                   </td>

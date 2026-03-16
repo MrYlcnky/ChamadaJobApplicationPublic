@@ -60,7 +60,7 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<UyrukListDto>> CreateAsync(UyrukCreateDto createDto)
         {
             // 1. Gelen metni hemen normalize et (Büyük harfe çevir)
-            string normalizedName = createDto.UyrukAdi.ToTurkishUpper();
+            string normalizedName = createDto.UyrukAdi.ToString().Trim();
 
             // Ülke varlık kontrolü
             if (!await _context.Ulkeler.AnyAsync(x => x.Id == createDto.UlkeId))
@@ -94,7 +94,7 @@ namespace IsBasvuru.Infrastructure.Services
             if (entity == null)
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
-            string normalizedName = updateDto.UyrukAdi.ToTurkishUpper();
+            string normalizedName = updateDto.UyrukAdi.ToString().Trim();
 
             // Ülke değişikliği varsa yeni ülkeyi doğrula
             if (entity.UlkeId != updateDto.UlkeId)

@@ -35,5 +35,6 @@ namespace IsBasvuru.Domain.DTOs.LogDtos.BasvuruLogDtos
         public string? DmIslemi { get; set; } // DM Adı + Notu
         public string? GmIslemi { get; set; } // GM Adı + Notu
         public string? IkIslemi { get; set; } // İK Adı + Notu
+        public string? MimIslemi { get; set; } // MİM Adı + Notu
     }
 }

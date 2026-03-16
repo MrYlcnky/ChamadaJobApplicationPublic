@@ -1,5 +1,6 @@
 ﻿using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterAlanDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterDepartmanDtos;
+using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterGorev;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterOyun;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterPozisyonDtos;
 using IsBasvuru.Domain.DTOs.SirketMasterYapisiDtos.MasterProgram;
@@ -47,6 +48,15 @@ namespace IsBasvuru.Domain.Interfaces
         Task<ServiceResponse<List<MasterOyunDto>>> GetAllAsync();
         Task<ServiceResponse<MasterOyunDto>> CreateAsync(MasterOyunCreateDto dto);
         Task<ServiceResponse<bool>> UpdateAsync(MasterOyunUpdateDto dto);
+        Task<ServiceResponse<bool>> DeleteAsync(int id);
+    }
+
+    public interface IMasterGorevService
+    {
+        Task<ServiceResponse<List<MasterGorevListDto>>> GetAllAsync();
+        Task<ServiceResponse<MasterGorevListDto>> GetByIdAsync(int id);
+        Task<ServiceResponse<MasterGorevListDto>> CreateAsync(MasterGorevCreateDto dto);
+        Task<ServiceResponse<bool>> UpdateAsync(MasterGorevUpdateDto dto);
         Task<ServiceResponse<bool>> DeleteAsync(int id);
     }
 }

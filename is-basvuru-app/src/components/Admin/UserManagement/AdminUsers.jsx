@@ -33,6 +33,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createAdminUsersSchema } from "../../../schemas/AdminUsersSchema";
 import { getAuthUser } from "../../../auth/session";
 
+// 🎯 ÇÖZÜM 1: Rolleri bileşen dışına aldık (Eslint uyarılarını engeller ve performansı artırır)
+const ROLES = [
+  { id: 1, name: "SuperAdmin" },
+  { id: 2, name: "Admin" },
+  { id: 3, name: "IkAdmin" },
+  { id: 4, name: "Ik" },
+  { id: 5, name: "GenelMudur" },
+  { id: 6, name: "DepartmanMudur" },
+  { id: 7, name: "MaliIslerMudur" },
+];
+
 const FormItem = ({ label, children, required }) => (
   <div>
     <label className="text-[10px] font-black text-gray-400 uppercase mb-1 block">
@@ -59,31 +70,18 @@ export default function AdminUsers() {
     departmanlar: [],
   });
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const roles = [
-    { id: 1, name: "SuperAdmin" },
-    { id: 2, name: "Admin" },
-    { id: 3, name: "IkAdmin" },
-    { id: 4, name: "Ik" },
-    { id: 5, name: "GenelMudur" },
-    { id: 6, name: "DepartmanMudur" },
-  ];
-
   const authUser = getAuthUser();
-  const currentUserRole = authUser?.userInfo?.rolAdi || authUser?.rolAdi || "";
-  const availableRoles = useMemo(() => {
-    if (currentUserRole !== "SuperAdmin") {
-      // id: 1 olan (SuperAdmin) rolünü listeden çıkarıyoruz
-      return roles.filter((r) => r.id !== 1);
-    }
-    // Kullanıcı SuperAdmin ise hepsini görebilir
-    return roles;
-  }, [currentUserRole, roles]);
+  const currentUserIdLevel = Number(
+    authUser?.userInfo?.rolId || authUser?.rolId || 99,
+  );
 
-  const currentUserHierarchy = useMemo(() => {
-    const roleObj = roles.find((r) => r.name === currentUserRole);
-    return roleObj ? roleObj.id : 99;
-  }, [currentUserRole, roles]);
+  const availableRoles = useMemo(() => {
+    // 1 numaralı rol (SuperAdmin) değilse, SuperAdmin'i listeden gizle
+    if (currentUserIdLevel !== 1) {
+      return ROLES.filter((r) => r.id !== 1);
+    }
+    return ROLES;
+  }, [currentUserIdLevel]);
 
   const fetchData = async () => {
     try {
@@ -126,7 +124,7 @@ export default function AdminUsers() {
     adi: "",
     soyadi: "",
     kullaniciSifre: "",
-    rolId: 2,
+    rolId: 2, // Varsayılan Admin
     subeId: "",
     masterAlanId: "",
     masterDepartmanId: "",
@@ -137,7 +135,6 @@ export default function AdminUsers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 1. Zod Doğrulaması (İstediğin temada hata gösterimi)
     const schema = createAdminUsersSchema(isEditing);
     const validation = schema.safeParse(formData);
 
@@ -147,7 +144,6 @@ export default function AdminUsers() {
     }
 
     try {
-      // 2. Payload Hazırlığı (Büyük/Küçük harf değişimi yapılmaz, backend halleder)
       const payload = {
         ...formData,
         rolId: Number(formData.rolId),
@@ -202,7 +198,7 @@ export default function AdminUsers() {
       adi: user.adi,
       soyadi: user.soyadi,
       kullaniciSifre: "",
-      rolId: user.rolId,
+      rolId: user.rolId, // Burası doğrudan 7 (MaliIslerMudur) olarak formda seçili gelecek
       subeId: user.subeId || "",
       masterAlanId: user.masterAlanId || "",
       masterDepartmanId: user.masterDepartmanId || "",
@@ -267,7 +263,6 @@ export default function AdminUsers() {
         filterFn: (row, columnId, filterValue) => {
           const rowValue = row.getValue(columnId);
           if (!rowValue) return false;
-
           return (
             rowValue.toString().toLowerCase() ===
             filterValue.toString().toLowerCase()
@@ -278,11 +273,12 @@ export default function AdminUsers() {
         id: "actions",
         header: () => <div className="text-right">İşlemler</div>,
         cell: (i) => {
-          const targetRoleName = i.row.original.rolAdi;
-          const targetRoleObj = roles.find((r) => r.name === targetRoleName);
-          const targetHierarchy = targetRoleObj ? targetRoleObj.id : 99;
+          // 🎯 ÇÖZÜM 3: String isme göre değil, tablodaki Rol ID'sine (1'den 7'ye kadar) göre yetki kıyası yapıyoruz.
+          const targetHierarchy = Number(i.row.original.rolId || 99);
 
-          const hasPermission = currentUserHierarchy <= targetHierarchy;
+          // Mevcut kullanıcının Rol Id'si, işlem yapılmak istenen kullanıcının Rol Id'sinden küçük veya eşitse işlem yapabilir.
+          // (Örn: Admin(2) <= MaliIsler(7) -> true, ama İK(4) <= Admin(2) -> false)
+          const hasPermission = currentUserIdLevel <= targetHierarchy;
 
           return (
             <div className="flex gap-1 justify-end">
@@ -313,7 +309,7 @@ export default function AdminUsers() {
         },
       },
     ],
-    [roles, currentUserHierarchy, handleDelete],
+    [currentUserIdLevel, handleDelete], // 🎯 Değişen bağımlılıklar eklendi
   );
 
   const table = useReactTable({
@@ -340,7 +336,6 @@ export default function AdminUsers() {
       {/* Üst Panel */}
       <div className="bg-white rounded-2xl shadow-sm border p-4 sm:p-5 border-b-4 border-b-blue-500">
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
-          {/* Başlık ve Geri Butonu */}
           <div className="flex items-center gap-3 sm:gap-4 w-full xl:w-auto">
             <button
               onClick={() => navigate("/admin/panel")}
@@ -353,7 +348,6 @@ export default function AdminUsers() {
             </h1>
           </div>
 
-          {/* Arama, Filtre ve Ekle Butonları */}
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full xl:w-auto">
             <div className="relative group w-full sm:flex-1 xl:w-64">
               <FontAwesomeIcon
@@ -410,7 +404,7 @@ export default function AdminUsers() {
                 onChange={(e) => setFilter("rolAdi", e.target.value)}
               >
                 <option value="">Tüm Roller</option>
-                {availableRoles.map((r) => (
+                {ROLES.map((r) => (
                   <option key={r.id} value={r.name}>
                     {r.name}
                   </option>
@@ -484,7 +478,7 @@ export default function AdminUsers() {
         )}
       </div>
 
-      {/* Zebra Tablo Kapsayıcısı */}
+      {/* Tablo Kapsayıcısı */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto no-scrollbar">
           <table className="w-full text-left border-collapse min-w-200">

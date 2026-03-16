@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OrganizationImportDtos;
 using IsBasvuru.Domain.DTOs.SirketYapisiDtos.OyunBilgisiDtos;
+using IsBasvuru.Domain.Entities.SirketYapisi.SirketMasterYapisi;
 using IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi;
 using IsBasvuru.Domain.Interfaces;
 using IsBasvuru.Domain.Wrappers;
@@ -139,6 +141,104 @@ namespace IsBasvuru.Infrastructure.Services
             _cache.Remove(CacheKey);
 
             return ServiceResponse<bool>.SuccessResult(true);
+        }
+
+        public async Task<ServiceResponse<bool>> ImportOyunAsync(List<OyunImportDto> importData)
+        {
+            // İşlemleri güvenliğe alıyoruz, hata çıkarsa tüm DB kayıtları geri alınacak (Rollback)
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                // 0. Temizleme ve Eksik Verileri Eleme
+                var validData = importData
+                    .Where(r => !string.IsNullOrWhiteSpace(r.Sube) &&
+                                !string.IsNullOrWhiteSpace(r.Departman) &&
+                                !string.IsNullOrWhiteSpace(r.OyunAdi))
+                    .Select(r => new {
+                        Sube = r.Sube.Trim(),
+                        Departman = r.Departman.Trim(),
+                        OyunAdi = r.OyunAdi.Trim()
+                    }).ToList();
+
+                if (!validData.Any())
+                    return ServiceResponse<bool>.FailureResult("Aktarılacak geçerli veri bulunamadı.");
+
+                // ========================================================
+                // 1. AŞAMA: YENİ MASTER OYUNLARI EKLE (Eğer sistemde yoksa)
+                // ========================================================
+                var uniqueOyunlar = validData.Select(x => x.OyunAdi).Distinct().ToList();
+                var existingOyunlar = await _context.MasterOyunlar.ToListAsync();
+
+                foreach (var o in uniqueOyunlar)
+                {
+                    if (!existingOyunlar.Any(e => e.MasterOyunAdi != null && e.MasterOyunAdi.Equals(o, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        var newOyun = new MasterOyun { MasterOyunAdi = o };
+                        _context.MasterOyunlar.Add(newOyun);
+                        existingOyunlar.Add(newOyun); // Listeyi anlık güncelliyoruz
+                    }
+                }
+                await _context.SaveChangesAsync();
+
+                // ========================================================
+                // 2. AŞAMA: ŞUBE VE DEPARTMAN EŞLEŞTİRMESİ
+                // ========================================================
+                var existingSubeler = await _context.Subeler.ToListAsync();
+                var existingSubeAlanlar = await _context.SubeAlanlar.ToListAsync();
+                var existingMasterDept = await _context.MasterDepartmanlar.ToListAsync();
+                var existingDepartmanlarOrg = await _context.Departmanlar.ToListAsync();
+                var existingOyunBilgileri = await _context.OyunBilgileri.ToListAsync();
+
+                foreach (var data in validData)
+                {
+                    // Şubeyi bul
+                    var sube = existingSubeler.FirstOrDefault(s => s.SubeAdi != null && s.SubeAdi.Equals(data.Sube, StringComparison.OrdinalIgnoreCase));
+                    // Master Departmanı bul
+                    var masterDept = existingMasterDept.FirstOrDefault(d => d.MasterDepartmanAdi != null && d.MasterDepartmanAdi.Equals(data.Departman, StringComparison.OrdinalIgnoreCase));
+                    // Master Oyunu bul
+                    var masterOyun = existingOyunlar.First(o => o.MasterOyunAdi != null && o.MasterOyunAdi.Equals(data.OyunAdi, StringComparison.OrdinalIgnoreCase));
+
+                    // Eğer girilen Şube ve Departman DB'de varsa:
+                    if (sube != null && masterDept != null)
+                    {
+                        // İlgili Şubeye ait SubeAlan ID'lerini bul
+                        var subeyeAitAlanIds = existingSubeAlanlar.Where(sa => sa.SubeId == sube.Id).Select(sa => sa.Id).ToList();
+
+                        // Departmanlar tablosundan "Gerçek" DepartmanId'yi bul (Şube->Alan->Departman zincirini kontrol ederek)
+                        var gercekDepartman = existingDepartmanlarOrg.FirstOrDefault(d => subeyeAitAlanIds.Contains(d.SubeAlanId) && d.MasterDepartmanId == masterDept.Id);
+
+                        if (gercekDepartman != null)
+                        {
+                            // Çakışma kontrolü (Bu şubenin bu departmanına bu oyun zaten atanmış mı?)
+                            if (!existingOyunBilgileri.Any(ob => ob.DepartmanId == gercekDepartman.Id && ob.MasterOyunId == masterOyun.Id))
+                            {
+                                var newOb = new OyunBilgisi
+                                {
+                                    DepartmanId = gercekDepartman.Id,
+                                    MasterOyunId = masterOyun.Id,
+                                    OyunAdi = masterOyun.MasterOyunAdi,
+                                    OyunAktifMi = true
+                                };
+                                _context.OyunBilgileri.Add(newOb);
+                                existingOyunBilgileri.Add(newOb); // Aynı Excel dosyasında 2 tane aynı satır varsa mükerrer kaydı önler
+                            }
+                        }
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                // Önbelleği temizle (Eğer CacheKey farklıysa projene göre düzenle)
+                _cache.Remove("oyun_list");
+
+                return ServiceResponse<bool>.SuccessResult(true, "Oyun verileri başarıyla analiz edildi ve sisteme aktarıldı.");
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return ServiceResponse<bool>.FailureResult($"İçe aktarım hatası: {ex.Message} - Detay: {ex.InnerException?.Message}");
+            }
         }
     }
 }

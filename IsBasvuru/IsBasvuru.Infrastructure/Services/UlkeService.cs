@@ -5,6 +5,7 @@ using IsBasvuru.Domain.Interfaces;
 using IsBasvuru.Domain.Wrappers;
 using IsBasvuru.Infrastructure.Tools;
 using IsBasvuru.Persistence.Context;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -60,10 +61,11 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<UlkeListDto>> CreateAsync(UlkeCreateDto createDto)
         {
             // 1. Gelen metni hemen normalize et (Büyük harfe çevir ve boşlukları temizle)
-            string normalizedName = createDto.UlkeAdi.ToTurkishUpper();
+            //string normalizedName = createDto.UlkeAdi.ToString().Trim();
+            string normalizedName = createDto.UlkeAdi.ToString().Trim();
 
             // 2. Mükerrer kontrolünü normalleştirilmiş isim üzerinden yap
-            if (await _context.Ulkeler.AnyAsync(x => x.UlkeAdi == normalizedName))
+            if (await _context.Ulkeler.AnyAsync(x => x.UlkeAdi == createDto.UlkeAdi.ToString().Trim()))
                 return ServiceResponse<UlkeListDto>.FailureResult($"'{normalizedName}' isimli ülke zaten sistemde kayıtlı.");
 
             var entity = _mapper.Map<Ulke>(createDto);
@@ -87,7 +89,8 @@ namespace IsBasvuru.Infrastructure.Services
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
             // 1. Yeni ismi normalize et
-            string normalizedName = updateDto.UlkeAdi.ToTurkishUpper();
+            //string normalizedName = updateDto.UlkeAdi.ToString().Trim();
+            string normalizedName = updateDto.UlkeAdi.ToString().Trim();
 
             // 2. İsim çakışması kontrolü (Kendisi hariç başka bir kayıt bu ismi kullanıyor mu?)
             if (await _context.Ulkeler.AnyAsync(x => x.UlkeAdi == normalizedName && x.Id != updateDto.Id))

@@ -13,6 +13,7 @@ namespace IsBasvuru.Domain.Enums
         IkAdmin = 3,
         Ik = 4,
         GenelMudur = 5,
-        DepartmanMudur = 6
+        DepartmanMudur = 6,
+        MaliIslerMudur= 7,
     }
 }

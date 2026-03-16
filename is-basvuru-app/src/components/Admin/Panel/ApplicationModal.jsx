@@ -9,12 +9,14 @@ import {
 import Swal from "sweetalert2";
 import { formatDate } from "../../../utils/dateFormatter";
 import { basvuruService } from "../../../services/basvuruService";
+import { gorevAtamaService } from "../../../services/gorevAtamaService"; // YENİ EKLENDİ
 
-import ApprovalWorkflow from "./ApplicationModalTabs/ApprovalWorkflow";
-import DecisionArea from "./ApplicationModalTabs/DecisionArea";
+import ApprovalWorkflow from "./ApplicationModalTabs/SummaryAndDecision/ApprovalWorkflow";
+import DecisionArea from "./ApplicationModalTabs/SummaryAndDecision/DecisionArea";
 import ApplicationSummary from "./ApplicationModalTabs/ApplicationSummary";
-import HistoryAndChanges from "./ApplicationModalTabs/HistoryAndChanges";
+import HistoryAndChanges from "./ApplicationModalTabs/SummaryAndDecision/HistoryAndChanges";
 import ReadOnlyApplicationView from "./ApplicationModalTabs/ReadOnlyApplicationView";
+import JobOfferDetails from "./ApplicationModalTabs/SummaryAndDecision/JobOfferDetails";
 
 export default function ApplicationModal({ data, auth, onClose, onAction }) {
   const [note, setNote] = useState("");
@@ -31,6 +33,18 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
   const statusId = Number(data.statusId || rawData.basvuruDurum || 1);
   const personelId =
     rawData.personelId || rawData.PersonelId || rawData.personel?.id || 0;
+
+  // 🎯 YENİ: Görev Atama Form State'i (JobOfferDetails'i buradan yöneteceğiz)
+  const [jobOfferData, setJobOfferData] = useState({
+    id: 0,
+    masterDepartmanId: auth?.masterDepartmanId || "",
+    gorevId: "",
+    netUcret: "",
+    talepEdilenGorevGenelButcesi: "",
+    baslangicTarihi: "",
+    talepNedeni: 1,
+    yerineAlinacakKisiAdSoyad: "",
+  });
 
   const hasUserAction = useMemo(() => {
     if (!logs || logs.length === 0) return false;
@@ -98,12 +112,13 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
     if ([1, 2, 3, 4].includes(rid)) return "ik";
     if (rid === 6) return "dm";
     if (rid === 5) return "gm";
+    if (rid === 7) return "mim";
     return "guest";
   }, [auth]);
 
   const canAction = useMemo(() => {
     if ([3, 4, 5].includes(statusId)) return false; // 5: RevizeTalebi varken kimse normal işlem yapamaz
-    const STAGES_ROLES = { 1: "ik", 2: "dm", 3: "ik", 4: "gm" };
+    const STAGES_ROLES = { 1: "ik", 2: "dm", 3: "ik", 4: "gm", 5: "mim" };
     return STAGES_ROLES[currentStageId] === userRole;
   }, [statusId, currentStageId, userRole]);
 
@@ -120,16 +135,87 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
       return;
     }
 
+    const isDM = Number(auth?.rolId || auth?.roleId) === 6;
+    const isDepartmanOnayi = currentStageId === 2;
+
+    // 🎯 2. GÖREV ATAMA FORMU KONTROLÜ (Sadece DM Onaylıyorsa)
+    if (actionType === "approve" && isDM && isDepartmanOnayi) {
+      if (
+        !jobOfferData.gorevId ||
+        !jobOfferData.netUcret ||
+        !jobOfferData.talepEdilenGorevGenelButcesi ||
+        !jobOfferData.baslangicTarihi
+      ) {
+        Swal.fire({
+          icon: "warning",
+          title: "Eksik Görev Bilgileri",
+          text: "Lütfen adayı onaylamadan önce Görev, Başlama Tarihi, Ücret ve Bütçe alanlarını eksiksiz doldurun.",
+          background: "#1f2937",
+          color: "#fff",
+        });
+        return;
+      }
+      if (
+        Number(jobOfferData.talepNedeni) === 2 &&
+        !jobOfferData.yerineAlinacakKisiAdSoyad.trim()
+      ) {
+        Swal.fire({
+          icon: "warning",
+          title: "Eksik Bilgi",
+          text: "Lütfen kimin yerine alınacağını yazınız.",
+          background: "#1f2937",
+          color: "#fff",
+        });
+        return;
+      }
+    }
+
     setIsProcessing(true);
 
     try {
+      // 🎯 3. ÖNCE GÖREV BİLGİLERİNİ VERİTABANINA KAYDET
+      if (actionType === "approve" && isDM && isDepartmanOnayi) {
+        const atamaPayload = {
+          ...jobOfferData,
+          personelId: personelId,
+          netUcret: Number(jobOfferData.netUcret),
+          talepEdilenGorevGenelButcesi: Number(
+            jobOfferData.talepEdilenGorevGenelButcesi,
+          ),
+          talepNedeni: Number(jobOfferData.talepNedeni),
+        };
+
+        if (jobOfferData.id) {
+          await gorevAtamaService.update(atamaPayload);
+        } else {
+          await gorevAtamaService.create(atamaPayload);
+        }
+      }
+      // GEÇMİŞ TARİH KONTROLÜ
+      if (actionType === "approve" && isDM && isDepartmanOnayi) {
+        const selectedDate = new Date(jobOfferData.baslangicTarihi);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Sadece tarih karşılaştırması için saati sıfırla
+
+        if (selectedDate < today) {
+          Swal.fire({
+            icon: "error",
+            title: "Geçersiz Tarih",
+            text: "İşe başlama tarihi bugünden önce olamaz.",
+            background: "#1f2937",
+            color: "#fff",
+          });
+          return;
+        }
+      }
+
+      // 4. SONRA BAŞVURU DURUMUNU İLERLET
       let newStatus = statusId;
       let newStage = currentStageId;
 
       if (actionType === "approve_revision") {
         newStatus = 2; // BasvuruDurum.DevamEdiyor = 2
 
-        // 🎯 ADIM 1: Loglarda Revize Talebi kaydını bul (Snapshot verisinden)
         const lastRevReq = [...logs]
           .sort((a, b) => Number(b.id || b.Id) - Number(a.id || a.Id))
           .find(
@@ -141,20 +227,14 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
         if (lastRevReq) {
           const requesterRolId = Number(lastRevReq.rolId || lastRevReq.RolId);
 
-          // A) İK ve Admin Grubu (1, 2, 3, 4)
-          // Bu grup nereden revize isterse istesin aday 1. Aşamaya döner.
           if ([1, 2, 3, 4].includes(requesterRolId)) {
             newStage = 1;
-          }
-
-          // B) Departman Müdürü (6) -> IT MNG vb.
-          else if (requesterRolId === 6) {
+          } else if (requesterRolId === 6) {
             newStage = 2; // Departman_Onayi
-          }
-
-          // C) Genel Müdür (5)
-          else if (requesterRolId === 5) {
+          } else if (requesterRolId === 5) {
             newStage = 4; // Genel_Mudur_Onayi
+          } else if (requesterRolId === 7) {
+            newStage = 5; // Mali_Isler_Mudur_Onayi
           } else {
             newStage = Number(
               lastRevReq.basvuruOnayAsamasi ||
@@ -166,8 +246,8 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
           newStage = 1;
         }
       } else if (actionType === "approve") {
-        if (currentStageId === 4) {
-          newStage = 5; // İşe Alındı
+        if (currentStageId === 5) {
+          newStage = 6; // İşe Alındı
           newStatus = 3; // Onaylandı
         } else {
           newStage = currentStageId + 1; // Bir sonraki aşama
@@ -179,7 +259,6 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
         newStatus = 5; // Revize Talebi
       }
 
-      // --- BACKEND'E GİDECEK VERİ ---
       const payload = {
         Id: data.id,
         PersonelId: personelId,
@@ -212,7 +291,6 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
         color: "#fff",
       });
     } finally {
-      console.groupEnd();
       setIsProcessing(false);
     }
   };
@@ -275,6 +353,15 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
                 currentStageId={currentStageId}
                 statusId={statusId}
               />
+
+              <JobOfferDetails
+                personelId={personelId}
+                auth={auth}
+                currentStageId={currentStageId}
+                jobOfferData={jobOfferData} // 🎯 YENİ PROP
+                setJobOfferData={setJobOfferData} // 🎯 YENİ PROP
+              />
+
               <DecisionArea
                 note={note}
                 setNote={setNote}
@@ -284,8 +371,9 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
                 statusId={statusId}
                 onProcess={handleProcess}
                 isIKGroup={auth?.rolId <= 3}
-                hasUserAction={hasUserAction} // 🔥 Prop eklendi
+                hasUserAction={hasUserAction}
               />
+
               <ApplicationSummary
                 data={data}
                 logs={logs}

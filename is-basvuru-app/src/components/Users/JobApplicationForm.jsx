@@ -29,6 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { z } from "zod";
 import { useForm, FormProvider, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import chIcon from "../../assets/ch.ico";
 
 // Schemas
 import { createMainApplicationSchema } from "../../schemas/mainApplicationSchema";
@@ -925,12 +926,7 @@ export default function JobApplicationForm() {
       }
 
       if (isVerified) {
-        // 👇 YENİ EKLENEN: Aktif KVKK ID'sini yakalıyoruz
-        // Not: loadDefinitions içinde state'e 'kvkkListesi' adıyla attığını varsayıyoruz.
-        // Eğer farklı bir isim verdiysen (örn: kvkklar) burayı ona göre güncelle.
         const aktifKvkkId = definitionData?.kvkkListesi?.[0]?.id || 1;
-
-        // 👇 DEĞİŞTİRİLEN: aktifKvkkId'yi dördüncü parametre olarak gönderiyoruz
         const dtoPayload = buildPersonelCreateDtoPayload(
           t,
           data,
@@ -949,7 +945,6 @@ export default function JobApplicationForm() {
         const formDataToSend = objectToFormData(dtoPayload);
 
         if (existingId) {
-          // Eğer objectToFormData içinde bir kaçak varsa, burada manuel olarak "Id"yi en üste çiviliyoruz.
           formDataToSend.set("Id", existingId);
         }
         Swal.fire({
@@ -1005,47 +1000,64 @@ export default function JobApplicationForm() {
 
   return (
     <FormProvider {...methods} key={t("langKey", { defaultValue: "" })}>
-      <div className="min-h-screen bg-[#020617] bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-[#334155] via-[#0f172a] to-black pb-10 shadow-2xl border-x border-gray-800/50">
-        <div className="relative overflow-hidden bg-linear-to-br from-black via-[#111827] to-black py-12 sm:py-16 md:py-20 shadow-2xl rounded-b-2xl text-center border-b border-gray-800">
-          {/* Çeviri*/}
-          <div className="absolute flex flex-row top-2 right-2 sm:top-4 sm:right-4 z-20">
-            <div className="inline-flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-md bg-gray-800/50 border border-gray-700 hover:bg-gray-700 transition-colors text-xs sm:text-sm">
+      <div className="min-h-screen bg-slate-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.15),rgba(2,6,23,1))] pb-12 sm:pb-16 border-x border-slate-800/40 shadow-2xl selection:bg-sky-500/30 selection:text-sky-100">
+        <div className="relative overflow-hidden bg-slate-950 py-16 sm:py-24 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] rounded-b-4xl text-center border-b border-slate-800/60">
+          {/* Üst merkeze yerleştirilmiş devasa, çok yumuşak bir parlama efekti */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 sm:w-200 h-75 sm:h-100 bg-sky-600/15 blur-[100px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-sky-900/50 to-transparent" />
+
+          {/* Çeviri / Language Switcher (Glassmorphism stili) */}
+          <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50">
+            <div className="group flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900/40 backdrop-blur-md border border-slate-700/50 shadow-lg transition-all duration-300 hover:bg-slate-800/60 hover:border-sky-500/30">
               <FontAwesomeIcon
                 icon={faGlobe}
-                className="text-gray-400 text-sm sm:text-base"
+                className="text-sky-400/80 group-hover:text-sky-400 transition-colors text-sm sm:text-base"
               />
-              <div className="scale-90 sm:scale-100 origin-left">
+              <div className="scale-90 sm:scale-100 origin-left text-sky-400/80">
                 <LanguageSwitcher />
               </div>
             </div>
           </div>
 
           <div className="relative z-10 container mx-auto px-4 flex flex-col items-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-wider text-white drop-shadow-lg leading-tight font-sans">
+            {/* 2. LOGO (Hover efekti ve özel gölge) */}
+            <img
+              src={chIcon}
+              alt="Brand Icon"
+              className="w-24 h-24 sm:w-28 sm:h-28 mb-6 drop-shadow-[0_0_25px_rgba(14,165,233,0.3)] object-contain transition-transform duration-700 hover:scale-110"
+            />
+
+            {/* 3. ANA BAŞLIK (Gradient Text ve Gelişmiş Tracking) */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-widest text-transparent bg-clip-text bg-linear-to-b from-white via-slate-100 to-slate-400 drop-shadow-sm leading-tight">
               {t("hero.brand")}
             </h1>
-            <h2 className="mt-3 text-lg sm:text-xl font-light text-gray-300 tracking-[0.2em] uppercase opacity-80">
+
+            {/* 4. ALT BAŞLIK (Daha zarif ve göze batmayan yapı) */}
+            <h2 className="mt-4 text-sm sm:text-base font-bold text-sky-400/90 tracking-[0.3em] uppercase">
               {t("hero.formTitle")}
             </h2>
-            <div className="mt-8 flex items-center gap-2 text-sm sm:text-base text-gray-400 bg-gray-900/60 px-5 py-2.5 rounded-full border border-gray-800/50 shadow-sm ">
-              <FontAwesomeIcon
-                icon={faInfoCircle}
-                className="text-red-500 text-lg"
-              />
-              <span>
-                <span className="text-red-500 font-bold tracking-wide">
+
+            {/* 5. BİLGİ KUTUSU (Glassmorphism & Daha yumuşak renkler) */}
+            <div className="mt-10 flex items-center gap-3 text-sm sm:text-base text-slate-300 bg-slate-900/50 backdrop-blur-xl px-6 py-3.5 rounded-2xl border border-slate-700/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all hover:border-slate-600/50">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-red-500/10 border border-red-500/20">
+                <FontAwesomeIcon
+                  icon={faInfoCircle}
+                  className="text-red-400 text-base"
+                />
+              </div>
+              <p className="tracking-wide">
+                <span className="text-red-400 font-semibold">
                   {t("hero.please")}
                 </span>{" "}
-                <span className="text-gray-300">{t("hero.notice")}</span>{" "}
-                <span className="text-red-500 font-bold mx-1">*</span>{" "}
-                <span className="text-gray-300">
-                  {t("hero.requiredSuffix")}
-                </span>
-              </span>
+                <span className="opacity-90">{t("hero.notice")}</span>{" "}
+                <span className="text-red-400 font-black mx-0.5">*</span>{" "}
+                <span className="opacity-90">{t("hero.requiredSuffix")}</span>
+              </p>
             </div>
-            <div className="mt-10 w-24 h-1 bg-linear-to-r from-transparent via-gray-700 to-transparent rounded-full opacity-60" />
+
+            {/* Alt Ayırıcı Çizgi (Eskisinden daha ince ve zarif) */}
+            <div className="mt-12 w-32 h-px bg-linear-to-r from-transparent via-sky-500/40 to-transparent" />
           </div>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-linear-to-b from-transparent via-sky-900/5 to-transparent pointer-events-none" />
         </div>
 
         {/* Load Profile Section */}

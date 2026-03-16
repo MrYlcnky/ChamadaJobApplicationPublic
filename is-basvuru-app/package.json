@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -43,6 +44,7 @@
     "sweetalert2": "^11.26.3",
     "sweetalert2-react-content": "^5.1.0",
     "tailwindcss": "^4.1.13",
+    "xlsx": "^0.18.5",
     "zod": "^4.1.12"
   },
   "devDependencies": {

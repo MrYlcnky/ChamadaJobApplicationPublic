@@ -27,9 +27,6 @@ namespace IsBasvuru.WebAPI.Validators.PersonelValidators
                 .NotNull().WithMessage("Alan seçimi zorunludur.")
                 .NotEmpty().WithMessage("Alan seçimi zorunludur.");
 
-            RuleFor(x => x.ProgramIds)
-                .NotNull().WithMessage("Program seçimi zorunludur.")
-                .NotEmpty().WithMessage("Program seçimi zorunludur.");
 
 
 
@@ -42,9 +39,12 @@ namespace IsBasvuru.WebAPI.Validators.PersonelValidators
             RuleForEach(x => x.DepartmanPozisyonIds)
                 .GreaterThan(0).WithMessage("Geçersiz Pozisyon seçimi.");
             RuleForEach(x => x.ProgramIds)
-                .GreaterThan(0).WithMessage("Geçersiz Program seçimi.");
+     .GreaterThan(0).WithMessage("Geçersiz Program seçimi.")
+     .When(x => x.ProgramIds != null && x.ProgramIds.Any());
+
             RuleForEach(x => x.OyunIds)
-                .GreaterThan(0).WithMessage("Geçersiz Oyun seçimi.");
+                .GreaterThan(0).WithMessage("Geçersiz Oyun seçimi.")
+                .When(x => x.OyunIds != null && x.OyunIds.Any());
 
             // 2. Kişisel Bilgiler Validasyonu 
 

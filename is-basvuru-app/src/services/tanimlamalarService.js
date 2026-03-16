@@ -259,6 +259,38 @@ const service = {
   // Hiyerarşi Görünümü
   getFullHierarchy: async () =>
     unwrap(await axiosClient.get("/DepartmanPozisyon/GetFullHierarchy")),
+
+  importOrganization: async (data) =>
+    unwrap(
+      await axiosClient.post("/DepartmanPozisyon/ImportOrganization", data),
+    ),
+
+  importProgramBilgisi: async (data) =>
+    unwrap(await axiosClient.post("/ProgramBilgisi/import", data)),
+  importOyunBilgisi: async (data) =>
+    unwrap(await axiosClient.post("/OyunBilgisi/import", data)),
+
+  importGorev: async (data) =>
+    unwrap(await axiosClient.post("/Gorev/import", data)),
+
+  // MASTER GÖREV
+  getMasterGorevler: async () =>
+    unwrap(await axiosClient.get("/MasterGorev/GetAll")),
+  createMasterGorev: async (data) =>
+    unwrap(await axiosClient.post("/MasterGorev/Create", data)),
+  updateMasterGorev: async (data) =>
+    unwrap(await axiosClient.put("/MasterGorev/Update", data)),
+  deleteMasterGorev: async (id) =>
+    unwrap(await axiosClient.delete(`/MasterGorev/Delete/${id}`)),
+
+  // GÖREV (Departman - Görev İlişkisi)
+  getGorevler: async () => unwrap(await axiosClient.get("/Gorev/GetAll")),
+  createGorev: async (data) =>
+    unwrap(await axiosClient.post("/Gorev/Create", data)),
+  updateGorev: async (data) =>
+    unwrap(await axiosClient.put("/Gorev/Update", data)),
+  deleteGorev: async (id) =>
+    unwrap(await axiosClient.delete(`/Gorev/Delete/${id}`)),
 };
 
 export const tanimlamalarService = service;

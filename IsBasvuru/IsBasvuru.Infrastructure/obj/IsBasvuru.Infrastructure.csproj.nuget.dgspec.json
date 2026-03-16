@@ -70,6 +70,11 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
     "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Infrastructure\\IsBasvuru.Infrastructure.csproj": {
@@ -167,6 +172,11 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
     "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.Persistence\\IsBasvuru.Persistence.csproj": {
@@ -257,6 +267,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.416/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

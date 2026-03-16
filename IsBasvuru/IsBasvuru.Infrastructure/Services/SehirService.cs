@@ -71,7 +71,8 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<SehirListDto>> CreateAsync(SehirCreateDto createDto)
         {
             // 1. Gelen ismi hemen normalize et (Büyük harfe çevir)
-            string normalizedName = createDto.SehirAdi.ToTurkishUpper();
+            //string normalizedName = createDto.SehirAdi.ToString().Trim();
+            string normalizedName = createDto.SehirAdi.ToString().Trim();
 
             if (!await _context.Ulkeler.AnyAsync(x => x.Id == createDto.UlkeId))
                 return ServiceResponse<SehirListDto>.FailureResult("Seçilen ülke bulunamadı.");
@@ -100,7 +101,7 @@ namespace IsBasvuru.Infrastructure.Services
             if (entity == null)
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
-            string normalizedName = updateDto.SehirAdi.ToTurkishUpper();
+            string normalizedName = updateDto.SehirAdi.ToString().Trim();
 
             // Ülke değişikliği kontrolü
             if (entity.UlkeId != updateDto.UlkeId)

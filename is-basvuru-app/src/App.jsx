@@ -31,7 +31,9 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Admin (Korumalı Alan) */}
-        <Route element={<ProtectedRoute allowedRoles={[1, 2, 3, 4, 5, 6]} />}>
+        <Route
+          element={<ProtectedRoute allowedRoles={[1, 2, 3, 4, 5, 6, 7]} />}
+        >
           <Route path="/admin" element={<AdminLayout />}>
             {/* /admin'e girince direkt panele at */}
             <Route index element={<Navigate to="panel" replace />} />

@@ -1,5 +1,0 @@
-2026-03-04 03:19:33.176 +02:00 [INF] Now listening on: https://localhost:7000
-2026-03-04 03:19:33.191 +02:00 [INF] Now listening on: http://localhost:5054
-2026-03-04 03:19:33.312 +02:00 [INF] Application started. Press Ctrl+C to shut down.
-2026-03-04 03:19:33.321 +02:00 [INF] Hosting environment: Development
-2026-03-04 03:19:33.324 +02:00 [INF] Content root path: C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI

@@ -1,4 +1,4 @@
-// src/components/Admin/Panel/ReadOnlyApplicationView.jsx
+// src/components/Admin/Panel/ReadOnlyApplicationView.jsx  = Form
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

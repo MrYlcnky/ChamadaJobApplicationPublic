@@ -60,7 +60,7 @@ namespace IsBasvuru.Infrastructure.Services
         public async Task<ServiceResponse<EhliyetTuruListDto>> CreateAsync(EhliyetTuruCreateDto dto)
         {
             // 1. Metni hemen normalize et (Büyük harfe çevir ve boşlukları temizle)
-            string normalizedName = dto.EhliyetTuruAdi.ToTurkishUpper();
+            string normalizedName = dto.EhliyetTuruAdi.ToString().Trim();
 
             // 2. İsim Kontrolünü normalize edilmiş metin üzerinden yap
             if (await _context.EhliyetTurleri.AnyAsync(x => x.EhliyetTuruAdi == normalizedName))
@@ -87,7 +87,7 @@ namespace IsBasvuru.Infrastructure.Services
                 return ServiceResponse<bool>.FailureResult("Kayıt bulunamadı.");
 
             // 1. Yeni ismi normalize et
-            string normalizedName = dto.EhliyetTuruAdi.ToTurkishUpper();
+            string normalizedName = dto.EhliyetTuruAdi.ToString().Trim();
 
             // 2. İsim Çakışma Kontrolü (Kendisi hariç bu ismi kullanan başka kayıt var mı?)
             bool cakisma = await _context.EhliyetTurleri

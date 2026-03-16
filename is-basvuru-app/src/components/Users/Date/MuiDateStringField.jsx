@@ -1,20 +1,20 @@
-// components/Fields/MuiDateStringField.jsx
 import * as React from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import trLocale from "date-fns/locale/tr";
+import { isValid, format } from "date-fns";
 
+// Helper: String formatını (YYYY-MM-DD) Date objesine çevirir
 function strToDate(str) {
   if (!str) return null;
   const d = new Date(str + "T00:00:00");
-  return Number.isNaN(d.getTime()) ? null : d;
+  return isValid(d) ? d : null;
 }
+
+// Helper: Date objesini String formatına (YYYY-MM-DD) çevirir
 function dateToStr(d) {
-  if (!d || Number.isNaN(d.getTime())) return "";
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
+  if (!d || !isValid(d)) return "";
+  return format(d, "yyyy-MM-dd");
 }
 
 export default function MuiDateStringField({
@@ -23,26 +23,46 @@ export default function MuiDateStringField({
   value,
   onChange,
   required = false,
-  error, // sadece helperText olarak gösterilecek
+  error,
   min,
   max,
   disabled = false,
   readOnly = false,
-  displayFormat = "yyyy.MM.dd",
+  displayFormat = "dd.MM.yyyy",
+  variant = "light", // "light" veya "dark"
 }) {
-  const dateVal = strToDate(value);
+  const isDark = variant === "dark";
+  const dateVal = React.useMemo(() => strToDate(value), [value]);
 
-  const handleMuiChange = (d) => {
-    if (!d || Number.isNaN(d.getTime())) {
+  const handleMuiChange = (date) => {
+    // 1. Silme işlemi (Kullanıcı inputu tamamen temizlerse)
+    if (date === null) {
       onChange?.({ target: { name, value: "" } });
       return;
     }
-    onChange?.({ target: { name, value: dateToStr(d) } });
+
+    // 2. Geçerli bir tarih girildiyse (Eksik yazımlar 0002 gibi de olsa geçerlidir!)
+    if (isValid(date)) {
+      // DİKKAT: Burada minDate kontrolü yapıp return ETME!
+      // Eğer edersen, kullanıcı "2000" yazarken sistem "0002"yi reddeder
+      // ve inputu boşaltıp "gg.aa.yyyy" şekline döndürür.
+      onChange?.({ target: { name, value: dateToStr(date) } });
+    }
+
+    // 3. Eğer tarih geçersizse (Invalid Date - klavyeden yazarken henüz eksikse)
+    // Hiçbir şey yapma (return). MUI kendi iç state'inde tutmaya devam eder.
   };
 
   return (
     <div className="mt-1">
-      <label htmlFor={name} className="block text-sm font-bold text-gray-700">
+      <label
+        htmlFor={name}
+        className={`block text-sm font-bold text-gray-700 ${
+          isDark
+            ? "text-xs text-sky-400 font-semibold mb-1 uppercase"
+            : " text-gray-700"
+        }`}
+      >
         {label} {required && <span className="text-red-500">*</span>}
       </label>
 
@@ -60,8 +80,6 @@ export default function MuiDateStringField({
           disableOpenPicker={disabled}
           reduceAnimations
           disableHighlightToday
-          // MUI'nin iç validasyonundan gelen error sınıfının etkisini kır
-          onError={() => {}}
           slotProps={{
             textField: {
               color: "inherit",
@@ -71,95 +89,92 @@ export default function MuiDateStringField({
               fullWidth: true,
               size: "small",
               required,
-              // KRİTİK: kırmızı border'ı tetikleme
-              error: false,
-              // Hata metnini yine göster
+              error: Boolean(error), // Dışarıdan hata gelirse kızarsın
               helperText: error || "",
               FormHelperTextProps: {
                 sx: { color: "#DC2626", fontWeight: 500, ml: 0 },
               },
               disabled,
-              inputProps: { placeholder: "GG.AA.YYYY", readOnly },
-              className: "no-red-border",
+              inputProps: {
+                placeholder: "GG.AA.YYYY",
+                readOnly,
+                autoComplete: "off",
+              },
               sx: {
-                // Kutu yüksekliği/zemin
-                "& .MuiOutlinedInput-root, & .MuiInputBase-root , & .MuiPickersInputBase-root":
+                "& .MuiOutlinedInput-root, & .MuiInputBase-root, & .MuiPickersInputBase-root":
                   {
                     height: 43,
                     borderRadius: "0.5rem",
-                    backgroundColor: "#ffffff",
+                    backgroundColor: isDark
+                      ? "#111827 !important"
+                      : "#ffffff !important",
+                    color: isDark ? "#ffffff !important" : "#111827 !important",
                     alignItems: "center",
                     boxShadow: "none !important",
                     outline: "none !important",
                   },
 
-                /* --- Varsayılan: gri-300 --- */
+                /* --- Sınır Renkleri --- */
                 "& .MuiOutlinedInput-root fieldset": {
-                  borderColor: "#D1D5DB !important",
+                  borderColor: isDark
+                    ? "rgba(14, 165, 233, 0.3) !important"
+                    : "#D1D5DB !important",
                 },
-
-                /* --- Hover: siyah --- */
                 "& .MuiOutlinedInput-root:hover fieldset": {
-                  borderColor: "#000000 !important",
+                  borderColor: isDark
+                    ? "#38bdf8 !important"
+                    : "#000000 !important",
                 },
-
-                /* --- Focus: siyah --- */
                 "& .MuiOutlinedInput-root.Mui-focused fieldset": {
-                  borderColor: "#000000 !important",
+                  borderColor: isDark
+                    ? "#38bdf8 !important"
+                    : "#000000 !important",
                 },
 
-                /* --- Focus+Hover: yine siyah --- */
-                "& .MuiOutlinedInput-root.Mui-focused:hover fieldset": {
-                  borderColor: "#000000 !important",
-                },
-
-                /* --- MUI .Mui-error atarsa bile override et (spesifiklik artırmak için &&) --- */
+                /* --- Hata Durumu Override --- */
                 "&& .MuiOutlinedInput-root.Mui-error fieldset": {
-                  borderColor: "#D1D5DB !important",
-                },
-                "&& .MuiOutlinedInput-root.Mui-error:hover fieldset": {
-                  borderColor: "#000000 !important",
-                },
-                "&& .MuiOutlinedInput-root.Mui-error.Mui-focused fieldset": {
-                  borderColor: "#000000 !important",
+                  borderColor: isDark
+                    ? "rgba(14, 165, 233, 0.3) !important"
+                    : "#DC2626 !important",
                 },
 
-                // Görsel süsleri kapalı tut
-                "& .MuiOutlinedInput-root:hover": { boxShadow: "none" },
-                "& .MuiOutlinedInput-root.Mui-focused": {
-                  boxShadow: "none !important",
-                  outline: "none !important",
-                  border: "none",
-                },
-                "& .MuiOutlinedInput-root:focus-within": {
-                  boxShadow: "none !important",
-                  outline: "none !important",
-                },
-
-                // input metin/placeholder
+                // Input metin stili
                 "& .MuiInputBase-input": {
                   paddingTop: 8,
                   paddingBottom: 8,
                   paddingLeft: 12,
                   paddingRight: 36,
                   fontSize: "0.875rem",
-                  color: "#111827",
+                  color: isDark ? "#ffffff !important" : "#111827 !important",
                 },
                 "& .MuiInputBase-input::placeholder": {
-                  color: "#9CA3AF",
+                  color: isDark ? "#6b7280" : "#9CA3AF",
                   opacity: 1,
                 },
-
-                // ikon
-                "& .MuiSvgIcon-root": { color: "#6B7280" },
+                // İkon rengi
+                "& .MuiSvgIcon-root": { color: isDark ? "#38bdf8" : "#6B7280" },
               },
             },
-            popper: { placement: "bottom-start" },
+            popper: {
+              placement: "bottom-start",
+              sx: {
+                "& .MuiPaper-root": {
+                  backgroundColor: isDark ? "#1f2937" : "#ffffff",
+                  color: isDark ? "#ffffff" : "inherit",
+                  border: isDark ? "1px solid #374151" : "none",
+                  "& .MuiTypography-root, & .MuiButtonBase-root": {
+                    color: isDark ? "#ffffff" : "inherit",
+                  },
+                  "& .MuiPickersDay-root.Mui-selected": {
+                    backgroundColor: "#0284c7 !important",
+                  },
+                },
+              },
+            },
             desktopPaper: {
               sx: {
-                backgroundColor: "#FFFFFF",
                 borderRadius: "0.75rem",
-                boxShadow: "none",
+                boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
               },
             },
           }}
