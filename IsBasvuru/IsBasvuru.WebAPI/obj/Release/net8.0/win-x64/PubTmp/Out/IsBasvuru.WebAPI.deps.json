@@ -17,6 +17,7 @@
           "IsBasvuru.Domain": "1.0.0",
           "IsBasvuru.Infrastructure": "1.0.0",
           "IsBasvuru.Persistence": "1.0.0",
+          "Magick.NET-Q16-AnyCPU": "14.11.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
           "Microsoft.EntityFrameworkCore": "8.0.2",
           "Microsoft.EntityFrameworkCore.Design": "8.0.2",
@@ -102,6 +103,30 @@
         }
       },
       "Humanizer.Core/2.14.1": {},
+      "Magick.NET-Q16-AnyCPU/14.11.0": {
+        "dependencies": {
+          "Magick.NET.Core": "14.11.0"
+        },
+        "runtime": {
+          "lib/net8.0/Magick.NET-Q16-AnyCPU.dll": {
+            "assemblyVersion": "14.11.0.0",
+            "fileVersion": "14.11.0.0"
+          }
+        },
+        "native": {
+          "runtimes/win-x64/native/Magick.Native-Q16-x64.dll": {
+            "fileVersion": "10.2.0.0"
+          }
+        }
+      },
+      "Magick.NET.Core/14.11.0": {
+        "runtime": {
+          "lib/net8.0/Magick.NET.Core.dll": {
+            "assemblyVersion": "14.11.0.0",
+            "fileVersion": "14.11.0.0"
+          }
+        }
+      },
       "MailKit/4.14.1": {
         "dependencies": {
           "MimeKit": "4.14.0",
@@ -749,9 +774,11 @@
       "IsBasvuru.Infrastructure/1.0.0": {
         "dependencies": {
           "AutoMapper": "12.0.1",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
           "BCrypt.Net-Next": "4.0.3",
           "IsBasvuru.Domain": "1.0.0",
           "IsBasvuru.Persistence": "1.0.0",
+          "Magick.NET-Q16-AnyCPU": "14.11.0",
           "MailKit": "4.14.1",
           "Microsoft.EntityFrameworkCore": "8.0.2",
           "System.IdentityModel.Tokens.Jwt": "8.15.0"
@@ -839,6 +866,20 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "Magick.NET-Q16-AnyCPU/14.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L6IvAG7scg/nma67v0JUTKL9SOpu5FY7O9W3SElMTPm4Iu62/KC3A+rGa5KwUletRXsjf67RaAhDh47/fug2rg==",
+      "path": "magick.net-q16-anycpu/14.11.0",
+      "hashPath": "magick.net-q16-anycpu.14.11.0.nupkg.sha512"
+    },
+    "Magick.NET.Core/14.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MdNdyZJ7CjTV0zc4G1dGz8RIis5ZizYOMRrQ4+WghHYq5Hn151VNPPFpRsZ3fw61klegTFbzYRyMQjfl/sYW3w==",
+      "path": "magick.net.core/14.11.0",
+      "hashPath": "magick.net.core.14.11.0.nupkg.sha512"
     },
     "MailKit/4.14.1": {
       "type": "package",

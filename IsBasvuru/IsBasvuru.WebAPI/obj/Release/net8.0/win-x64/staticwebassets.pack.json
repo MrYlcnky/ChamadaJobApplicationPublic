@@ -1,92 +1,52 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\067af9ff-fc87-4b8e-ba1b-7fe01b1c34cc_printer.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\067af9ff-fc87-4b8e-ba1b-7fe01b1c34cc_printer.png"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\1_asdasd_asdasd.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\1_asdasd_asdasd.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\1_mehmet_yalcinkaya.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\1_mehmet_yalcinkaya.jpg"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\2_asdasd_adadasd.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\2_asdasd_adadasd.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\32971c2f-3e94-4a4d-93a5-845beef6b647_printer.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\32971c2f-3e94-4a4d-93a5-845beef6b647_printer.png"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\3_asdasd_asdasdasdasd.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\3_asdasd_asdasdasdasd.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\35__.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\35__.png"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\4_asdasdasd_asdasdasd.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\4_asdasdasd_asdasdasd.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\35_mehmet_yalcinkaya.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\35_mehmet_yalcinkaya.jpg"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\5_adasdasd_asdasdasdas.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\5_adasdasd_asdasdasdas.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\35_mehmet_yalcinkaya.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\35_mehmet_yalcinkaya.png"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\6_asdasd_asdasd.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\6_asdasd_asdasd.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\36_mehmeet_yalcinkaya.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\36_mehmeet_yalcinkaya.jpg"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\0368e0bf-41a4-4af4-ac79-5fbb257c51b8_14_mehmet_yalcinkaya.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel\\0368e0bf-41a4-4af4-ac79-5fbb257c51b8_14_mehmet_yalcinkaya.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\36_mehmet_yalcinkayaa.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\36_mehmet_yalcinkayaa.jpg"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\066cddd3-b767-42a3-b3bf-daedf0af4e7b_14_mehmet_yalcinkaya.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel\\066cddd3-b767-42a3-b3bf-daedf0af4e7b_14_mehmet_yalcinkaya.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\37_ad_soyad.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\37_ad_soyad.jpg"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\0770970a-9dc8-4075-baba-9fe5e54b222c_14_mehmet_yalcinkaya.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel\\0770970a-9dc8-4075-baba-9fe5e54b222c_14_mehmet_yalcinkaya.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\38_mehmet_yalcinkayaa.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\38_mehmet_yalcinkayaa.png"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\5763f590-f1e7-4763-b24f-1f7d581c4fad_14_mehmet_yalcinkaya.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel\\5763f590-f1e7-4763-b24f-1f7d581c4fad_14_mehmet_yalcinkaya.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\39_mehmet_yalcinkaya.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\39_mehmet_yalcinkaya.png"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\5ec6fbc1-62cb-4db1-b136-3db4c65e34f4_14_mehmet_yalcinkaya.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel\\5ec6fbc1-62cb-4db1-b136-3db4c65e34f4_14_mehmet_yalcinkaya.jpg"
     },
     {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\40_asdajdghj_adhgasdh.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\40_asdajdghj_adhgasdh.jpg"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel-fotograflari\\41_asdasd_asdadasd.png",
-      "PackagePath": "staticwebassets\\uploads\\personel-fotograflari\\41_asdasd_asdadasd.png"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\05f95da4-a81c-4954-a81b-dd42e07b90b4_printer.png",
-      "PackagePath": "staticwebassets\\uploads\\personel\\05f95da4-a81c-4954-a81b-dd42e07b90b4_printer.png"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\1314770f-d71e-4808-8e7c-e5b62dcc9725_m.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel\\1314770f-d71e-4808-8e7c-e5b62dcc9725_m.jpg"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\2115bedb-a1d0-42df-98ba-58adf1fa19a0_whatsapp_image_2026-02-12_at_201207_1.jpeg",
-      "PackagePath": "staticwebassets\\uploads\\personel\\2115bedb-a1d0-42df-98ba-58adf1fa19a0_whatsapp_image_2026-02-12_at_201207_1.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\35_mehmet_yalcinkaya.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel\\35_mehmet_yalcinkaya.jpg"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png",
-      "PackagePath": "staticwebassets\\uploads\\personel\\6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png",
-      "PackagePath": "staticwebassets\\uploads\\personel\\c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\cfad5802-4e46-4547-8afc-e52202c55794_m.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel\\cfad5802-4e46-4547-8afc-e52202c55794_m.jpg"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\df60f5f6-5fa4-493f-87b8-84fff79c5b55_printer.png",
-      "PackagePath": "staticwebassets\\uploads\\personel\\df60f5f6-5fa4-493f-87b8-84fff79c5b55_printer.png"
-    },
-    {
-      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\fa541b7f-0ad8-44ef-9d43-146305a54f8a_m.jpg",
-      "PackagePath": "staticwebassets\\uploads\\personel\\fa541b7f-0ad8-44ef-9d43-146305a54f8a_m.jpg"
+      "Id": "C:\\Users\\mehmet.yalcinkaya\\Desktop\\hosting\\IsBasvuru\\IsBasvuru.WebAPI\\wwwroot\\uploads\\personel\\e8dcba63-2586-4434-bc90-aad44a1b36f8_14_mehmet_yalcinkaya.jpg",
+      "PackagePath": "staticwebassets\\uploads\\personel\\e8dcba63-2586-4434-bc90-aad44a1b36f8_14_mehmet_yalcinkaya.jpg"
     },
     {
       "Id": "obj\\Release\\net8.0\\win-x64\\staticwebassets\\msbuild.IsBasvuru.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props",

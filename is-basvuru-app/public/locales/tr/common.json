@@ -299,7 +299,8 @@
       "gpaDecimals": "4'lük sistemde en fazla 2 ondalık basamak giriniz.",
       "diplomaRequired": "Diploma durumu zorunlu.",
       "diplomaValid": "Geçerli diploma durumu seçiniz",
-      "formInvalid": "Tüm zorunlu alanları doğru doldurunuz."
+      "formInvalid": "Tüm zorunlu alanları doğru doldurunuz.",
+      "gpaRequired": "GANO (Not Ortalaması) zorunludur."
     }
   },
   "jobDetails": {

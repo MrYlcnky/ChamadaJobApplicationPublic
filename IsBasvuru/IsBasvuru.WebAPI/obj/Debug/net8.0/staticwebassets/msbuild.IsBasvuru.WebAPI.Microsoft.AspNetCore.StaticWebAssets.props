@@ -1,11 +1,11 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\067af9ff-fc87-4b8e-ba1b-7fe01b1c34cc_printer.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\1_asdasd_asdasd.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/067af9ff-fc87-4b8e-ba1b-7fe01b1c34cc_printer.png</RelativePath>
+      <RelativePath>uploads/personel-fotograflari/1_asdasd_asdasd.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -14,14 +14,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\067af9ff-fc87-4b8e-ba1b-7fe01b1c34cc_printer.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\1_asdasd_asdasd.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\1_mehmet_yalcinkaya.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\2_asdasd_adadasd.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/1_mehmet_yalcinkaya.jpg</RelativePath>
+      <RelativePath>uploads/personel-fotograflari/2_asdasd_adadasd.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -30,14 +30,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\1_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\2_asdasd_adadasd.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\32971c2f-3e94-4a4d-93a5-845beef6b647_printer.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\3_asdasd_asdasdasdasd.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/32971c2f-3e94-4a4d-93a5-845beef6b647_printer.png</RelativePath>
+      <RelativePath>uploads/personel-fotograflari/3_asdasd_asdasdasdasd.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -46,14 +46,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\32971c2f-3e94-4a4d-93a5-845beef6b647_printer.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\3_asdasd_asdasdasdasd.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\35_mehmet_yalcinkaya.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\4_asdasdasd_asdasdasd.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/35_mehmet_yalcinkaya.jpg</RelativePath>
+      <RelativePath>uploads/personel-fotograflari/4_asdasdasd_asdasdasd.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -62,14 +62,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\35_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\4_asdasdasd_asdasdasd.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\35_mehmet_yalcinkaya.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\5_adasdasd_asdasdasdas.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/35_mehmet_yalcinkaya.png</RelativePath>
+      <RelativePath>uploads/personel-fotograflari/5_adasdasd_asdasdasdas.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -78,14 +78,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\35_mehmet_yalcinkaya.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\5_adasdasd_asdasdasdas.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\35__.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\6_asdasd_asdasd.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/35__.png</RelativePath>
+      <RelativePath>uploads/personel-fotograflari/6_asdasd_asdasd.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -94,14 +94,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\35__.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\6_asdasd_asdasd.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\36_mehmeet_yalcinkaya.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\0368e0bf-41a4-4af4-ac79-5fbb257c51b8_14_mehmet_yalcinkaya.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/36_mehmeet_yalcinkaya.jpg</RelativePath>
+      <RelativePath>uploads/personel/0368e0bf-41a4-4af4-ac79-5fbb257c51b8_14_mehmet_yalcinkaya.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -110,14 +110,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\36_mehmeet_yalcinkaya.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\0368e0bf-41a4-4af4-ac79-5fbb257c51b8_14_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\36_mehmet_yalcinkayaa.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\066cddd3-b767-42a3-b3bf-daedf0af4e7b_14_mehmet_yalcinkaya.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/36_mehmet_yalcinkayaa.jpg</RelativePath>
+      <RelativePath>uploads/personel/066cddd3-b767-42a3-b3bf-daedf0af4e7b_14_mehmet_yalcinkaya.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -126,14 +126,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\36_mehmet_yalcinkayaa.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\066cddd3-b767-42a3-b3bf-daedf0af4e7b_14_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\37_ad_soyad.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\0770970a-9dc8-4075-baba-9fe5e54b222c_14_mehmet_yalcinkaya.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/37_ad_soyad.jpg</RelativePath>
+      <RelativePath>uploads/personel/0770970a-9dc8-4075-baba-9fe5e54b222c_14_mehmet_yalcinkaya.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -142,14 +142,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\37_ad_soyad.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\0770970a-9dc8-4075-baba-9fe5e54b222c_14_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\38_mehmet_yalcinkayaa.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\5763f590-f1e7-4763-b24f-1f7d581c4fad_14_mehmet_yalcinkaya.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/38_mehmet_yalcinkayaa.png</RelativePath>
+      <RelativePath>uploads/personel/5763f590-f1e7-4763-b24f-1f7d581c4fad_14_mehmet_yalcinkaya.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -158,14 +158,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\38_mehmet_yalcinkayaa.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\5763f590-f1e7-4763-b24f-1f7d581c4fad_14_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\39_mehmet_yalcinkaya.png))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\5ec6fbc1-62cb-4db1-b136-3db4c65e34f4_14_mehmet_yalcinkaya.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/39_mehmet_yalcinkaya.png</RelativePath>
+      <RelativePath>uploads/personel/5ec6fbc1-62cb-4db1-b136-3db4c65e34f4_14_mehmet_yalcinkaya.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -174,14 +174,14 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\39_mehmet_yalcinkaya.png))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\5ec6fbc1-62cb-4db1-b136-3db4c65e34f4_14_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\40_asdajdghj_adhgasdh.jpg))">
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\e8dcba63-2586-4434-bc90-aad44a1b36f8_14_mehmet_yalcinkaya.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>IsBasvuru.WebAPI</SourceId>
       <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
       <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/40_asdajdghj_adhgasdh.jpg</RelativePath>
+      <RelativePath>uploads/personel/e8dcba63-2586-4434-bc90-aad44a1b36f8_14_mehmet_yalcinkaya.jpg</RelativePath>
       <AssetKind>All</AssetKind>
       <AssetMode>All</AssetMode>
       <AssetRole>Primary</AssetRole>
@@ -190,167 +190,7 @@
       <AssetTraitValue></AssetTraitValue>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\40_asdajdghj_adhgasdh.jpg))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\41_asdasd_asdadasd.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel-fotograflari/41_asdasd_asdadasd.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel-fotograflari\41_asdasd_asdadasd.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\05f95da4-a81c-4954-a81b-dd42e07b90b4_printer.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/05f95da4-a81c-4954-a81b-dd42e07b90b4_printer.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\05f95da4-a81c-4954-a81b-dd42e07b90b4_printer.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\1314770f-d71e-4808-8e7c-e5b62dcc9725_m.jpg))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/1314770f-d71e-4808-8e7c-e5b62dcc9725_m.jpg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\1314770f-d71e-4808-8e7c-e5b62dcc9725_m.jpg))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\2115bedb-a1d0-42df-98ba-58adf1fa19a0_whatsapp_image_2026-02-12_at_201207_1.jpeg))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/2115bedb-a1d0-42df-98ba-58adf1fa19a0_whatsapp_image_2026-02-12_at_201207_1.jpeg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\2115bedb-a1d0-42df-98ba-58adf1fa19a0_whatsapp_image_2026-02-12_at_201207_1.jpeg))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\35_mehmet_yalcinkaya.jpg))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/35_mehmet_yalcinkaya.jpg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\35_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\6e3be137-7107-44c2-ad77-ac222663a0a9_printer.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\c711df76-99f5-4e84-b7dc-d6a8fa61902d_printer.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\cfad5802-4e46-4547-8afc-e52202c55794_m.jpg))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/cfad5802-4e46-4547-8afc-e52202c55794_m.jpg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\cfad5802-4e46-4547-8afc-e52202c55794_m.jpg))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\df60f5f6-5fa4-493f-87b8-84fff79c5b55_printer.png))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/df60f5f6-5fa4-493f-87b8-84fff79c5b55_printer.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\df60f5f6-5fa4-493f-87b8-84fff79c5b55_printer.png))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\fa541b7f-0ad8-44ef-9d43-146305a54f8a_m.jpg))">
-      <SourceType>Package</SourceType>
-      <SourceId>IsBasvuru.WebAPI</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/IsBasvuru.WebAPI</BasePath>
-      <RelativePath>uploads/personel/fa541b7f-0ad8-44ef-9d43-146305a54f8a_m.jpg</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\fa541b7f-0ad8-44ef-9d43-146305a54f8a_m.jpg))</OriginalItemSpec>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\personel\e8dcba63-2586-4434-bc90-aad44a1b36f8_14_mehmet_yalcinkaya.jpg))</OriginalItemSpec>
     </StaticWebAsset>
   </ItemGroup>
 </Project>

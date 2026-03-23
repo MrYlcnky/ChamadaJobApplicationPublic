@@ -296,7 +296,8 @@
       "gpaDecimals": "Up to 2 decimals allowed for the 4-point scale.",
       "diplomaRequired": "Diploma status is required.",
       "diplomaValid": "Please select a valid diploma status.",
-      "formInvalid": "Please fill all required fields correctly."
+      "formInvalid": "Please fill all required fields correctly.",
+      "gpaRequired": "GPA is required."
     }
   },
   "jobDetails": {

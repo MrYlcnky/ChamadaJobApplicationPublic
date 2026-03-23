@@ -201,67 +201,50 @@ namespace IsBasvuru.Infrastructure.Services
 
                 await _context.Personeller.AddAsync(personel);
                 await _context.SaveChangesAsync();
-                /*
+              
                 if (dto.BasvuruOnay != null)
                 {
-                    var ipAdresi = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "Bilinmiyor";
-                    string userAgent = "Bilinmiyor";
+                        // --- GÜNCEL VE GELİŞMİŞ IP YAKALAMA MANTIĞI ---
+                        var context = _httpContextAccessor.HttpContext;
+                        string ipAdresi = "Bilinmiyor";
 
-                    if (_httpContextAccessor.HttpContext?.Request?.Headers.TryGetValue("User-Agent", out var agentVal) == true)
-                    {
-                        userAgent = agentVal.ToString();
-                    }
-
-                    var aktifKvkk = await _context.Kvkklar.FindAsync(dto.BasvuruOnay.KvkkId);
-
-                    if (aktifKvkk != null)
-                    {
-                        var onay = new BasvuruOnay
+                        if (context != null)
                         {
-                            PersonelId = personel.Id,
-                            KvkkId = aktifKvkk.Id,
+                            var request = context.Request;
 
-                            // Eğer Enum ismin farklıysa (Örn: BasvuruOnayAsamasi.Onayladi) burayı kendi enum ismine göre ufakça düzenleyebilirsin
-                            OnayDurum = dto.BasvuruOnay.OnayDurum,
-
-                            IpAdres = ipAdresi,
-                            KullaniciCihaz = userAgent,
-
-                            // Sözleşme detaylarını donduruyoruz (Snapshot)
-                            KvkkVersiyon = aktifKvkk.KvkkVersiyon,
-                            DogrulukAciklamaTr = aktifKvkk.DogrulukAciklamaTr,
-                            KvkkAciklamaTr = aktifKvkk.KvkkAciklamaTr,
-                            ReferansAciklamaTr = aktifKvkk.ReferansAciklamaTr,
-                            OnayTarihi = DateTime.Now
-                        };
-
-                        await _context.BasvuruOnaylari.AddAsync(onay);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-                */
-
-                if (dto.BasvuruOnay != null)
-                {
-                    // --- GÜNCEL IP YAKALAMA MANTIĞI ---
-                    var context = _httpContextAccessor.HttpContext;
-                    string ipAdresi = "Bilinmiyor";
-
-                    if (context != null)
-                    {
-                        // Önce X-Forwarded-For kontrolü (Proxy/IIS varsa gerçek IP buradadır)
-                        var forwardedHeader = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-                        if (!string.IsNullOrEmpty(forwardedHeader))
-                        {
-                            ipAdresi = forwardedHeader.Split(',')[0].Trim();
+                            // 1. İHTİMAL: Sunucu Cloudflare arkasındaysa gerçek IP buradadır (En güveniliri)
+                            var cfHeader = request.Headers["CF-Connecting-IP"].FirstOrDefault();
+                            if (!string.IsNullOrEmpty(cfHeader))
+                            {
+                                ipAdresi = cfHeader;
+                            }
+                            else
+                            {
+                                // 2. İHTİMAL: Standart Nginx veya Apache "X-Real-IP" kullanır
+                                var realIpHeader = request.Headers["X-Real-IP"].FirstOrDefault();
+                                if (!string.IsNullOrEmpty(realIpHeader))
+                                {
+                                    ipAdresi = realIpHeader;
+                                }
+                                else
+                                {
+                                    // 3. İHTİMAL: Standart X-Forwarded-For (Birden fazla IP gelebilir, ilkini alırız)
+                                    var forwardedHeader = request.Headers["X-Forwarded-For"].FirstOrDefault();
+                                    if (!string.IsNullOrEmpty(forwardedHeader))
+                                    {
+                                        ipAdresi = forwardedHeader.Split(',')[0].Trim();
+                                    }
+                                    else
+                                    {
+                                        // 4. İHTİMAL: Arada proxy yoksa (veya IIS in-process çalışıyorsa) standart .NET metodu
+                                        ipAdresi = context.Connection?.RemoteIpAddress?.ToString() ?? "Bilinmiyor";
+                                    }
+                                }
+                            }
                         }
-                        else
-                        {
-                            ipAdresi = context.Connection?.RemoteIpAddress?.ToString() ?? "Bilinmiyor";
-                        }
-                    }
-                    // IPv6 yerel döngü adresini temizle
-                    if (ipAdresi == "::1") ipAdresi = "127.0.0.1";
+
+                        // IPv6 yerel döngü adresini temizle
+                        if (ipAdresi == "::1") ipAdresi = "127.0.0.1";
                     // ---------------------------------
 
                     string userAgent = context?.Request?.Headers["User-Agent"].ToString() ?? "Bilinmiyor";
@@ -277,10 +260,10 @@ namespace IsBasvuru.Infrastructure.Services
                             OnayDurum = dto.BasvuruOnay.OnayDurum,
                             IpAdres = ipAdresi, // Artık gerçek IP
                             KullaniciCihaz = userAgent,
-                            KvkkVersiyon = aktifKvkk.KvkkVersiyon,
-                            DogrulukAciklamaTr = aktifKvkk.DogrulukAciklamaTr,
-                            KvkkAciklamaTr = aktifKvkk.KvkkAciklamaTr,
-                            ReferansAciklamaTr = aktifKvkk.ReferansAciklamaTr,
+                            KvkkVersiyon = aktifKvkk.KvkkVersiyon ?? "v1.0",
+                            DogrulukAciklamaTr = aktifKvkk.DogrulukAciklamaTr ?? "Bu başvuru formunu imzalarken belirtilen her şeyin doğru ve eksiksiz olduğunu kabul ediyorum.",
+                            KvkkAciklamaTr = aktifKvkk.KvkkAciklamaTr ?? "Başvurumu kabul ederek, kişisel verilerimin işlenmesini ve saklanmasını onaylıyorum.",
+                            ReferansAciklamaTr = aktifKvkk.ReferansAciklamaTr ?? "Referanslarımla iletişime geçilmesine onay veriyorum.",
                             OnayTarihi = DateTime.Now
                         };
 
@@ -446,7 +429,7 @@ namespace IsBasvuru.Infrastructure.Services
 
             personel.KisiselBilgiler = orijinalKisisel;
             personel.DigerKisiselBilgiler = orijinalDiger;
-
+            /*
             if (personel.KisiselBilgiler != null && kisiselTemp != null)
             {
                 _mapper.Map(kisiselTemp, personel.KisiselBilgiler);
@@ -457,6 +440,27 @@ namespace IsBasvuru.Infrastructure.Services
             if (personel.DigerKisiselBilgiler != null && digerTemp != null)
             {
                 _mapper.Map(digerTemp, personel.DigerKisiselBilgiler);
+                personel.DigerKisiselBilgiler.PersonelId = personel.Id;
+            }*/
+
+            // --- DÜZELTİLMİŞ KİŞİSEL BİLGİLER BLOĞU ---
+            if (personel.KisiselBilgiler != null && kisiselTemp != null)
+            {
+                // 1. Orijinal ID'yi güvene al
+                int orijinalKisiselId = personel.KisiselBilgiler.Id;
+
+                _mapper.Map(kisiselTemp, personel.KisiselBilgiler);
+                personel.KisiselBilgiler.Id = orijinalKisiselId;
+                personel.KisiselBilgiler.PersonelId = personel.Id;
+                personel.KisiselBilgiler.DogumTarihi = personel.KisiselBilgiler.DogumTarihi.Date;
+            }
+
+            // --- DÜZELTİLMİŞ DİĞER KİŞİSEL BİLGİLER BLOĞU ---
+            if (personel.DigerKisiselBilgiler != null && digerTemp != null)
+            {
+                int orijinalDigerId = personel.DigerKisiselBilgiler.Id;
+                _mapper.Map(digerTemp, personel.DigerKisiselBilgiler);
+                personel.DigerKisiselBilgiler.Id = orijinalDigerId;
                 personel.DigerKisiselBilgiler.PersonelId = personel.Id;
             }
 
@@ -538,52 +542,50 @@ namespace IsBasvuru.Infrastructure.Services
             UpdateCollection(personel.ReferansBilgileri, referansListesi, (entity, dtoItem) => _mapper.Map(dtoItem, entity), personel.Id);
 
             LogCvDegisiklikleri(personel.Id);
-            /*
-            if (dto.BasvuruOnay != null)
-            {
-                var ipAdresi = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "Bilinmiyor";
-                var userAgent = _httpContextAccessor.HttpContext?.Request?.Headers["User-Agent"].ToString() ?? "Bilinmiyor";
-                var aktifKvkk = await _context.Kvkklar.FindAsync(dto.BasvuruOnay.KvkkId);
 
-                if (aktifKvkk != null)
-                {
-                    // Güncelleme yapan kullanıcı için yeni bir onay satırı ekliyoruz (Geçmiş tutmak için)
-                    var onay = new BasvuruOnay
-                    {
-                        PersonelId = personel.Id,
-                        KvkkId = aktifKvkk.Id,
-                        OnayDurum = dto.BasvuruOnay.OnayDurum,
-                        IpAdres = ipAdresi,
-                        KullaniciCihaz = userAgent,
-                        KvkkVersiyon = aktifKvkk.KvkkVersiyon,
-                        DogrulukAciklamaTr = aktifKvkk.DogrulukAciklamaTr,
-                        KvkkAciklamaTr = aktifKvkk.KvkkAciklamaTr,
-                        ReferansAciklamaTr = aktifKvkk.ReferansAciklamaTr,
-                        OnayTarihi = DateTime.Now
-                    };
-                    await _context.BasvuruOnaylari.AddAsync(onay);
-                }
-            }
-            */
 
             if (dto.BasvuruOnay != null)
             {
-                // --- GÜNCEL IP YAKALAMA MANTIĞI ---
+                // --- GÜNCEL VE GELİŞMİŞ IP YAKALAMA MANTIĞI ---
                 var context = _httpContextAccessor.HttpContext;
                 string ipAdresi = "Bilinmiyor";
 
                 if (context != null)
                 {
-                    var forwardedHeader = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-                    if (!string.IsNullOrEmpty(forwardedHeader))
+                    var request = context.Request;
+
+                    // 1. İHTİMAL: Sunucu Cloudflare arkasındaysa gerçek IP buradadır (En güveniliri)
+                    var cfHeader = request.Headers["CF-Connecting-IP"].FirstOrDefault();
+                    if (!string.IsNullOrEmpty(cfHeader))
                     {
-                        ipAdresi = forwardedHeader.Split(',')[0].Trim();
+                        ipAdresi = cfHeader;
                     }
                     else
                     {
-                        ipAdresi = context.Connection?.RemoteIpAddress?.ToString() ?? "Bilinmiyor";
+                        // 2. İHTİMAL: Standart Nginx veya Apache "X-Real-IP" kullanır
+                        var realIpHeader = request.Headers["X-Real-IP"].FirstOrDefault();
+                        if (!string.IsNullOrEmpty(realIpHeader))
+                        {
+                            ipAdresi = realIpHeader;
+                        }
+                        else
+                        {
+                            // 3. İHTİMAL: Standart X-Forwarded-For (Birden fazla IP gelebilir, ilkini alırız)
+                            var forwardedHeader = request.Headers["X-Forwarded-For"].FirstOrDefault();
+                            if (!string.IsNullOrEmpty(forwardedHeader))
+                            {
+                                ipAdresi = forwardedHeader.Split(',')[0].Trim();
+                            }
+                            else
+                            {
+                                // 4. İHTİMAL: Arada proxy yoksa (veya IIS in-process çalışıyorsa) standart .NET metodu
+                                ipAdresi = context.Connection?.RemoteIpAddress?.ToString() ?? "Bilinmiyor";
+                            }
+                        }
                     }
                 }
+
+                // IPv6 yerel döngü adresini IPv4'e çevir
                 if (ipAdresi == "::1") ipAdresi = "127.0.0.1";
                 // ---------------------------------
 
@@ -599,10 +601,10 @@ namespace IsBasvuru.Infrastructure.Services
                         OnayDurum = dto.BasvuruOnay.OnayDurum,
                         IpAdres = ipAdresi, // Artık gerçek IP
                         KullaniciCihaz = userAgent,
-                        KvkkVersiyon = aktifKvkk.KvkkVersiyon,
-                        DogrulukAciklamaTr = aktifKvkk.DogrulukAciklamaTr,
-                        KvkkAciklamaTr = aktifKvkk.KvkkAciklamaTr,
-                        ReferansAciklamaTr = aktifKvkk.ReferansAciklamaTr,
+                        KvkkVersiyon = aktifKvkk.KvkkVersiyon ?? "v1.0",
+                        DogrulukAciklamaTr = aktifKvkk.DogrulukAciklamaTr ?? "Bu başvuru formunu imzalarken belirtilen her şeyin doğru ve eksiksiz olduğunu kabul ediyorum.",
+                        KvkkAciklamaTr = aktifKvkk.KvkkAciklamaTr ?? "Başvurumu kabul ederek, kişisel verilerimin işlenmesini ve saklanmasını onaylıyorum.",
+                        ReferansAciklamaTr = aktifKvkk.ReferansAciklamaTr ?? "Referanslarımla iletişime geçilmesine onay veriyorum.",
                         OnayTarihi = DateTime.Now
                     };
                     await _context.BasvuruOnaylari.AddAsync(onay);

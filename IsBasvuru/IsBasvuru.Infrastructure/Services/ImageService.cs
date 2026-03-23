@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq; // Contains için gerekli
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ImageMagick;
 
 namespace IsBasvuru.Infrastructure.Services
 {
@@ -37,7 +38,7 @@ namespace IsBasvuru.Infrastructure.Services
             // 3. Uzantı Kontrolü
             var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
             if (!AllowedExtensions.Contains(fileExtension))
-                return ServiceResponse<string>.FailureResult("Sadece .jpg, .jpeg ve .png uzantılı dosyalar kabul edilir.");
+                return ServiceResponse<string>.FailureResult("Sadece .jpg, .jpeg ve .heic/.heif uzantılı dosyalar kabul edilir.");
 
             // 4. MIME Type (İçerik Tipi) Kontrolü
             if (!AllowedMimeTypes.Contains(file.ContentType.ToLower()))
@@ -59,6 +60,9 @@ namespace IsBasvuru.Infrastructure.Services
                 }
             }
 
+            bool isHeic = fileExtension == ".heic" || fileExtension == ".heif";
+            string finalExtension = isHeic ? ".jpg" : fileExtension;
+
             string finalFileName;
 
             if (!string.IsNullOrEmpty(customName))
@@ -77,9 +81,23 @@ namespace IsBasvuru.Infrastructure.Services
 
             try
             {
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                if (isHeic)
                 {
-                    await file.CopyToAsync(fileStream);
+                    using (var stream = file.OpenReadStream())
+                    using (var image = new MagickImage(stream))
+                    {
+                        image.Format = MagickFormat.Jpeg; // Formatı JPG yap
+                        image.Quality = 80; // Kaliteyi %80'e ayarla (Boyut tasarrufu)
+                        await image.WriteAsync(filePath); // Fiziksel olarak JPG olarak kaydet
+                    }
+                }
+                else
+                {
+                    // HEIC değilse normal kaydet
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
                 }
             }
             catch (Exception ex)

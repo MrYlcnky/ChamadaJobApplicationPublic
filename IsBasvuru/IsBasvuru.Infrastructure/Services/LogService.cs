@@ -157,11 +157,28 @@ namespace IsBasvuru.Infrastructure.Services
             return ServiceResponse<bool>.SuccessResult(true);
         }
 
-        public async Task<ServiceResponse<bool>> LogCvDegisiklikAsync(int masterBasvuruId, int personelId, int degisenKayitId, string degisenTabloAdi, string degisenAlanAdi, string eskiDeger, string yeniDeger, LogIslemTipi degisiklikTipi)
+        public async Task<ServiceResponse<bool>> LogCvDegisiklikAsync(int masterBasvuruId, int personelId, int degisenKayitId, string degisenTabloAdi, string? degisenAlanAdi, string? eskiDeger, string? yeniDeger, LogIslemTipi degisiklikTipi)
         {
             // Değer değişmemişse loglama yapma
             if (eskiDeger == yeniDeger)
                 return ServiceResponse<bool>.SuccessResult(true);
+
+            // --- ID'LERİ İSİMLERE ÇEVİR (TRANSLATION) ---
+            string temizEskiDeger = await TranslateIdToNameAsync(degisenAlanAdi, eskiDeger);
+            string temizYeniDeger = await TranslateIdToNameAsync(degisenAlanAdi, yeniDeger);
+
+            // Frontend'de İngilizce/Teknik alan isimleri yerine temiz Türkçe isimler görünmesi için:
+            string gosterimAlanAdi = (degisenAlanAdi ?? "") switch
+            {
+                "DepartmanPozisyonId" => "Başvurulan Pozisyon",
+                "DepartmanId" => "Başvurulan Departman",
+                "SubeId" => "Başvurulan Şube",
+                "SubeAlanId" => "Başvurulan Alan",
+                "VesikalikFotograf" => "Vesikalık Fotoğraf",
+                "NedenBiz" => "Bizi Neden Seçtiniz",
+                _ => degisenAlanAdi ?? "Bilinmeyen Alan"
+            };
+            // ---------------------------------------------
 
             var log = new CvDegisiklikLog
             {
@@ -169,9 +186,9 @@ namespace IsBasvuru.Infrastructure.Services
                 PersonelId = personelId,
                 DegisenKayitId = degisenKayitId,
                 DegisenTabloAdi = degisenTabloAdi,
-                DegisenAlanAdi = degisenAlanAdi,
-                EskiDeger = eskiDeger ?? "",
-                YeniDeger = yeniDeger ?? "",
+                DegisenAlanAdi = gosterimAlanAdi,
+                EskiDeger = temizEskiDeger,
+                YeniDeger = temizYeniDeger,
                 DegisiklikTipi = degisiklikTipi,
                 DegisiklikTarihi = DateTime.Now
             };
@@ -180,6 +197,107 @@ namespace IsBasvuru.Infrastructure.Services
             await _context.SaveChangesAsync();
 
             return ServiceResponse<bool>.SuccessResult(true);
+        }
+
+
+        // ID'leri İsimlere ve Tam Yollara (Hierarchy) Çeviren Yardımcı Metot
+        private async Task<string> TranslateIdToNameAsync(string? alanAdi, string? deger)
+        {
+            // Değer null ise veya boşsa direkt geri dön
+            if (string.IsNullOrWhiteSpace(deger) || deger == "-") return deger ?? "-";
+            if (string.IsNullOrWhiteSpace(alanAdi)) return deger;
+
+            try
+            {
+                switch (alanAdi)
+                {
+                    case "DepartmanPozisyonId":
+                        if (int.TryParse(deger, out int pozId))
+                        {
+                            // ! işareti (null-forgiving) ile EF Core uyarısını susturuyoruz
+                            var pozisyon = await _context.DepartmanPozisyonlar
+                                .Include(p => p.MasterPozisyon!)
+                                .Include(p => p.Departman!)
+                                    .ThenInclude(d => d.MasterDepartman!)
+                                .Include(p => p.Departman!)
+                                    .ThenInclude(d => d.SubeAlan!)
+                                        .ThenInclude(sa => sa.MasterAlan!)
+                                .Include(p => p.Departman!)
+                                    .ThenInclude(d => d.SubeAlan!)
+                                        .ThenInclude(sa => sa.Sube!)
+                                .FirstOrDefaultAsync(x => x.Id == pozId);
+
+                            if (pozisyon != null)
+                            {
+                                string subeAdi = pozisyon.Departman?.SubeAlan?.Sube?.SubeAdi ?? "Şube Yok";
+                                string departmanAdi = pozisyon.Departman?.MasterDepartman?.MasterDepartmanAdi ?? "Departman Yok";
+                                string pozisyonAdi = pozisyon.MasterPozisyon?.MasterPozisyonAdi ?? "Pozisyon Yok";
+
+                                return $"{subeAdi} > {departmanAdi} > {pozisyonAdi}";
+                            }
+                        }
+                        break;
+
+                    case "DepartmanId":
+                        if (int.TryParse(deger, out int depId))
+                        {
+                            var departman = await _context.Departmanlar
+                                .Include(d => d.MasterDepartman!)
+                                .Include(d => d.SubeAlan!)
+                                    .ThenInclude(sa => sa.MasterAlan!)
+                                .Include(d => d.SubeAlan!)
+                                    .ThenInclude(sa => sa.Sube!)
+                                .FirstOrDefaultAsync(x => x.Id == depId);
+
+                            if (departman != null)
+                            {
+                                string subeAdi = departman.SubeAlan?.Sube?.SubeAdi ?? "Şube Yok";
+                                string departmanAdi = departman.MasterDepartman?.MasterDepartmanAdi ?? "Departman Yok";
+
+                                return $"{subeAdi} > {departmanAdi}";
+                            }
+                        }
+                        break;
+
+                    case "SubeAlanId":
+                        if (int.TryParse(deger, out int alanId))
+                        {
+                            var alan = await _context.SubeAlanlar
+                                .Include(sa => sa.MasterAlan!)
+                                .Include(sa => sa.Sube!)
+                                .FirstOrDefaultAsync(x => x.Id == alanId);
+
+                            if (alan != null)
+                            {
+                                string subeAdi = alan.Sube?.SubeAdi ?? "Şube Yok";
+                                string alanAdiEki = alan.MasterAlan?.MasterAlanAdi ?? "Alan Yok";
+                                return $"{subeAdi} > {alanAdiEki}";
+                            }
+                        }
+                        break;
+
+                    case "SubeId":
+                        if (int.TryParse(deger, out int subeId))
+                        {
+                            var sube = await _context.Subeler.FirstOrDefaultAsync(x => x.Id == subeId);
+                            return sube?.SubeAdi ?? deger;
+                        }
+                        break;
+
+                    case "VesikalikFotograf":
+                        return "Fotoğraf Değiştirildi";
+
+                    case "NedenBiz":
+                        return deger.Length > 50 ? deger.Substring(0, 50) + "..." : deger;
+                }
+            }
+            // "ex" kullanılmıyor uyarısını önlemek için sadece Exception yazıyoruz
+            catch (Exception)
+            {
+                // Sistemi çökertmemek için hatayı yut, orijinal sayıyı (ID'yi) göster
+            }
+
+            return deger;
         }
     }
 }

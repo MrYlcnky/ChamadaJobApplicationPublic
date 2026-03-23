@@ -9,7 +9,8 @@ import {
 import Swal from "sweetalert2";
 import { formatDate } from "../../../utils/dateFormatter";
 import { basvuruService } from "../../../services/basvuruService";
-import { gorevAtamaService } from "../../../services/gorevAtamaService"; // YENİ EKLENDİ
+import { gorevAtamaService } from "../../../services/gorevAtamaService";
+import { tanimlamalarService } from "../../../services/tanimlamalarService"; // 🎯 EKLENDİ
 
 import ApprovalWorkflow from "./ApplicationModalTabs/SummaryAndDecision/ApprovalWorkflow";
 import DecisionArea from "./ApplicationModalTabs/SummaryAndDecision/DecisionArea";
@@ -26,6 +27,12 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
   const [loadingLogs, setLoadingLogs] = useState(false);
   const [cvLogs, setCvLogs] = useState([]);
 
+  // 🎯 YENİ: Tanım Listeleri State'leri
+  const [subeler, setSubeler] = useState([]);
+  const [subeAlanlari, setSubeAlanlari] = useState([]);
+  const [departmanlar, setDepartmanlar] = useState([]);
+  const [pozisyonlar, setPozisyonlar] = useState([]);
+
   const rawData = data.originalData || {};
   const currentStageId = Number(
     data.approvalStage || rawData.basvuruOnayAsamasi || 1,
@@ -34,7 +41,6 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
   const personelId =
     rawData.personelId || rawData.PersonelId || rawData.personel?.id || 0;
 
-  // 🎯 YENİ: Görev Atama Form State'i (JobOfferDetails'i buradan yöneteceğiz)
   const [jobOfferData, setJobOfferData] = useState({
     id: 0,
     masterDepartmanId: auth?.masterDepartmanId || "",
@@ -65,17 +71,29 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
     });
   }, [logs, auth]);
 
+  // 🎯 GÜNCELLENDİ: Logları ve Tanım Listelerini Aynı Anda Çekiyoruz
   useEffect(() => {
     let isMounted = true;
 
-    const fetchAllLogs = async () => {
+    const fetchAllData = async () => {
       if (!data?.id) return;
 
       setLoadingLogs(true);
       try {
-        const [processRes, cvRes] = await Promise.all([
+        const [
+          processRes,
+          cvRes,
+          subelerRes,
+          subeAlanlariRes,
+          departmanlarRes,
+          pozisyonlarRes,
+        ] = await Promise.all([
           basvuruService.getBasvuruLogs(data.id),
           personelId ? basvuruService.getCvLogs(personelId) : { data: [] },
+          tanimlamalarService.getSubeler(),
+          tanimlamalarService.getSubeAlanlar(),
+          tanimlamalarService.getDepartmanlar(),
+          tanimlamalarService.getDepartmanPozisyonlar(),
         ]);
 
         if (isMounted) {
@@ -83,15 +101,20 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
             Array.isArray(processRes) ? processRes : processRes.data || [],
           );
           setCvLogs(Array.isArray(cvRes) ? cvRes : cvRes.data || []);
+
+          setSubeler(subelerRes?.data || []);
+          setSubeAlanlari(subeAlanlariRes?.data || []);
+          setDepartmanlar(departmanlarRes?.data || []);
+          setPozisyonlar(pozisyonlarRes?.data || []);
         }
       } catch (error) {
-        console.error("Log çekme hatası:", error);
+        console.error("Veri çekme hatası:", error);
       } finally {
         if (isMounted) setLoadingLogs(false);
       }
     };
 
-    fetchAllLogs();
+    fetchAllData();
     return () => {
       isMounted = false;
     };
@@ -117,13 +140,12 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
   }, [auth]);
 
   const canAction = useMemo(() => {
-    if ([3, 4, 5].includes(statusId)) return false; // 5: RevizeTalebi varken kimse normal işlem yapamaz
+    if ([3, 4, 5].includes(statusId)) return false;
     const STAGES_ROLES = { 1: "ik", 2: "dm", 3: "ik", 4: "gm", 5: "mim" };
     return STAGES_ROLES[currentStageId] === userRole;
   }, [statusId, currentStageId, userRole]);
 
   const handleProcess = async (actionType) => {
-    // 1. Karakter sınırı kontrolü (En az 13 karakter)
     if (!note || note.trim().length < 13) {
       Swal.fire({
         icon: "warning",
@@ -138,7 +160,6 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
     const isDM = Number(auth?.rolId || auth?.roleId) === 6;
     const isDepartmanOnayi = currentStageId === 2;
 
-    // 🎯 2. GÖREV ATAMA FORMU KONTROLÜ (Sadece DM Onaylıyorsa)
     if (actionType === "approve" && isDM && isDepartmanOnayi) {
       if (
         !jobOfferData.gorevId ||
@@ -173,7 +194,6 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
     setIsProcessing(true);
 
     try {
-      // 🎯 3. ÖNCE GÖREV BİLGİLERİNİ VERİTABANINA KAYDET
       if (actionType === "approve" && isDM && isDepartmanOnayi) {
         const atamaPayload = {
           ...jobOfferData,
@@ -191,11 +211,11 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
           await gorevAtamaService.create(atamaPayload);
         }
       }
-      // GEÇMİŞ TARİH KONTROLÜ
+
       if (actionType === "approve" && isDM && isDepartmanOnayi) {
         const selectedDate = new Date(jobOfferData.baslangicTarihi);
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Sadece tarih karşılaştırması için saati sıfırla
+        today.setHours(0, 0, 0, 0);
 
         if (selectedDate < today) {
           Swal.fire({
@@ -209,12 +229,11 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
         }
       }
 
-      // 4. SONRA BAŞVURU DURUMUNU İLERLET
       let newStatus = statusId;
       let newStage = currentStageId;
 
       if (actionType === "approve_revision") {
-        newStatus = 2; // BasvuruDurum.DevamEdiyor = 2
+        newStatus = 2;
 
         const lastRevReq = [...logs]
           .sort((a, b) => Number(b.id || b.Id) - Number(a.id || a.Id))
@@ -230,11 +249,11 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
           if ([1, 2, 3, 4].includes(requesterRolId)) {
             newStage = 1;
           } else if (requesterRolId === 6) {
-            newStage = 2; // Departman_Onayi
+            newStage = 2;
           } else if (requesterRolId === 5) {
-            newStage = 4; // Genel_Mudur_Onayi
+            newStage = 4;
           } else if (requesterRolId === 7) {
-            newStage = 5; // Mali_Isler_Mudur_Onayi
+            newStage = 5;
           } else {
             newStage = Number(
               lastRevReq.basvuruOnayAsamasi ||
@@ -247,16 +266,16 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
         }
       } else if (actionType === "approve") {
         if (currentStageId === 5) {
-          newStage = 6; // İşe Alındı
-          newStatus = 3; // Onaylandı
+          newStage = 6;
+          newStatus = 3;
         } else {
-          newStage = currentStageId + 1; // Bir sonraki aşama
+          newStage = currentStageId + 1;
           newStatus = 2;
         }
       } else if (actionType === "reject") {
-        newStatus = 4; // Reddedildi
+        newStatus = 4;
       } else if (actionType === "request_revision") {
-        newStatus = 5; // Revize Talebi
+        newStatus = 5;
       }
 
       const payload = {
@@ -358,8 +377,8 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
                 personelId={personelId}
                 auth={auth}
                 currentStageId={currentStageId}
-                jobOfferData={jobOfferData} // 🎯 YENİ PROP
-                setJobOfferData={setJobOfferData} // 🎯 YENİ PROP
+                jobOfferData={jobOfferData}
+                setJobOfferData={setJobOfferData}
               />
 
               <DecisionArea
@@ -382,7 +401,15 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
             </div>
           )}
           {activeTab === "history" && (
-            <HistoryAndChanges processLogs={logs} cvLogs={cvLogs} />
+            <HistoryAndChanges
+              processLogs={logs}
+              cvLogs={cvLogs}
+              // 🎯 YENİ: Listeleri History tablosuna gönderiyoruz
+              subeler={subeler}
+              subeAlanlari={subeAlanlari}
+              departmanlar={departmanlar}
+              pozisyonlar={pozisyonlar}
+            />
           )}
           {activeTab === "details" && <ReadOnlyApplicationView data={data} />}
         </div>

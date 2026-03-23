@@ -203,3 +203,6 @@ C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Releas
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\IsBasvuru.WebAPI.pdb
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\IsBasvuru.WebAPI.genruntimeconfig.cache
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\ref\IsBasvuru.WebAPI.dll
+C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\bin\Release\net8.0\win-x64\Magick.NET-Q16-AnyCPU.dll
+C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\bin\Release\net8.0\win-x64\Magick.NET.Core.dll
+C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\bin\Release\net8.0\win-x64\Magick.Native-Q16-x64.dll

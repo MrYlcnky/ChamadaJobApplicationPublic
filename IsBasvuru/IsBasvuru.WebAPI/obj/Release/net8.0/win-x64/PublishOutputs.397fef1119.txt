@@ -11,6 +11,8 @@ C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Releas
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\FluentValidation.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\FluentValidation.AspNetCore.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\Magick.NET-Q16-AnyCPU.dll
+C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\Magick.NET.Core.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\MailKit.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
@@ -57,6 +59,7 @@ C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Releas
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\System.Security.Cryptography.Pkcs.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\System.Text.Encodings.Web.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\System.Text.Json.dll
+C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\Magick.Native-Q16-x64.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\IsBasvuru.Domain.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\IsBasvuru.Infrastructure.dll
 C:\Users\mehmet.yalcinkaya\Desktop\hosting\IsBasvuru\IsBasvuru.WebAPI\obj\Release\net8.0\win-x64\PubTmp\Out\IsBasvuru.Persistence.dll

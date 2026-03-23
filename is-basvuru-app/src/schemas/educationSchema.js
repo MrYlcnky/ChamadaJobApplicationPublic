@@ -39,8 +39,9 @@ export const createEducationSchema = (t) => {
 
       gano: z
         .string()
-        .optional()
-        .refine((v) => v === "" || (!isNaN(v) && Number(v) >= 0), {
+        .trim()
+        .min(1, t("education.validations.gpaRequired") || "Gano zorunludur") // Zorunlu alan kontrolü
+        .refine((v) => !isNaN(v) && Number(v) >= 0, {
           message: t("education.validations.gpaNumber"),
         }),
       baslangic: z.string().min(1, t("education.validations.startRequired")),
@@ -130,7 +131,8 @@ export const createEducationSchema = (t) => {
       }
 
       // 3. GANO Kontrolü
-      if (data.gano && data.gano !== "") {
+      // 3. GANO Kontrolü
+      if (data.gano) {
         const n = Number(data.gano);
 
         //Enum ID'lerine göre max değer (1=Yüzlük, 2=Dörtlük)
