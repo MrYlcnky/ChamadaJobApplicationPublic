@@ -13,6 +13,6 @@ namespace IsBasvuru.Domain.Interfaces
         Task<ServiceResponse<MasterBasvuruListDto>> CreateAsync(MasterBasvuruCreateDto dto);
         Task<ServiceResponse<bool>> UpdateAsync(MasterBasvuruUpdateDto dto);
         Task<ServiceResponse<bool>> DeleteAsync(int id);
-        Task<ServiceResponse<List<BasvuruBildirimDto>>> GetOnayBekleyenBildirimlerAsync(int roleId);
+        Task<ServiceResponse<List<BasvuruBildirimDto>>> GetOnayBekleyenBildirimlerAsync(int roleId, int? subeId, int? departmanId, int? alanId);
     }
 }

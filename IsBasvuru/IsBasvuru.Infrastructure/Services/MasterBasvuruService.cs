@@ -2,15 +2,14 @@
 using IsBasvuru.Domain.DTOs.MasterBasvuruDtos;
 using IsBasvuru.Domain.Entities;
 using IsBasvuru.Domain.Entities.Log;
-using IsBasvuru.Domain.Entities.SirketYapisi.SirketTanimYapisi;
 using IsBasvuru.Domain.Enums;
 using IsBasvuru.Domain.Interfaces;
 using IsBasvuru.Domain.Wrappers;
 using IsBasvuru.Persistence.Context;
-using MailKit;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IsBasvuru.Infrastructure.Services
@@ -21,7 +20,6 @@ namespace IsBasvuru.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly ICurrentUserService _currentUserService;
         private readonly ILogService _logService;
-
         private readonly IImageService _imageService;
 
         public MasterBasvuruService(IsBasvuruContext context, IMapper mapper, ICurrentUserService currentUserService, ILogService logService, IImageService imageService)
@@ -37,21 +35,26 @@ namespace IsBasvuru.Infrastructure.Services
         {
             var query = _context.MasterBasvurular.AsQueryable();
 
-
-
             // 1. Departman Müdürü (Rol: 6)
             if (roleId == 6)
             {
+                // Güvenlik kontrolü: Müdürün departman ID'si yoksa hiç veri getirme
+                if (!departmanId.HasValue)
+                    return ServiceResponse<List<MasterBasvuruListDto>>.FailureResult("Departman bilgisi bulunamadı.");
+
                 query = query.Where(x =>
-                    // GÜVENLİK: Sadece kendi şubesi ve kendi departmanına ait başvuruları görebilir
-                    x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId) &&
-                    x.Personel!.IsBasvuruDetay!.BasvuruDepartmanlar.Any(d => d.DepartmanId == departmanId)
+                    (!subeId.HasValue || x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId)) &&
+
+                    
+                    x.Personel!.IsBasvuruDetay!.BasvuruDepartmanlar.Any(d =>
+                        d.Departman != null && d.Departman.MasterDepartmanId == departmanId.Value
+                    )
                 ).Where(x =>
-                    // GÖRÜNÜRLÜK: Kimleri takip edebilir?
-                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Departman_Onayi ||          // 1. Kendi onayını bekleyenler (Aşama 2)
-                    (int)x.BasvuruOnayAsamasi > (int)BasvuruOnayAsamasi.Departman_Onayi ||  // 2. Onaylayıp üst makama gönderdikleri (Aşama 3, 4, 5)
-                    x.BasvuruDurum == BasvuruDurum.Reddedildi ||                           // 3. Kendi alanında reddedilenler
-                    x.BasvuruDurum == BasvuruDurum.RevizeTalebi                            // 4. Revize aşamasındakiler
+                    // GÖRÜNÜRLÜK KURALLARI:
+                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Departman_Onayi ||
+                    (int)x.BasvuruOnayAsamasi > (int)BasvuruOnayAsamasi.Departman_Onayi ||
+                    x.BasvuruDurum == BasvuruDurum.Reddedildi ||
+                    x.BasvuruDurum == BasvuruDurum.RevizeTalebi
                 );
             }
             // 2. Genel Müdür (Rol: 5)
@@ -69,7 +72,6 @@ namespace IsBasvuru.Infrastructure.Services
                     x.BasvuruDurum == BasvuruDurum.RevizeTalebi                     // 4. Revize bekleyenler
                 );
             }
-
             else if (roleId == 7)
             {
                 query = query.Where(x =>
@@ -124,29 +126,33 @@ namespace IsBasvuru.Infrastructure.Services
                 .Include(x => x.Personel!)
                     .ThenInclude(p => p.IsBasvuruDetay!)
                     .ThenInclude(d => d.BasvuruOyunlar!).ThenInclude(pro => pro.OyunBilgileri!).ThenInclude(mp => mp.MasterOyun)
-
                 .Include(x => x.Personel!)
                     .ThenInclude(p => p.IsBasvuruDetay!)
                     .ThenInclude(d => d.BasvuruProgramlar!).ThenInclude(bp => bp.ProgramBilgisi!).ThenInclude(mp => mp.MasterProgram)
+                .OrderByDescending(x => x.BasvuruTarihi)
                 .AsSplitQuery()
                 .AsNoTracking()
                 .ToListAsync();
 
             var mappedList = _mapper.Map<List<MasterBasvuruListDto>>(list);
+
+            // Sadece listeyi dönüyoruz
             return ServiceResponse<List<MasterBasvuruListDto>>.SuccessResult(mappedList);
         }
 
         public async Task<ServiceResponse<MasterBasvuruListDto>> GetByIdAsync(int id, int roleId, int? subeId, int? departmanId, int? alanId)
         {
             var query = _context.MasterBasvurular.AsQueryable();
-           
 
-            // GetAllAsync'deki filtreleme mantığının aynısını buraya da uyguluyoruz (Güvenlik için)
             if (roleId == 6)
             {
+                // Sube kısıtlamasını buradan da kaldırdık, MasterDepartmanId kontrolünü ekledik
                 query = query.Where(x =>
-                    x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId) &&
-                    x.Personel!.IsBasvuruDetay!.BasvuruDepartmanlar.Any(d => d.DepartmanId == departmanId));
+                    x.Personel!.IsBasvuruDetay!.BasvuruDepartmanlar.Any(d =>
+                        d.DepartmanId == departmanId ||
+                        (d.Departman != null && d.Departman.MasterDepartmanId == departmanId)
+                    )
+                );
             }
             else if (roleId == 5)
             {
@@ -156,8 +162,8 @@ namespace IsBasvuru.Infrastructure.Services
             }
 
             var entity = await query
-                 .Include(x => x.BasvuruIslemLoglari) 
-                     .ThenInclude(l => l.PanelKullanici) 
+                 .Include(x => x.BasvuruIslemLoglari)
+                     .ThenInclude(l => l.PanelKullanici)
                 .Include(x => x.Personel!)
                     .ThenInclude(p => p.KisiselBilgiler)
                 .Include(x => x.Personel!)
@@ -193,11 +199,9 @@ namespace IsBasvuru.Infrastructure.Services
                 .Include(x => x.Personel!)
                     .ThenInclude(p => p.IsBasvuruDetay!)
                     .ThenInclude(d => d.BasvuruOyunlar!).ThenInclude(pro => pro.OyunBilgileri!).ThenInclude(mp => mp.MasterOyun)
-
                 .Include(x => x.Personel!)
                     .ThenInclude(p => p.IsBasvuruDetay!)
                     .ThenInclude(d => d.BasvuruProgramlar!).ThenInclude(bp => bp.ProgramBilgisi!).ThenInclude(mp => mp.MasterProgram)
-
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -282,7 +286,6 @@ namespace IsBasvuru.Infrastructure.Services
                         islemTipi = LogIslemTipi.Red;
                     else if (dto.BasvuruDurum == BasvuruDurum.RevizeTalebi)
                     {
-                        
                         islemTipi = LogIslemTipi.Revize; // Enum değeri: 10
                     }
                     else if (entity.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Ik_Ilk_Degerlendirme &&
@@ -295,7 +298,7 @@ namespace IsBasvuru.Infrastructure.Services
                     if (dto.BasvuruOnayAsamasi != 0) entity.BasvuruOnayAsamasi = dto.BasvuruOnayAsamasi;
                     if (dto.BasvuruDurum != 0) entity.BasvuruDurum = dto.BasvuruDurum;
 
-                    // 3. LogService Üzerinden Logu Kaydet (Manuel Add yerine servis çağrısı)
+                    // 3. LogService Üzerinden Logu Kaydet
                     await _logService.LogBasvuruIslemAsync(
                         entity.Id,
                         _currentUserService.UserId,
@@ -313,7 +316,6 @@ namespace IsBasvuru.Infrastructure.Services
                     _mapper.Map(dto, entity);
                 }
 
-                // Değişiklikleri veritabanına yansıt
                 await _context.SaveChangesAsync();
                 return ServiceResponse<bool>.SuccessResult(true, "İşlem başarıyla kaydedildi ve loglandı.");
             }
@@ -322,6 +324,7 @@ namespace IsBasvuru.Infrastructure.Services
                 return ServiceResponse<bool>.FailureResult($"Hata oluştu: {ex.Message}");
             }
         }
+
         public async Task<ServiceResponse<bool>> DeleteAsync(int id)
         {
             // 1. MasterBasvuru'yu Personel, KişiselBilgiler ve KVKK Logları ile birlikte çekiyoruz
@@ -329,7 +332,7 @@ namespace IsBasvuru.Infrastructure.Services
                 .Include(m => m.Personel)
                     .ThenInclude(p => p!.KisiselBilgiler)
                 .Include(m => m.Personel)
-                    .ThenInclude(p => p!.BasvuruOnay) // 🔥 Yeni eklediğimiz KVKK & IP Logları
+                    .ThenInclude(p => p!.BasvuruOnay) // KVKK & IP Logları
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (masterBasvuru == null)
@@ -342,7 +345,6 @@ namespace IsBasvuru.Infrastructure.Services
                 // 2. FOTOĞRAF TEMİZLİĞİ: Sunucudaki vesikalık dosyayı fiziksel olarak siliyoruz
                 if (personel?.KisiselBilgiler != null && !string.IsNullOrEmpty(personel.KisiselBilgiler.VesikalikFotograf))
                 {
-                    // Upload ederken "personel" klasörünü kullandığımız için silerken de onu hedefliyoruz
                     await _imageService.DeleteImageAsync(personel.KisiselBilgiler.VesikalikFotograf, "personel");
                 }
 
@@ -352,7 +354,6 @@ namespace IsBasvuru.Infrastructure.Services
                 }
                 else
                 {
-                    // Eğer bir şekilde personel kaydı yoksa (yetim kayıt), sadece bu başvuru sürecini sil
                     _context.MasterBasvurular.Remove(masterBasvuru);
                 }
 
@@ -361,7 +362,6 @@ namespace IsBasvuru.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                // Hata durumunda (Örn: Veritabanı kısıtlaması) bilgi dönüyoruz
                 return ServiceResponse<bool>.FailureResult($"Silme işlemi sırasında teknik hata: {ex.Message}");
             }
         }
@@ -382,57 +382,80 @@ namespace IsBasvuru.Infrastructure.Services
             }
         }
 
-        public async Task<ServiceResponse<List<BasvuruBildirimDto>>> GetOnayBekleyenBildirimlerAsync(int roleId)
+        public async Task<ServiceResponse<List<BasvuruBildirimDto>>> GetOnayBekleyenBildirimlerAsync(int roleId, int? subeId, int? departmanId, int? alanId)
         {
             var query = _context.MasterBasvurular
                 .Include(x => x.Personel)
                     .ThenInclude(p => p!.KisiselBilgiler!)
                 .AsQueryable();
 
-            // --- GÜNCELLENEN ONAY AKIŞI KURALLARI ---
-
-            // Kural 1: Aşama 1 (Rol 1, 2, 3, 4 için - Yeni veya Onay Bekliyor)
+            // Kural 1: IK Grubu (Rol 1, 2, 3, 4)
             if (new[] { 1, 2, 3, 4 }.Contains(roleId))
             {
-                // Parantezlere dikkat: (Aşama == 1) VE (Durum 1 VEYA 2 VEYA 5)
-                query = query.Where(x => ((int)x.BasvuruOnayAsamasi == 1 || (int)x.BasvuruOnayAsamasi == 3) &&
-                                         ((int)x.BasvuruDurum == 1 || (int)x.BasvuruDurum == 2 || (int)x.BasvuruDurum == 5));
+                // Bildirim kuralı: İlk değerlendirme veya mülakat aşamasında olan, 
+                // durumu Yeni, Devam Ediyor veya RevizeTalebi olanlar.
+                query = query.Where(x =>
+                    (x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Ik_Ilk_Degerlendirme || x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Ik_Son_Kontrol) &&
+                    (x.BasvuruDurum == BasvuruDurum.YeniBasvuru || x.BasvuruDurum == BasvuruDurum.DevamEdiyor || x.BasvuruDurum == BasvuruDurum.RevizeTalebi)
+                );
             }
-            // Kural 2: Aşama 2 (Rol 6 için - Sadece Onay Bekliyor)
+            // Kural 2: Departman Müdürü (Rol 6)
             else if (roleId == 6)
             {
-                query = query.Where(x => (int)x.BasvuruOnayAsamasi == 2 &&
-                                         (int)x.BasvuruDurum == 2);
+                if (!departmanId.HasValue)
+                    return ServiceResponse<List<BasvuruBildirimDto>>.SuccessResult(new List<BasvuruBildirimDto>());
+
+                query = query.Where(x =>
+                    // 1. ŞUBE GÜVENLİĞİ
+                    (!subeId.HasValue || x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId)) &&
+
+                    // 2. DEPARTMAN GÜVENLİĞİ
+                    x.Personel!.IsBasvuruDetay!.BasvuruDepartmanlar.Any(d =>
+                        d.Departman != null && d.Departman.MasterDepartmanId == departmanId.Value
+                    ) &&
+
+                    // 3. BİLDİRİM KURALI
+                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Departman_Onayi &&
+                    (x.BasvuruDurum == BasvuruDurum.DevamEdiyor || x.BasvuruDurum == BasvuruDurum.YeniBasvuru)
+                );
             }
-            // Kural 3: Aşama 4 (Rol 5 için - Sadece Onay Bekliyor) - YENİ EKLENDİ
+            // Kural 3: Genel Müdür (Rol 5)
             else if (roleId == 5)
             {
-                query = query.Where(x => (int)x.BasvuruOnayAsamasi == 4 &&
-                                         (int)x.BasvuruDurum == 2);
+                query = query.Where(x =>
+                    // 1. Güvenlik
+                    (!subeId.HasValue || x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId)) &&
+                    (!alanId.HasValue || x.Personel!.IsBasvuruDetay!.BasvuruAlanlar.Any(a => a.SubeAlan!.MasterAlanId == alanId)) &&
+                    // 2. Bildirim Kuralı
+                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Genel_Mudur_Onayi &&
+                    (x.BasvuruDurum == BasvuruDurum.DevamEdiyor || x.BasvuruDurum == BasvuruDurum.YeniBasvuru)
+                );
             }
+            // Kural 4: Mali İşler (Rol 7)
             else if (roleId == 7)
             {
-                query = query.Where(x => (int)x.BasvuruOnayAsamasi == 5 &&
-                                         (int)x.BasvuruDurum == 2);
+                query = query.Where(x =>
+                    // 1. Güvenlik
+                    (!subeId.HasValue || x.Personel!.IsBasvuruDetay!.BasvuruSubeler.Any(s => s.SubeId == subeId)) &&
+                    // 2. Bildirim Kuralı
+                    x.BasvuruOnayAsamasi == BasvuruOnayAsamasi.Mali_Isler_Mudur_Onayi &&
+                    (x.BasvuruDurum == BasvuruDurum.DevamEdiyor || x.BasvuruDurum == BasvuruDurum.YeniBasvuru)
+                );
             }
             else
             {
-                // Yetkisiz bir rol ise boş liste dön
                 return ServiceResponse<List<BasvuruBildirimDto>>.SuccessResult(new List<BasvuruBildirimDto>());
             }
 
-            // --- MAPPING VE VERİ ÇEKME ---
             var bildirimler = await query
                 .OrderByDescending(x => x.BasvuruTarihi)
-                .Take(15)
+                .Take(15) // En güncel 15 bildirimi alıyoruz
                 .Select(x => new BasvuruBildirimDto
                 {
                     BasvuruId = x.Id,
                     PersonelId = x.PersonelId,
-                    PersonelAd = (x.Personel != null && x.Personel.KisiselBilgiler != null)
-                                 ? x.Personel.KisiselBilgiler.Ad : "İsimsiz",
-                    PersonelSoyad = (x.Personel != null && x.Personel.KisiselBilgiler != null)
-                                    ? x.Personel.KisiselBilgiler.Soyadi : "",
+                    PersonelAd = (x.Personel != null && x.Personel.KisiselBilgiler != null) ? x.Personel.KisiselBilgiler.Ad : "İsimsiz",
+                    PersonelSoyad = (x.Personel != null && x.Personel.KisiselBilgiler != null) ? x.Personel.KisiselBilgiler.Soyadi : "",
                     BasvuruTarihi = x.BasvuruTarihi
                 })
                 .ToListAsync();

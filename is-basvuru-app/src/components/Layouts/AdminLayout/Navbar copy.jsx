@@ -21,7 +21,7 @@ import {
 import { authService } from "../../../services/authService";
 import { basvuruService } from "../../../services/basvuruService";
 import ChangePasswordModal from "./ChangePasswordModal";
-import logo from "../../../assets/group.png";
+import logo from "../../../assets/ch.ico";
 
 // Dışarı tıklamayı algılayan hook
 function useOutsideAlerter(ref, callback) {

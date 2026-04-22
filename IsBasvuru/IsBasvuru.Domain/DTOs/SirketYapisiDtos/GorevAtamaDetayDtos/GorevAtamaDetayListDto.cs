@@ -19,8 +19,8 @@ namespace IsBasvuru.Domain.DTOs.SirketYapisiDtos.GorevAtamaDetayDtos
         public int PanelKullaniciId { get; set; }
         public string? OnaylayanKullaniciAdSoyad { get; set; } 
 
-        public int NetUcret { get; set; }
-        public int TalepEdilenGorevGenelButcesi { get; set; }
+        public int? NetUcret { get; set; }
+        public int? TalepEdilenGorevGenelButcesi { get; set; }
         public DateTime BaslangicTarihi { get; set; }
 
         public TalepNedeni TalepNedeni { get; set; }

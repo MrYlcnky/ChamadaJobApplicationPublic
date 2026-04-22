@@ -16,8 +16,8 @@ export const createAdminUsersSchema = (isEditing = false) => {
         .min(3, "Kullanıcı adı en az 3 karakter olmalıdır")
         .max(20, "Kullanıcı adı en fazla 20 karakter olabilir")
         .regex(
-          /^[a-zA-Z0-9_]*$/,
-          "Kullanıcı adı yalnızca İngilizce harf, rakam ve alt çizgi (_) içerebilir!",
+          /^[a-zA-Z0-9_\-.]*$/,
+          "Kullanıcı adı yalnızca İngilizce harf, rakam, alt çizgi (_), tire (-) ve nokta (.) içerebilir!",
         ),
       // Şifre alanı başlangıçta opsiyonel, ancak aşağıda mantıkla kontrol edilecek
       kullaniciSifre: z.string().optional(),

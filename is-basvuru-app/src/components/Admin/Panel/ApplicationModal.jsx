@@ -161,16 +161,11 @@ export default function ApplicationModal({ data, auth, onClose, onAction }) {
     const isDepartmanOnayi = currentStageId === 2;
 
     if (actionType === "approve" && isDM && isDepartmanOnayi) {
-      if (
-        !jobOfferData.gorevId ||
-        !jobOfferData.netUcret ||
-        !jobOfferData.talepEdilenGorevGenelButcesi ||
-        !jobOfferData.baslangicTarihi
-      ) {
+      if (!jobOfferData.gorevId || !jobOfferData.baslangicTarihi) {
         Swal.fire({
           icon: "warning",
           title: "Eksik Görev Bilgileri",
-          text: "Lütfen adayı onaylamadan önce Görev, Başlama Tarihi, Ücret ve Bütçe alanlarını eksiksiz doldurun.",
+          text: "Lütfen adayı onaylamadan önce Görev ve Başlama Tarihi alanlarını eksiksiz doldurun.",
           background: "#1f2937",
           color: "#fff",
         });

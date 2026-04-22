@@ -124,6 +124,7 @@ export default function AdminPanel() {
       const response = await basvuruService.getAll();
       const rawData = response?.data || response?.data?.data || response || [];
       const actualList = Array.isArray(rawData) ? rawData : rawData.data || [];
+
       const mappedData = actualList.map((item) => {
         const p = item.personel || item.Personel || {};
         const kisisel = p.kisiselBilgiler || p.KisiselBilgiler || {};
@@ -260,22 +261,27 @@ export default function AdminPanel() {
       if (isDepartmanMudur) {
         data = data.filter((app) => {
           const isFollowableStage = Number(app.approvalStage) >= 2;
+
           const userSubeId = auth?.subeId ? Number(auth.subeId) : null;
           const userMasterDeptId = auth?.masterDepartmanId
             ? Number(auth.masterDepartmanId)
             : null;
 
-          if (userSubeId === null || userMasterDeptId === null) return false;
+          // Sadece departman zorunlu olsun, şube null ise geçsin
+          if (userMasterDeptId === null) return false;
 
-          // ✅ DM Veri Okuma (Sağlamlaştırıldı)
           const p = app.originalData?.personel || app.originalData?.Personel;
           const detay = p?.isBasvuruDetay || p?.IsBasvuruDetay;
 
+          // ŞUBE KONTROLÜ (ESNEK): Müdürün şubesi yoksa (null) true dön, varsa kontrol et
           const appSubeler =
             detay?.basvuruSubeler || detay?.BasvuruSubeler || [];
-          const isMyBranch = appSubeler.some(
-            (s) => Number(s.subeId || s.SubeId || s.id || s.Id) === userSubeId,
-          );
+          const isMyBranch =
+            userSubeId === null ||
+            appSubeler.some(
+              (s) =>
+                Number(s.subeId || s.SubeId || s.id || s.Id) === userSubeId,
+            );
 
           const appDepartmanlar =
             detay?.basvuruDepartmanlar || detay?.BasvuruDepartmanlar || [];

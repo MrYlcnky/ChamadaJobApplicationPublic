@@ -15,32 +15,36 @@ public class MasterBasvuruController : BaseController
 
     [HttpGet("GetAll")]
     [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,GenelMudur,DepartmanMudur,MaliIslerMudur")]
+    // 1. DÜZELTME: Sayfalama (pageNumber, pageSize) parametrelerini tamamen kaldırdık.
     public async Task<IActionResult> GetAll()
     {
-        // Token içerisindeki Claim'lerden kullanıcının bilgilerini alıyoruz
-        // Claim türleri projendeki TokenService/Identity yapılandırmasına göre farklılık gösterebilir ("role", "RoleId", "subeId" gibi)
-        var roleId = int.Parse(User.FindFirst("RoleId")?.Value ?? "0");
+        // 2. Rol ve Token verilerini okumaya devam ediyoruz (Burası aynı kalıyor)
+        var roleClaimValue = User.FindFirst("RolId")?.Value ?? User.FindFirst("RoleId")?.Value ?? "0";
+        var roleId = int.Parse(roleClaimValue);
 
         int? subeId = int.TryParse(User.FindFirst("SubeId")?.Value, out int sId) ? sId : null;
-        int? departmanId = int.TryParse(User.FindFirst("DepartmanId")?.Value, out int dId) ? dId : null;
-        int? alanId = int.TryParse(User.FindFirst("AlanId")?.Value, out int aId) ? aId : null;
+        int? departmanId = int.TryParse(User.FindFirst("MasterDepartmanId")?.Value ?? User.FindFirst("DepartmanId")?.Value, out int dId) ? dId : null;
+        int? alanId = int.TryParse(User.FindFirst("MasterAlanId")?.Value ?? User.FindFirst("SubeAlanId")?.Value ?? User.FindFirst("AlanId")?.Value, out int aId) ? aId : null;
 
-        // Servis metoduna yetki parametrelerini geçiyoruz
+        // 3. DÜZELTME: Servisi çağırırken sadece gerekli olan 4 yetki parametresini gönderiyoruz.
         var response = await _service.GetAllAsync(roleId, subeId, departmanId, alanId);
+
         return CreateActionResultInstance(response);
     }
 
     [HttpGet("GetById/{id}")]
-    [Authorize] // GetById için de yetki kontrolü eklemek güvenli olur
+    [Authorize]
     public async Task<IActionResult> GetById([FromRoute] int id)
     {
         if (id <= 0) return BadRequest("Geçersiz ID.");
 
-        // Güvenlik: Bir müdür başkasının yetkisindeki ID'yi rastgele yazıp çekememeli
-        var roleId = int.Parse(User.FindFirst("RoleId")?.Value ?? "0");
+        // 2. DÜZELTME: "RolId" güvencesini buraya da ekledik
+        var roleClaimValue = User.FindFirst("RolId")?.Value ?? User.FindFirst("RoleId")?.Value ?? "0";
+        var roleId = int.Parse(roleClaimValue);
+
         int? subeId = int.TryParse(User.FindFirst("SubeId")?.Value, out int sId) ? sId : null;
-        int? departmanId = int.TryParse(User.FindFirst("DepartmanId")?.Value, out int dId) ? dId : null;
-        int? alanId = int.TryParse(User.FindFirst("AlanId")?.Value, out int aId) ? aId : null;
+        int? departmanId = int.TryParse(User.FindFirst("MasterDepartmanId")?.Value ?? User.FindFirst("DepartmanId")?.Value, out int dId) ? dId : null;
+        int? alanId = int.TryParse(User.FindFirst("MasterAlanId")?.Value ?? User.FindFirst("SubeAlanId")?.Value ?? User.FindFirst("AlanId")?.Value, out int aId) ? aId : null;
 
         var response = await _service.GetByIdAsync(id, roleId, subeId, departmanId, alanId);
         return CreateActionResultInstance(response);
@@ -80,13 +84,19 @@ public class MasterBasvuruController : BaseController
     [Authorize(Roles = "SuperAdmin,Admin,IkAdmin,IK,GenelMudur,DepartmanMudur,MaliIslerMudur")]
     public async Task<IActionResult> GetNotifications()
     {
-        var roleClaimValue = User.FindFirst("RolId")?.Value;
+        // "RolId" claim adını kullandığını fark ettim, diğer yerlerde "RoleId" kullanılmış. Güvenlik için ikisine de bakıyoruz.
+        var roleClaimValue = User.FindFirst("RolId")?.Value ?? User.FindFirst("RoleId")?.Value;
 
-        System.Diagnostics.Debug.WriteLine($"Gelen RolId Claim: {roleClaimValue ?? "Hala Bulunamadı"}");
+        // Tıpkı GetAll'da olduğu gibi kullanıcının yerleşke bilgilerini claim'den alıyoruz
+        int? subeId = int.TryParse(User.FindFirst("SubeId")?.Value, out int sId) ? sId : null;
+        int? departmanId = int.TryParse(User.FindFirst("MasterDepartmanId")?.Value ?? User.FindFirst("DepartmanId")?.Value, out int dId) ? dId : null;
+        int? alanId = int.TryParse(User.FindFirst("MasterAlanId")?.Value ?? User.FindFirst("SubeAlanId")?.Value ?? User.FindFirst("AlanId")?.Value, out int aId) ? aId : null;
+
 
         if (int.TryParse(roleClaimValue, out int roleId))
         {
-            var result = await _service.GetOnayBekleyenBildirimlerAsync(roleId);
+            // Yeni parametreleri servise gönderiyoruz
+            var result = await _service.GetOnayBekleyenBildirimlerAsync(roleId, subeId, departmanId, alanId);
             return CreateActionResultInstance(result);
         }
 

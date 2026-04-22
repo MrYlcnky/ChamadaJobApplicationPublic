@@ -28,9 +28,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import OrganizationExcelImport from "./ExcelImport/OrganizationExcelImport";
+import { getAuthUser } from "../../../auth/session";
 
 export default function CompanyOrganization() {
   const navigate = useNavigate();
+
+  const authUser = getAuthUser();
+  const rolId = Number(authUser?.userInfo?.rolId || authUser?.rolId);
+  const isSuperAdmin = rolId === 1;
+
   const [activeTab, setActiveTab] = useState("sirket");
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -58,10 +64,10 @@ export default function CompanyOrganization() {
   const [selections, setSelections] = useState({
     subeId: "",
     subeAlanId: "",
-    departmanId: "", // Şirket
+    departmanId: "",
     orgSubeId: "",
     orgDepartmanId: "",
-    orgMasterId: "", // Oyun/Program
+    orgMasterId: "",
   });
 
   // Tablo Filtreleme
@@ -149,8 +155,8 @@ export default function CompanyOrganization() {
           tanimlamalarService.getAllMasterPrograms(),
           tanimlamalarService.getOyunlar(),
           tanimlamalarService.getProgramlar(),
-          tanimlamalarService.getMasterGorevler(), // mg
-          tanimlamalarService.getGorevler(), // gb
+          tanimlamalarService.getMasterGorevler(),
+          tanimlamalarService.getGorevler(),
         ]);
 
       const loadedDepartmanlar = d.data || [];
@@ -169,84 +175,117 @@ export default function CompanyOrganization() {
 
       // 1. Şirket Listesi
       const flatSirket = [];
-
       (sa.data || []).forEach((saItem) => {
-        // Şubeler listesinden (loadedSubeler), bu satırın şube ID'sine sahip olanı buluyoruz.
-        const bagliSube = (s.data || []).find(
-          (sube) => sube.id === (saItem.SubeId || saItem.subeId),
-        );
+        const saId = saItem.id || saItem.Id;
+        const subeId = saItem.SubeId || saItem.subeId;
+        const masterAlanId = saItem.MasterAlanId || saItem.masterAlanId;
 
-        // Bulduğumuz şubenin adını saItem içine "enjekte" ediyoruz ki formatRowSirket onu görebilsin.
+        const bagliSube = (s.data || []).find(
+          (sube) => (sube.id || sube.Id) == subeId,
+        );
         saItem.SubeAdi = bagliSube
           ? bagliSube.SubeAdi || bagliSube.subeAdi
           : "-";
 
-        // --- ADIM 2: ALAN ADINI DA AYNI ŞEKİLDE GARANTİYE ALALIM (Opsiyonel ama iyi olur) ---
         const bagliAlan = (ma.data || []).find(
-          (alan) => alan.id === (saItem.MasterAlanId || saItem.masterAlanId),
+          (alan) => (alan.id || alan.Id) == masterAlanId,
         );
         saItem.AlanAdi = bagliAlan
           ? bagliAlan.MasterAlanAdi || bagliAlan.masterAlanAdi
           : "-";
 
-        // --- BURADAN AŞAĞISI SENİN MEVCUT DÖNGÜN (HİÇ DEĞİŞMEDİ) ---
         const ilgiliDeps = loadedDepartmanlar.filter(
-          (dep) => (dep.SubeAlanId || dep.subeAlanId) === saItem.id,
+          (dep) => (dep.SubeAlanId || dep.subeAlanId) == saId,
         );
 
         if (ilgiliDeps.length === 0) {
           flatSirket.push(formatRowSirket(saItem));
         } else {
           ilgiliDeps.forEach((depItem) => {
-            const ilgiliPozs = (dp.data || []).filter(
-              (poz) => (poz.DepartmanId || poz.departmanId) === depItem.id,
+            const depId = depItem.id || depItem.Id;
+            const masterDepId =
+              depItem.MasterDepartmanId || depItem.masterDepartmanId;
+
+            const bagliMasterDep = (md.data || []).find(
+              (d) => (d.id || d.Id) == masterDepId,
             );
+            depItem.DepartmanAdi = bagliMasterDep
+              ? bagliMasterDep.MasterDepartmanAdi ||
+                bagliMasterDep.masterDepartmanAdi
+              : "-";
+
+            const ilgiliPozs = (dp.data || []).filter(
+              (poz) => (poz.DepartmanId || poz.departmanId) == depId,
+            );
+
             if (ilgiliPozs.length === 0) {
               flatSirket.push(formatRowSirket(saItem, depItem));
             } else {
               ilgiliPozs.forEach((pozItem) => {
+                const masterPozId =
+                  pozItem.MasterPozisyonId || pozItem.masterPozisyonId;
+                const bagliMasterPoz = (mp.data || []).find(
+                  (p) => (p.id || p.Id) == masterPozId,
+                );
+                pozItem.PozisyonAdi = bagliMasterPoz
+                  ? bagliMasterPoz.MasterPozisyonAdi ||
+                    bagliMasterPoz.masterPozisyonAdi
+                  : "-";
+
                 flatSirket.push(formatRowSirket(saItem, depItem, pozItem));
               });
             }
           });
         }
       });
-
       setSirketList(flatSirket);
 
-      // Helper
+      // Helper for relations
       const findSubeAdiByDeptId = (deptId) => {
-        const dept = loadedDepartmanlar.find((d) => d.id === deptId);
+        const dept = loadedDepartmanlar.find((d) => (d.id || d.Id) == deptId);
         if (!dept) return "-";
         const subeAlan = (sa.data || []).find(
-          (sa) => sa.id === (dept.SubeAlanId || dept.subeAlanId),
+          (x) => (x.id || x.Id) == (dept.SubeAlanId || dept.subeAlanId),
         );
         if (!subeAlan) return dept.SubeAdi || dept.subeAdi || "-";
         const sube = (s.data || []).find(
-          (s) => s.id === (subeAlan.SubeId || subeAlan.subeId),
+          (x) => (x.id || x.Id) == (subeAlan.SubeId || subeAlan.subeId),
         );
         return sube ? sube.SubeAdi || sube.subeAdi : "-";
       };
 
-      // 2. Oyun Listesi
-      const enrichedOyunList = (ob.data || []).map((item) => ({
-        ...item,
-        subeAdi: findSubeAdiByDeptId(item.departmanId || item.DepartmanId),
-      }));
-      setOyunList(enrichedOyunList);
+      setOyunList(
+        (ob.data || []).map((item) => ({
+          ...item,
+          subeAdi: findSubeAdiByDeptId(item.departmanId || item.DepartmanId),
+        })),
+      );
+      setProgramList(
+        (pb.data || []).map((item) => ({
+          ...item,
+          subeAdi: findSubeAdiByDeptId(item.departmanId || item.DepartmanId),
+        })),
+      );
+      const enrichedGorevList = (gb.data || []).map((item) => {
+        const mDeptId = item.MasterDepartmanId || item.masterDepartmanId;
+        const mDept = md.data.find((d) => d.id == mDeptId);
+        const mGorevId = item.MasterGorevId || item.masterGorevId;
+        const mGorev = mg.data.find((g) => g.id == mGorevId);
 
-      // 3. Program Listesi
-      const enrichedProgramList = (pb.data || []).map((item) => ({
-        ...item,
-        subeAdi: findSubeAdiByDeptId(item.departmanId || item.DepartmanId),
-      }));
-
-      const enrichedGorevList = (gb.data || []).map((item) => ({
-        ...item,
-        subeAdi: findSubeAdiByDeptId(item.departmanId || item.DepartmanId),
-      }));
+        return {
+          ...item,
+          id: item.id || item.Id,
+          subeAdi: "Tüm Şubeler (Global)", // Görevler Master Departmana bağlıdır
+          departmanAdi: mDept
+            ? mDept.MasterDepartmanAdi || mDept.masterDepartmanAdi
+            : "-",
+          masterGorevAdi: mGorev
+            ? mGorev.MasterGorevAdi || mGorev.masterGorevAdi
+            : "-",
+          gorevAktifMi: true, // Backend'de aktif/pasif alanı olmadığı için varsayılan true
+        };
+      });
       setGorevList(enrichedGorevList);
-      setProgramList(enrichedProgramList);
     } catch (err) {
       console.error(err);
       toast.error("Veriler yüklenemedi.");
@@ -257,7 +296,6 @@ export default function CompanyOrganization() {
 
   const formatRowSirket = (sa, dep = null, poz = null) => {
     const sName = sa.SubeAdi || sa.subeAdi || "-";
-    console.log(sName);
     const aName =
       sa.AlanAdi || sa.alanAdi || sa.MasterAlanAdi || sa.masterAlanAdi || "-";
     const dName = dep ? dep.DepartmanAdi || dep.departmanAdi || "-" : "-";
@@ -271,10 +309,14 @@ export default function CompanyOrganization() {
       ? (getSafeVal(poz, "DepartmanPozisyonAktifMi") ?? true)
       : true;
 
+    const pozId = poz ? poz.id || poz.Id : null;
+    const depId = dep ? dep.id || dep.Id : null;
+    const saId = sa.id || sa.Id;
+
     return {
-      id: poz?.id || dep?.id || sa.id,
+      id: pozId || depId || saId,
       type: poz ? "Pozisyon" : dep ? "Departman" : "SubeAlan",
-      rawIds: { saId: sa.id, depId: dep?.id, pozId: poz?.id },
+      rawIds: { saId, depId, pozId },
       subeAdi: sName,
       alanAdi: aName,
       departmanAdi: dName,
@@ -289,10 +331,60 @@ export default function CompanyOrganization() {
     fetchData();
   }, [fetchData]);
 
+  // --- DİNAMİK YARDIMCI FONKSİYONLAR ---
+  const getSelectedMasterName = () => {
+    if (!selections.orgMasterId) return "";
+    let list = [];
+    if (activeTab === "program") list = lookups.masterProgramlar;
+    else if (activeTab === "oyun") list = lookups.masterOyunlar;
+    else if (activeTab === "gorev") list = lookups.masterGorevler;
+
+    const item = list.find((x) => x.id == selections.orgMasterId);
+    if (!item) return "";
+    return (
+      item.MasterProgramAdi ||
+      item.masterProgramAdi ||
+      item.MasterOyunAdi ||
+      item.masterOyunAdi ||
+      item.MasterGorevAdi ||
+      item.masterGorevAdi ||
+      ""
+    );
+  };
+
+  const isMasterAssigned = (masterId) => {
+    if (activeTab === "gorev") {
+      // Görev sekmesindeyken orgDepartmanId zaten doğrudan MasterDepartmanId'dir.
+      const masterDeptId = selections.orgDepartmanId;
+
+      return gorevList.some(
+        (item) =>
+          (item.MasterDepartmanId == masterDeptId ||
+            item.masterDepartmanId == masterDeptId) &&
+          (item.MasterGorevId == masterId || item.masterGorevId == masterId),
+      );
+    }
+
+    // Oyun ve Program için Spesifik Departman kontrolü
+    else {
+      const isProg = activeTab === "program";
+      const list = isProg ? programList : oyunList;
+      const key = isProg ? "masterProgramId" : "masterOyunId";
+      const PascalKey = isProg ? "MasterProgramId" : "MasterOyunId";
+
+      return list.some(
+        (item) =>
+          (item.departmanId == selections.orgDepartmanId ||
+            item.DepartmanId == selections.orgDepartmanId) &&
+          (item[key] == masterId || item[PascalKey] == masterId),
+      );
+    }
+  };
+
   // --- CRUD: DÜZENLEME ---
   const handleEditStatus = async (item) => {
-    // 1. Şirket Sekmesi
     if (activeTab === "sirket") {
+      // ... Şirket düzenleme mantığı aynı
       const pozOptions = Object.fromEntries(
         lookups.masterPozisyonlar.map((x) => [
           x.id,
@@ -364,15 +456,15 @@ export default function CompanyOrganization() {
           setLoading(false);
         }
       }
-    }
-    // 2. Oyun ve Program Sekmesi
-    else {
-      const isProgram = activeTab === "program";
+    } else {
+      // 🎯 DİNAMİK: Oyun, Program ve Görev Düzenleme
       const currentStatus =
         item.oyunAktifMi === true ||
-        item.programAktifMi === true ||
         item.oyunAktifMi === 1 ||
-        item.programAktifMi === 1;
+        item.programAktifMi === true ||
+        item.programAktifMi === 1 ||
+        item.gorevAktifMi === true ||
+        item.gorevAktifMi === 1;
 
       const { value: result } = await Swal.fire({
         title: `<span class="text-xl font-black">DURUMU GÜNCELLE</span>`,
@@ -384,7 +476,7 @@ export default function CompanyOrganization() {
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="swal-org-status" ${currentStatus ? "checked" : ""} class="sr-only peer">
-                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
                     </label>
                 </div>
             `,
@@ -398,34 +490,40 @@ export default function CompanyOrganization() {
       });
 
       if (result) {
-        const newStatus = result.checked;
         try {
           setLoading(true);
           const payload = {
             id: item.id,
             departmanId: item.departmanId || item.DepartmanId,
-            [isProgram ? "masterProgramId" : "masterOyunId"]: isProgram
-              ? item.masterProgramId || item.MasterProgramId
-              : item.masterOyunId || item.MasterOyunId,
-            [isProgram ? "programAdi" : "oyunAdi"]: isProgram
-              ? item.programAdi || item.ProgramAdi
-              : item.oyunAdi || item.OyunAdi,
-            [isProgram ? "programAktifMi" : "oyunAktifMi"]: newStatus,
           };
 
-          const res = isProgram
-            ? await tanimlamalarService.updateProgramBilgisi(payload)
-            : await tanimlamalarService.updateOyunBilgisi(payload);
+          let res;
+          if (activeTab === "program") {
+            payload.masterProgramId =
+              item.masterProgramId || item.MasterProgramId;
+            payload.programAdi = item.programAdi || item.ProgramAdi;
+            payload.programAktifMi = result.checked;
+            res = await tanimlamalarService.updateProgramBilgisi(payload);
+          } else if (activeTab === "oyun") {
+            payload.masterOyunId = item.masterOyunId || item.MasterOyunId;
+            payload.oyunAdi = item.oyunAdi || item.OyunAdi;
+            payload.oyunAktifMi = result.checked;
+            res = await tanimlamalarService.updateOyunBilgisi(payload);
+          } else if (activeTab === "gorev") {
+            payload.masterGorevId = item.masterGorevId || item.MasterGorevId;
+            payload.gorevAdi = item.gorevAdi || item.GorevAdi;
+            payload.gorevAktifMi = result.checked;
+            res = await tanimlamalarService.updateGorev(payload);
+          }
 
-          if (res.success) {
+          if (res?.success) {
             toast.success("Durum güncellendi.");
             fetchData();
           } else {
-            toast.error(res.message || "Güncelleme başarısız.");
+            toast.error(res?.message || "Güncelleme başarısız.");
           }
-        } catch (err) {
+        } catch {
           toast.error("Hata oluştu.");
-          console.error(err);
         } finally {
           setLoading(false);
         }
@@ -441,39 +539,43 @@ export default function CompanyOrganization() {
       return;
     }
 
-    const isProgram = activeTab === "program";
-    const masterIdKey = isProgram ? "MasterProgramId" : "MasterOyunId";
-    const masterList = isProgram
-      ? lookups.masterProgramlar
-      : lookups.masterOyunlar;
-    const selectedMaster = masterList.find((m) => m.id == orgMasterId);
-    const masterName = selectedMaster
-      ? selectedMaster.MasterProgramAdi ||
-        selectedMaster.MasterOyunAdi ||
-        selectedMaster.masterProgramAdi ||
-        selectedMaster.masterOyunAdi
-      : "";
-
     try {
       setLoading(true);
-      const payload = {
-        DepartmanId: parseInt(orgDepartmanId),
-        [masterIdKey]: parseInt(orgMasterId),
-        [isProgram ? "ProgramAdi" : "OyunAdi"]: masterName,
-        [isProgram ? "ProgramAktifMi" : "OyunAktifMi"]: true,
-      };
-      const res = isProgram
-        ? await tanimlamalarService.createProgramBilgisi(payload)
-        : await tanimlamalarService.createOyunBilgisi(payload);
+      let payload = {};
+      let serviceFunc = "";
+
+      //  Görev sekmesindeysek Backend'in istediği DTO formatını yolluyoruz
+      if (activeTab === "gorev") {
+        payload = {
+          MasterDepartmanId: parseInt(orgDepartmanId),
+          MasterGorevId: parseInt(orgMasterId),
+        };
+        serviceFunc = "createGorev";
+      }
+      // Oyun ve Program için mevcut işleyiş
+      else {
+        const isProgram = activeTab === "program";
+        serviceFunc = isProgram ? "createProgramBilgisi" : "createOyunBilgisi";
+        payload = {
+          DepartmanId: parseInt(orgDepartmanId),
+          [isProgram ? "MasterProgramId" : "MasterOyunId"]:
+            parseInt(orgMasterId),
+          [isProgram ? "ProgramAdi" : "OyunAdi"]: getSelectedMasterName(),
+          [isProgram ? "ProgramAktifMi" : "OyunAktifMi"]: true,
+        };
+      }
+
+      const res = await tanimlamalarService[serviceFunc](payload);
+
       if (res.success) {
-        toast.success("Atama başarılı.");
+        toast.success("Atama başarıyla kaydedildi.");
         setSelections((prev) => ({ ...prev, orgMasterId: "" }));
         fetchData();
       } else {
-        toast.error(res.message || "Hata");
+        toast.error(res.message || "Kayıt işlemi başarısız.");
       }
     } catch {
-      toast.error("Hata");
+      toast.error("Sunucu ile iletişim hatası.");
     } finally {
       setLoading(false);
     }
@@ -481,6 +583,7 @@ export default function CompanyOrganization() {
 
   // --- CRUD: ŞİRKET BAĞLANTISI ---
   const handleAddRelation = async (type) => {
+    // ... Şirket hiyerarşisi bağlantı kurma mantığı aynı
     let title,
       inputOptions,
       serviceFunc,
@@ -568,9 +671,10 @@ export default function CompanyOrganization() {
     } else if (selectedId) toast.info("Zaten bağlı.");
   };
 
-  // --- CRUD: SİLME (DÜZELTİLMİŞ) ---
+  // --- CRUD: SİLME ---
   const handleDelete = async (item) => {
     if (activeTab === "sirket") {
+      // ... Şirket seviye silme mantığı aynı ...
       const { value: level } = await Swal.fire({
         title:
           '<span class="text-2xl font-black text-gray-800">SİLME KAPSAMI</span>',
@@ -596,7 +700,6 @@ export default function CompanyOrganization() {
           confirmButtonText: "Evet",
           confirmButtonColor: "#e11d48",
         });
-
         if (confirm.isConfirmed) {
           try {
             setLoading(true);
@@ -611,8 +714,6 @@ export default function CompanyOrganization() {
               );
             else if (level === "sa")
               res = await tanimlamalarService.deleteSubeAlan(item.rawIds.saId);
-
-            // DÜZELTME: API'den gelen cevap ne olursa olsun (hata fırlatılmadıysa) başarı kabul et ve yenile
             if (!res || res.success !== false) {
               toast.success("Başarıyla silindi.");
               setTimeout(() => {
@@ -630,7 +731,7 @@ export default function CompanyOrganization() {
         }
       }
     } else {
-      const isProgram = activeTab === "program";
+      // 🎯 DİNAMİK: Oyun, Program ve Görev Silme
       const confirm = await Swal.fire({
         title: "Atamayı Sil?",
         icon: "warning",
@@ -638,18 +739,21 @@ export default function CompanyOrganization() {
         confirmButtonText: "Sil",
         confirmButtonColor: "#e11d48",
       });
-
       if (confirm.isConfirmed) {
         try {
-          const res = isProgram
-            ? await tanimlamalarService.deleteProgramBilgisi(item.id)
-            : await tanimlamalarService.deleteOyunBilgisi(item.id);
+          let res;
+          if (activeTab === "program")
+            res = await tanimlamalarService.deleteProgramBilgisi(item.id);
+          else if (activeTab === "oyun")
+            res = await tanimlamalarService.deleteOyunBilgisi(item.id);
+          else if (activeTab === "gorev")
+            res = await tanimlamalarService.deleteGorev(item.id);
 
-          if (res.success) {
+          if (res?.success) {
             toast.success("Silindi");
             fetchData();
           } else {
-            toast.error(res.message);
+            toast.error(res?.message || "Hata!");
           }
         } catch {
           toast.error("Hata");
@@ -660,18 +764,32 @@ export default function CompanyOrganization() {
 
   // --- SIRALAMA & FİLTRELEME ---
   const processedList = useMemo(() => {
+    // 🎯 DİNAMİK LİSTE SEÇİMİ
     let sourceList =
       activeTab === "sirket"
         ? sirketList
         : activeTab === "oyun"
           ? oyunList
-          : programList;
+          : activeTab === "program"
+            ? programList
+            : gorevList;
+
     let filtered = sourceList.filter((item) => {
+      // 🎯 DİNAMİK ARAMA VE DURUM
+      const dynamicName =
+        activeTab === "oyun"
+          ? item.oyunAdi
+          : activeTab === "program"
+            ? item.programAdi
+            : activeTab === "gorev"
+              ? item.gorevAdi
+              : "";
       const searchContent =
         activeTab === "sirket"
           ? item.searchContent
-          : `${item.subeAdi} ${item.departmanAdi} ${item.oyunAdi || item.programAdi}`.toLowerCase();
+          : `${item.subeAdi} ${item.departmanAdi} ${dynamicName}`.toLowerCase();
       const matchSearch = searchContent.includes(searchTerm.toLowerCase());
+
       if (activeTab === "sirket") {
         return (
           matchSearch &&
@@ -684,18 +802,19 @@ export default function CompanyOrganization() {
             (filters.durum === "Aktif" ? item.aktifMi : !item.aktifMi))
         );
       } else {
+        const itemStatus =
+          item.oyunAktifMi || item.programAktifMi || item.gorevAktifMi;
         return (
           matchSearch &&
           (filters.sube === "" || item.subeAdi === filters.sube) &&
           (filters.departman === "" ||
             item.departmanAdi === filters.departman) &&
           (filters.durum === "" ||
-            (filters.durum === "Aktif"
-              ? item.oyunAktifMi || item.programAktifMi
-              : !(item.oyunAktifMi || item.programAktifMi)))
+            (filters.durum === "Aktif" ? itemStatus : !itemStatus))
         );
       }
     });
+
     if (sortConfig.key) {
       filtered.sort((a, b) => {
         let valA = a[sortConfig.key],
@@ -704,11 +823,11 @@ export default function CompanyOrganization() {
           valA =
             activeTab === "sirket"
               ? a.aktifMi
-              : a.oyunAktifMi || a.programAktifMi;
+              : a.oyunAktifMi || a.programAktifMi || a.gorevAktifMi;
           valB =
             activeTab === "sirket"
               ? b.aktifMi
-              : b.oyunAktifMi || b.programAktifMi;
+              : b.oyunAktifMi || b.programAktifMi || b.gorevAktifMi;
         }
         if (typeof valA === "string") valA = valA.toLowerCase();
         if (typeof valB === "string") valB = valB.toLowerCase();
@@ -722,6 +841,7 @@ export default function CompanyOrganization() {
     sirketList,
     oyunList,
     programList,
+    gorevList,
     activeTab,
     searchTerm,
     filters,
@@ -733,6 +853,7 @@ export default function CompanyOrganization() {
     currentPage * itemsPerPage,
   );
   const totalPages = Math.ceil(processedList.length / itemsPerPage);
+
   const requestSort = (key) =>
     setSortConfig({
       key,
@@ -741,34 +862,6 @@ export default function CompanyOrganization() {
           ? "desc"
           : "asc",
     });
-
-  const getSelectedMasterName = () => {
-    if (!selections.orgMasterId) return "";
-    const list =
-      activeTab === "program"
-        ? lookups.masterProgramlar
-        : lookups.masterOyunlar;
-    const item = list.find((x) => x.id == selections.orgMasterId);
-    return item
-      ? item.MasterProgramAdi ||
-          item.MasterOyunAdi ||
-          item.masterProgramAdi ||
-          item.masterOyunAdi
-      : "";
-  };
-
-  const isMasterAssigned = (masterId) => {
-    const list = activeTab === "program" ? programList : oyunList;
-    const key = activeTab === "program" ? "masterProgramId" : "masterOyunId";
-    const PascalKey =
-      activeTab === "program" ? "MasterProgramId" : "MasterOyunId";
-    return list.some(
-      (item) =>
-        (item.departmanId == selections.orgDepartmanId ||
-          item.DepartmanId == selections.orgDepartmanId) &&
-        (item[key] == masterId || item[PascalKey] == masterId),
-    );
-  };
 
   const getSortIcon = (columnKey) => {
     if (sortConfig.key !== columnKey)
@@ -810,7 +903,22 @@ export default function CompanyOrganization() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full xl:w-auto">
-          <OrganizationExcelImport onImportSuccess={fetchData} />
+          {isSuperAdmin && (
+            <OrganizationExcelImport
+              onImportSuccess={fetchData}
+              activeTab={activeTab}
+              lookups={lookups}
+              currentList={
+                activeTab === "sirket"
+                  ? sirketList
+                  : activeTab === "program"
+                    ? programList
+                    : activeTab === "oyun"
+                      ? oyunList
+                      : gorevList
+              }
+            />
+          )}
           <button
             onClick={() => navigate("/admin/definitions")}
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all border border-blue-100 font-black text-[10px] uppercase tracking-widest shadow-sm group shrink-0"
@@ -841,7 +949,7 @@ export default function CompanyOrganization() {
         </div>
       </div>
 
-      {/* TABLAR (Yatay Kaydırılabilir) */}
+      {/* TABLAR */}
       <div className="flex gap-1.5 sm:gap-2 p-1.5 sm:p-2 bg-white rounded-2xl shadow-sm border border-gray-100 w-full overflow-x-auto no-scrollbar">
         {tabs.map((tab) => (
           <button
@@ -866,11 +974,7 @@ export default function CompanyOrganization() {
                 orgMasterId: "",
               });
             }}
-            className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase transition-all flex items-center justify-center gap-2 whitespace-nowrap ${
-              activeTab === tab.id
-                ? `${tab.bg} ${tab.color} shadow-sm scale-[1.02]`
-                : "text-gray-400 hover:bg-gray-50"
-            }`}
+            className={`flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase transition-all flex items-center justify-center gap-2 whitespace-nowrap ${activeTab === tab.id ? `${tab.bg} ${tab.color} shadow-sm scale-[1.02]` : "text-gray-400 hover:bg-gray-50"}`}
           >
             <FontAwesomeIcon icon={tab.icon} className="text-sm" />
             <span>{tab.name}</span>
@@ -881,6 +985,7 @@ export default function CompanyOrganization() {
       {/* --- EKLEME PANELLERİ --- */}
       {activeTab === "sirket" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {/* Şirket Sekmesi Ekleme Panelleri (Aynı Kalıyor) */}
           <div className="bg-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-gray-100 shadow-xl space-y-4 flex flex-col justify-between">
             <div className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-2">
               <FontAwesomeIcon icon={faMapMarkerAlt} /> 1. Şubeye Alan Bağla
@@ -990,68 +1095,103 @@ export default function CompanyOrganization() {
             >
               <FontAwesomeIcon icon={faMapMarkerAlt} /> 1. Hedef Belirle
             </div>
-            <select
-              value={selections.orgSubeId}
-              onChange={(e) =>
-                setSelections({
-                  ...selections,
-                  orgSubeId: e.target.value,
-                  orgDepartmanId: "",
-                })
-              }
-              className="w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none focus:border-purple-500"
-            >
-              <option value="">Şube Seçiniz...</option>
-              {lookups.subeler.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.SubeAdi || s.subeAdi}
-                </option>
-              ))}
-            </select>
-            <select
-              value={selections.orgDepartmanId}
-              onChange={(e) =>
-                setSelections({ ...selections, orgDepartmanId: e.target.value })
-              }
-              disabled={!selections.orgSubeId}
-              className="w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none focus:border-purple-500 disabled:opacity-50"
-            >
-              <option value="">Departman Seçiniz...</option>
-              {lookups.departmanlar
-                .filter((d) => {
-                  const subeyeAitAlanIds = lookups.subeAlanlar
-                    .filter(
-                      (sa) => (sa.SubeId || sa.subeId) == selections.orgSubeId,
-                    )
-                    .map((sa) => sa.id);
-                  const isHierarchyValid = subeyeAitAlanIds.includes(
-                    d.SubeAlanId || d.subeAlanId,
-                  );
-                  if (activeTab === "oyun") {
-                    const depName = (
-                      d.DepartmanAdi ||
-                      d.departmanAdi ||
-                      ""
-                    ).toLowerCase();
-                    const validKeywords = [
-                      "canlı oyun",
-                      "live game",
-                      "slot",
-                      "canli oyun",
-                    ];
-                    return (
-                      isHierarchyValid &&
-                      validKeywords.some((keyword) => depName.includes(keyword))
-                    );
-                  }
-                  return isHierarchyValid;
-                })
-                .map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.DepartmanAdi || d.departmanAdi}
+
+            {activeTab === "gorev" ? (
+              <select
+                value={selections.orgDepartmanId}
+                onChange={(e) =>
+                  setSelections({
+                    ...selections,
+                    orgDepartmanId: e.target.value,
+                  })
+                }
+                className={`w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none ${currentTabInfo.ring}`}
+              >
+                <option value="">Master Departman Seçiniz...</option>
+                {lookups.masterDepartmanlar.map((md) => (
+                  <option key={md.id} value={md.id}>
+                    {md.MasterDepartmanAdi || md.masterDepartmanAdi}
                   </option>
                 ))}
-            </select>
+              </select>
+            ) : (
+              /* 🎯 PROGRAM VEYA OYUN SEKMESİNDEYSEK: ŞUBE VE DEPARTMAN GÖSTER */
+              <>
+                <select
+                  value={selections.orgSubeId}
+                  onChange={(e) =>
+                    setSelections({
+                      ...selections,
+                      orgSubeId: e.target.value,
+                      orgDepartmanId: "", // Şube değişince departmanı sıfırla
+                    })
+                  }
+                  className={`w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none ${currentTabInfo.ring}`}
+                >
+                  <option value="">Şube Seçiniz...</option>
+                  {lookups.subeler.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.SubeAdi || s.subeAdi}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={selections.orgDepartmanId}
+                  onChange={(e) =>
+                    setSelections({
+                      ...selections,
+                      orgDepartmanId: e.target.value,
+                    })
+                  }
+                  disabled={!selections.orgSubeId}
+                  className={`w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none ${currentTabInfo.ring} disabled:opacity-50`}
+                >
+                  <option value="">Departman Seçiniz...</option>
+                  {lookups.departmanlar
+                    .filter((d) => {
+                      const subeyeAitAlanIds = lookups.subeAlanlar
+                        .filter(
+                          (sa) =>
+                            (sa.SubeId || sa.subeId) == selections.orgSubeId,
+                        )
+                        .map((sa) => sa.id);
+
+                      const isHierarchyValid = subeyeAitAlanIds.includes(
+                        d.SubeAlanId || d.subeAlanId,
+                      );
+
+                      // Oyun sekmesiyse sadece Casino/Oyun departmanlarını filtrele
+                      if (activeTab === "oyun") {
+                        const depName = (
+                          d.DepartmanAdi ||
+                          d.departmanAdi ||
+                          ""
+                        ).toLowerCase();
+                        const validKeywords = [
+                          "canlı oyun",
+                          "live game",
+                          "slot",
+                          "canli oyun",
+                        ];
+                        return (
+                          isHierarchyValid &&
+                          validKeywords.some((keyword) =>
+                            depName.includes(keyword),
+                          )
+                        );
+                      }
+
+                      return isHierarchyValid;
+                    })
+                    .map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {d.DepartmanAdi || d.departmanAdi}
+                      </option>
+                    ))}
+                </select>
+              </>
+            )}
           </div>
 
           <div
@@ -1060,30 +1200,33 @@ export default function CompanyOrganization() {
             <div
               className={`text-[10px] font-black ${currentTabInfo.color} uppercase tracking-widest flex items-center gap-2`}
             >
-              <FontAwesomeIcon
-                icon={activeTab === "program" ? faLaptopCode : faGamepad}
-              />
-              2. Master {activeTab === "program" ? "Program" : "Oyun"} Seçimi
+              <FontAwesomeIcon icon={currentTabInfo.icon} /> 2. Master{" "}
+              {currentTabInfo.single} Seçimi
             </div>
             <select
               value={selections.orgMasterId}
               onChange={(e) =>
                 setSelections({ ...selections, orgMasterId: e.target.value })
               }
-              className="w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none focus:border-purple-500"
+              className={`w-full bg-gray-50 border rounded-xl p-3 text-xs sm:text-sm font-bold outline-none ${currentTabInfo.ring}`}
             >
               <option value="">Havuzdan Seçiniz...</option>
+              {/* 🎯 DİNAMİK MASTER LİSTE */}
               {(activeTab === "program"
                 ? lookups.masterProgramlar
-                : lookups.masterOyunlar
+                : activeTab === "oyun"
+                  ? lookups.masterOyunlar
+                  : lookups.masterGorevler
               ).map((m) => {
                 const isAdded = isMasterAssigned(m.id);
                 return (
                   <option key={m.id} value={m.id} disabled={isAdded}>
                     {m.MasterProgramAdi ||
                       m.MasterOyunAdi ||
+                      m.MasterGorevAdi ||
                       m.masterProgramAdi ||
-                      m.masterOyunAdi}{" "}
+                      m.masterOyunAdi ||
+                      m.masterGorevAdi}{" "}
                     {isAdded ? "(✔ Eklendi)" : ""}
                   </option>
                 );
@@ -1154,7 +1297,9 @@ export default function CompanyOrganization() {
                   ? sirketList
                   : activeTab === "oyun"
                     ? oyunList
-                    : programList
+                    : activeTab === "program"
+                      ? programList
+                      : gorevList
                 ).map((i) => i.subeAdi),
               ),
             ]
@@ -1297,22 +1442,31 @@ export default function CompanyOrganization() {
                         Departman {getSortIcon("departmanAdi")}
                       </div>
                     </th>
+                    {/* 🎯 DİNAMİK SÜTUN BAŞLIĞI */}
                     <th
                       onClick={() =>
                         requestSort(
                           activeTab === "program"
                             ? "masterProgramAdi"
-                            : "masterOyunAdi",
+                            : activeTab === "oyun"
+                              ? "masterOyunAdi"
+                              : "masterGorevAdi",
                         )
                       }
                       className="py-4 px-4 sm:px-6 text-[9px] sm:text-[10px] font-black text-gray-400 uppercase cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap"
                     >
                       <div className="flex items-center gap-1">
-                        {activeTab === "program" ? "Program Adı" : "Oyun Adı"}{" "}
+                        {activeTab === "program"
+                          ? "Program Adı"
+                          : activeTab === "oyun"
+                            ? "Oyun Adı"
+                            : "Görev Adı"}
                         {getSortIcon(
                           activeTab === "program"
                             ? "masterProgramAdi"
-                            : "masterOyunAdi",
+                            : activeTab === "oyun"
+                              ? "masterOyunAdi"
+                              : "masterGorevAdi",
                         )}
                       </div>
                     </th>
@@ -1358,7 +1512,6 @@ export default function CompanyOrganization() {
                         <td className="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-black text-gray-800 whitespace-nowrap">
                           {item.subeAdi}
                         </td>
-                        {/* 🎯 ÇÖZÜM: 'uppercase' silindi, font boyutları normalize edildi */}
                         <td className="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-bold text-amber-600 whitespace-nowrap">
                           {item.alanAdi}
                         </td>
@@ -1376,7 +1529,7 @@ export default function CompanyOrganization() {
                               icon={
                                 item.aktifMi ? faCheckCircle : faTimesCircle
                               }
-                            />
+                            />{" "}
                             {item.aktifMi ? "Aktif" : "Pasif"}
                           </span>
                         </td>
@@ -1389,16 +1542,22 @@ export default function CompanyOrganization() {
                         <td className="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-bold text-emerald-600 whitespace-nowrap">
                           {item.departmanAdi}
                         </td>
+                        {/* 🎯 DİNAMİK DEĞER YAZDIRIMI */}
                         <td className="py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-black text-gray-800 whitespace-nowrap">
                           {activeTab === "program"
-                            ? item.masterProgramAdi
-                            : item.masterOyunAdi}
+                            ? item.masterProgramAdi || item.programAdi
+                            : activeTab === "oyun"
+                              ? item.masterOyunAdi || item.oyunAdi
+                              : item.masterGorevAdi || item.gorevAdi}
                         </td>
                         <td className="py-3.5 px-4 sm:px-6 text-center">
+                          {/* 🎯 DİNAMİK DURUM GÖSTERİMİ */}
                           <span
-                            className={`inline-flex items-center gap-1 px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase ${item.oyunAktifMi || item.programAktifMi ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "bg-rose-50 text-rose-600 border border-rose-100"}`}
+                            className={`inline-flex items-center gap-1 px-2 sm:px-3 py-1 rounded-full text-[9px] sm:text-[10px] font-black uppercase ${item.oyunAktifMi || item.programAktifMi || item.gorevAktifMi ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "bg-rose-50 text-rose-600 border border-rose-100"}`}
                           >
-                            {item.oyunAktifMi || item.programAktifMi
+                            {item.oyunAktifMi ||
+                            item.programAktifMi ||
+                            item.gorevAktifMi
                               ? "Aktif"
                               : "Pasif"}
                           </span>

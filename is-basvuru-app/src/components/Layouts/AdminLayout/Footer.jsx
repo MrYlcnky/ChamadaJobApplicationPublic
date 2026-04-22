@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-400 mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <p className="text-sm text-gray-400">
           © {new Date().getFullYear()}{" "}
-          <span className="font-semibold text-gray-200">Chamada Group</span>.
+          <span className="font-semibold text-gray-200">Chamada Hotels</span>.
           Tüm hakları saklıdır.
         </p>
 
@@ -30,12 +30,12 @@ export default function Footer() {
           <span className="text-gray-500">
             Developed by{" "}
             <a
-              href="https://www.linkedin.com/in/mehmetyalcinkya"
+              href="https://chamadahotels.com/"
               target="_blank"
               rel="noreferrer"
               className="text-gray-300 hover:text-white transition-colors font-semibold"
             >
-              Mehmet Yalçınkaya
+              CHAMADA IT
             </a>
           </span>
         </div>

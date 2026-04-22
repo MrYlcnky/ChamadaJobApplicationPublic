@@ -54,7 +54,7 @@ export default function Footer() {
                 <span>
                   CHAMADA
                   <span className="text-transparent bg-clip-text bg-linear-to-r from-sky-400 to-blue-600 ml-1">
-                    GROUP
+                    HOTELS
                   </span>
                 </span>
               </h2>
@@ -87,7 +87,7 @@ export default function Footer() {
               {/* Sol: Telif Hakkı */}
               <div className="text-sm font-medium text-slate-500 tracking-wide text-center md:text-left order-2 md:order-1">
                 &copy; {year}{" "}
-                <span className="text-slate-400">CHAMADA GROUP</span>, Inc. Tüm
+                <span className="text-slate-400">CHAMADA HOTELS</span>, Inc. Tüm
                 hakları saklıdır.
               </div>
 
@@ -102,7 +102,7 @@ export default function Footer() {
                     rel="noreferrer"
                     className="text-slate-300 hover:text-sky-400 transition-colors font-bold tracking-wide"
                   >
-                    Chamada Group IT
+                    Chamada Hotels IT
                   </a>
                 </span>
 

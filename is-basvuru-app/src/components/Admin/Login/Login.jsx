@@ -169,18 +169,18 @@ export default function Login() {
 
           <div className="mt-8 text-center space-y-1">
             <p className="text-[10px] text-gray-600 font-bold">
-              &copy; {new Date().getFullYear()} Chamada Group. Tüm hakları
+              &copy; {new Date().getFullYear()} Chamada Hotels. Tüm hakları
               saklıdır.
             </p>
             <p className="text-[10px] text-gray-500">
               Developed by{" "}
               <a
-                href="https://www.linkedin.com/in/mehmetyalcinkya"
+                href="https://chamadahotels.com/"
                 target="_blank"
                 rel="noreferrer"
                 className="font-semibold hover:text-[#0A66C2] transition-colors"
               >
-                Mehmet Yalçınkaya
+                CHAMADA IT
               </a>
             </p>
           </div>

@@ -1256,9 +1256,23 @@ export default function CompanyOrganization() {
                     className="text-gray-400 text-[10px]"
                   />
                   <span className={`${currentTabInfo.color}`}>
-                    {lookups.departmanlar.find(
-                      (d) => d.id == selections.orgDepartmanId,
-                    )?.DepartmanAdi || "Departman"}
+                    {activeTab === "gorev"
+                      ? (() => {
+                          const md = lookups.masterDepartmanlar.find(
+                            (x) => x.id == selections.orgDepartmanId,
+                          );
+                          return md
+                            ? md.MasterDepartmanAdi || md.masterDepartmanAdi
+                            : "Departman";
+                        })()
+                      : (() => {
+                          const d = lookups.departmanlar.find(
+                            (x) => x.id == selections.orgDepartmanId,
+                          );
+                          return d
+                            ? d.DepartmanAdi || d.departmanAdi
+                            : "Departman";
+                        })()}
                   </span>
                 </div>
               </div>

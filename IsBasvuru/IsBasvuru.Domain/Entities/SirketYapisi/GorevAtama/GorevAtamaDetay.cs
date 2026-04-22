@@ -19,8 +19,8 @@ namespace IsBasvuru.Domain.Entities.SirketYapisi.GorevAtama
         public int PanelKullaniciId { get; set; } // İşlemi onaylayan yönetici
 
         // Atama Detayları
-        public int NetUcret { get; set; } // int yapıldı
-        public int TalepEdilenGorevGenelButcesi { get; set; } // int yapıldı
+        public int? NetUcret { get; set; } // int yapıldı
+        public int? TalepEdilenGorevGenelButcesi { get; set; } // int yapıldı
         public DateTime BaslangicTarihi { get; set; }
 
         // Kadro Talebi

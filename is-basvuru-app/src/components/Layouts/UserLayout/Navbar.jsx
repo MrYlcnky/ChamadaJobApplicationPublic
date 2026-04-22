@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../../assets/group.png"; // Logo yolunu projene göre ayarla
+import logo from "../../../assets/ch.ico"; // Logo yolunu projene göre ayarla
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons"; // Uyarı ikonu için (Opsiyonel)
 
@@ -12,7 +12,7 @@ export default function Navbar() {
           <Link to="/" className="shrink-0 group">
             <img
               src={logo}
-              alt="Chamada Group"
+              alt="Chamada"
               className="h-12 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_10px_rgba(14,165,233,0.3)]"
             />
           </Link>

@@ -28,6 +28,9 @@ import {
   faFilter,
   faEraser,
   faListOl,
+  faCircleInfo,
+  faEye, // Göz açık ikonu eklendi
+  faEyeSlash, // Göz kapalı ikonu eklendi
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createAdminUsersSchema } from "../../../schemas/AdminUsersSchema";
@@ -63,6 +66,9 @@ export default function AdminUsers() {
   const [isEditing, setIsEditing] = useState(false);
   const [pageInput, setPageInput] = useState(1);
   const [columnFilters, setColumnFilters] = useState([]);
+
+  // 🎯 Şifre görünürlüğü için state eklendi
+  const [showPassword, setShowPassword] = useState(false);
 
   const [lookups, setLookups] = useState({
     subeler: [],
@@ -146,6 +152,7 @@ export default function AdminUsers() {
     try {
       const payload = {
         ...formData,
+        yeniKullaniciSifre: formData.kullaniciSifre,
         rolId: Number(formData.rolId),
         subeId: formData.subeId ? Number(formData.subeId) : null,
         masterAlanId: formData.masterAlanId
@@ -198,7 +205,7 @@ export default function AdminUsers() {
       adi: user.adi,
       soyadi: user.soyadi,
       kullaniciSifre: "",
-      rolId: user.rolId, // Burası doğrudan 7 (MaliIslerMudur) olarak formda seçili gelecek
+      rolId: user.rolId,
       subeId: user.subeId || "",
       masterAlanId: user.masterAlanId || "",
       masterDepartmanId: user.masterDepartmanId || "",
@@ -211,6 +218,7 @@ export default function AdminUsers() {
     setShowModal(false);
     setIsEditing(false);
     setFormData(initialForm);
+    setShowPassword(false); // 🎯 Modal kapanınca göz kapalı duruma sıfırlanır
   };
 
   const columns = useMemo(
@@ -273,11 +281,7 @@ export default function AdminUsers() {
         id: "actions",
         header: () => <div className="text-right">İşlemler</div>,
         cell: (i) => {
-          // 🎯 ÇÖZÜM 3: String isme göre değil, tablodaki Rol ID'sine (1'den 7'ye kadar) göre yetki kıyası yapıyoruz.
           const targetHierarchy = Number(i.row.original.rolId || 99);
-
-          // Mevcut kullanıcının Rol Id'si, işlem yapılmak istenen kullanıcının Rol Id'sinden küçük veya eşitse işlem yapabilir.
-          // (Örn: Admin(2) <= MaliIsler(7) -> true, ama İK(4) <= Admin(2) -> false)
           const hasPermission = currentUserIdLevel <= targetHierarchy;
 
           return (
@@ -309,7 +313,7 @@ export default function AdminUsers() {
         },
       },
     ],
-    [currentUserIdLevel, handleDelete], // 🎯 Değişen bağımlılıklar eklendi
+    [currentUserIdLevel, handleDelete],
   );
 
   const table = useReactTable({
@@ -330,6 +334,11 @@ export default function AdminUsers() {
     if (page >= 0 && page < table.getPageCount()) table.setPageIndex(page);
     else setPageInput(table.getState().pagination.pageIndex + 1);
   };
+
+  useEffect(() => {
+    setPageInput(table.getState().pagination.pageIndex + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [table.getState().pagination.pageIndex]);
 
   return (
     <div className="space-y-3 sm:space-y-4 p-2 sm:p-4 min-h-screen bg-gray-50/30">
@@ -380,6 +389,7 @@ export default function AdminUsers() {
                 onClick={() => {
                   setIsEditing(false);
                   setFormData(initialForm);
+                  setShowPassword(false);
                   setShowModal(true);
                 }}
                 className="flex-2 sm:flex-none bg-blue-600 text-white px-5 h-11 rounded-xl font-bold text-xs sm:text-sm shadow-lg hover:bg-blue-700 transition-all active:scale-95 flex items-center justify-center gap-2"
@@ -612,7 +622,7 @@ export default function AdminUsers() {
 
       {/* Modal - Personel Formu */}
       {showModal && (
-        <div className="fixed inset-0 bg-gray-900/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-100 animate-in fade-in duration-200">
+        <div className="fixed inset-0 bg-gray-900/70 flex items-center justify-center p-2 sm:p-4 z-100 animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl w-full max-w-2xl max-h-[95vh] shadow-2xl overflow-hidden border border-gray-100 flex flex-col transform animate-in zoom-in-95 duration-200">
             <div className="bg-gray-50 px-6 sm:px-8 py-5 sm:py-6 border-b flex items-center justify-between shrink-0">
               <h2 className="text-xl sm:text-2xl font-black text-gray-800 tracking-tighter uppercase">
@@ -671,23 +681,37 @@ export default function AdminUsers() {
                     * Sadece harf, rakam ve . - _ kullanılabilir.
                   </p>
                 </FormItem>
+
+                {/* 🎯 Şifre Alanı: Göz İkonu ve Değişken Type eklendi */}
                 <FormItem
                   label={`Şifre ${isEditing ? "(Opsiyonel)" : ""}`}
                   required={!isEditing}
                 >
-                  <input
-                    required={!isEditing}
-                    type="password"
-                    placeholder="••••••••"
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium outline-none focus:border-blue-500 focus:bg-white transition-all"
-                    value={formData.kullaniciSifre}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        kullaniciSifre: e.target.value,
-                      })
-                    }
-                  />
+                  <div className="relative">
+                    <input
+                      required={!isEditing}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="••••••••"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-4 pr-10 py-2.5 text-sm font-medium outline-none focus:border-blue-500 focus:bg-white transition-all"
+                      value={formData.kullaniciSifre}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          kullaniciSifre: e.target.value,
+                        })
+                      }
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+                      title={showPassword ? "Şifreyi Gizle" : "Şifreyi Göster"}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
                 </FormItem>
               </div>
 
@@ -765,6 +789,43 @@ export default function AdminUsers() {
                     ))}
                   </select>
                 </FormItem>
+              </div>
+              <div>
+                {Number(formData.rolId) === 6 && (
+                  <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <div className="w-9 h-9 rounded-full bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-lg shadow-blue-200">
+                      <FontAwesomeIcon
+                        icon={faCircleInfo}
+                        className="text-[10px]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-black text-blue-900 uppercase tracking-tight">
+                        Süper Departman Müdürü
+                      </p>
+                      <p className="text-[10px] font-bold text-blue-700/80 leading-relaxed">
+                        Eğer bu müdür{" "}
+                        <span className="text-blue-900 underline">
+                          tüm şubelerden ve tüm alanlardan
+                        </span>{" "}
+                        sorumlu bir koordinatör ise; lütfen{" "}
+                        <span className="bg-blue-200 px-1 rounded text-blue-900">
+                          Bağlı Şube
+                        </span>{" "}
+                        ve
+                        <span className="bg-blue-200 px-1 rounded text-blue-900 ml-1">
+                          Sektörel Alan
+                        </span>{" "}
+                        kısımlarını
+                        <span className="italic ml-1 font-black underline text-blue-900">
+                          "SEÇİNİZ" (BOŞ)
+                        </span>{" "}
+                        olarak bırakın. Sistem bu durumda sadece departman
+                        eşleşmesine bakacaktır.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="pt-6 flex flex-col sm:flex-row gap-3">

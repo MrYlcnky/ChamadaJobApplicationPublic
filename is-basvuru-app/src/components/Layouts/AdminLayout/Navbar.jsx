@@ -23,7 +23,7 @@ import { authService } from "../../../services/authService";
 import { basvuruService } from "../../../services/basvuruService";
 import ChangePasswordModal from "./ChangePasswordModal";
 import Sidebar from "./Sidebar";
-import logo from "../../../assets/group.png";
+import logo from "../../../assets/ch.ico";
 
 export default function Navbar() {
   const navigate = useNavigate();
